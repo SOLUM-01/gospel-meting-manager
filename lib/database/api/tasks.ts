@@ -23,7 +23,7 @@ export async function getPublicTasks() {
   if (error) throw error
   
   // snake_case를 camelCase로 변환
-  return (data || []).map(task => ({
+  return ((data as any) || []).map((task: any) => ({
     id: task.id,
     title: task.title,
     titleZh: task.title_zh,
@@ -153,7 +153,7 @@ export async function getTasksAssignedTo(userId: string) {
 
 // 할일 생성
 export async function createTask(task: CreateTaskDto) {
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('tasks')
     .insert({
       title: task.title,
@@ -199,7 +199,7 @@ export async function updateTask(id: string, updates: UpdateTaskDto) {
   if (updates.tags !== undefined) updateData.tags = updates.tags
   if (updates.completedAt !== undefined) updateData.completed_at = updates.completedAt?.toISOString()
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('tasks')
     .update(updateData)
     .eq('id', id)
@@ -218,7 +218,7 @@ export async function updateTaskStatus(id: string, status: TaskStatus) {
     updateData.completed_at = new Date().toISOString()
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('tasks')
     .update(updateData)
     .eq('id', id)
@@ -231,7 +231,7 @@ export async function updateTaskStatus(id: string, status: TaskStatus) {
 
 // 할일 삭제
 export async function deleteTask(id: string) {
-  const { error } = await supabase
+  const { error } = await (supabase as any)
     .from('tasks')
     .delete()
     .eq('id', id)
