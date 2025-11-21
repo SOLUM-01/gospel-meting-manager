@@ -39,7 +39,7 @@ export async function getAdminByEmail(email: string) {
 // 관리자 생성
 export async function createAdmin(admin: CreateAdminDto) {
   // 비밀번호 해싱은 실제로는 bcrypt 등을 사용해야 합니다
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('admins')
     .insert({
       email: admin.email,
@@ -66,7 +66,7 @@ export async function updateAdmin(id: string, updates: UpdateAdminDto) {
   if (updates.permissions !== undefined) updateData.permissions = updates.permissions
   if (updates.isActive !== undefined) updateData.is_active = updates.isActive
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('admins')
     .update(updateData)
     .eq('id', id)
@@ -79,7 +79,7 @@ export async function updateAdmin(id: string, updates: UpdateAdminDto) {
 
 // 관리자 삭제
 export async function deleteAdmin(id: string) {
-  const { error } = await supabase
+  const { error } = await (supabase as any)
     .from('admins')
     .delete()
     .eq('id', id)
@@ -103,7 +103,7 @@ export async function loginAdmin(credentials: LoginDto) {
     }
 
     // 마지막 로그인 시간 업데이트
-    await supabase
+    await (supabase as any)
       .from('admins')
       .update({ last_login_at: new Date().toISOString() })
       .eq('id', admin.id)
@@ -119,7 +119,7 @@ export async function loginAdmin(credentials: LoginDto) {
 // 비밀번호 변경
 export async function changePassword(id: string, newPassword: string) {
   // TODO: bcrypt로 해싱 필요
-  const { error } = await supabase
+  const { error } = await (supabase as any)
     .from('admins')
     .update({ password: newPassword })
     .eq('id', id)
