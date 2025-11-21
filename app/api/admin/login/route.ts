@@ -50,10 +50,15 @@ export async function POST(request: Request) {
     }
 
     // 마지막 로그인 시간 업데이트
-    await supabase
-      .from('admins')
-      .update({ last_login_at: new Date().toISOString() } as any)
-      .eq('id', adminData.id)
+    try {
+      await (supabase as any)
+        .from('admins')
+        .update({ last_login_at: new Date().toISOString() })
+        .eq('id', adminData.id)
+    } catch (updateError) {
+      console.error('로그인 시간 업데이트 실패:', updateError)
+      // 업데이트 실패는 로그인 성공에 영향을 주지 않음
+    }
 
     // 관리자 정보 반환 (비밀번호 제외)
     const user = {
