@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     // 마지막 로그인 시간 업데이트
     await supabase
       .from('admins')
-      .update({ last_login_at: new Date().toISOString() })
+      .update({ last_login_at: new Date().toISOString() } as any)
       .eq('id', adminData.id)
 
     // 관리자 정보 반환 (비밀번호 제외)
