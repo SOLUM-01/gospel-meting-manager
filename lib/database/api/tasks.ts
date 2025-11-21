@@ -60,29 +60,30 @@ export async function getTaskById(id: string): Promise<Task> {
   if (error) throw error
   
   // snake_case를 camelCase로 변환
+  const task = data as any
   return {
-    id: data.id,
-    title: data.title,
-    titleZh: data.title_zh,
-    description: data.description,
-    descriptionZh: data.description_zh,
-    imageUrl: data.image_url,
-    images: data.images,
-    videoUrl: data.video_url,
-    pptUrl: data.ppt_url,
-    category: data.category,
-    priority: data.priority,
-    status: data.status,
-    assignedTo: data.assigned_to,
-    teamId: data.team_id,
-    dueDate: data.due_date ? new Date(data.due_date) : undefined,
-    startDate: data.start_date ? new Date(data.start_date) : undefined,
-    isPublic: data.is_public,
-    tags: data.tags,
-    createdBy: data.created_by,
-    completedAt: data.completed_at ? new Date(data.completed_at) : undefined,
-    createdAt: new Date(data.created_at),
-    updatedAt: new Date(data.updated_at)
+    id: task.id,
+    title: task.title,
+    titleZh: task.title_zh,
+    description: task.description,
+    descriptionZh: task.description_zh,
+    imageUrl: task.image_url,
+    images: task.images,
+    videoUrl: task.video_url,
+    pptUrl: task.ppt_url,
+    category: task.category,
+    priority: task.priority,
+    status: task.status,
+    assignedTo: task.assigned_to,
+    teamId: task.team_id,
+    dueDate: task.due_date ? new Date(task.due_date) : undefined,
+    startDate: task.start_date ? new Date(task.start_date) : undefined,
+    isPublic: task.is_public,
+    tags: task.tags,
+    createdBy: task.created_by,
+    completedAt: task.completed_at ? new Date(task.completed_at) : undefined,
+    createdAt: new Date(task.created_at),
+    updatedAt: new Date(task.updated_at)
   } as Task
 }
 
