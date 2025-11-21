@@ -49,7 +49,7 @@ export async function uploadAttachment(
   else if (file.type === 'application/pdf') fileType = 'pdf'
 
   // 4. 데이터베이스에 메타데이터 저장
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('participant_attachments')
     .insert({
       participant_id: participantId,
@@ -63,13 +63,14 @@ export async function uploadAttachment(
 
   if (error) throw error
 
+  const attachmentData = data as any
   return {
-    id: data.id,
-    fileName: data.file_name,
-    fileUrl: data.file_url,
-    fileType: data.file_type,
-    fileSize: data.file_size,
-    uploadedAt: data.uploaded_at,
+    id: attachmentData.id,
+    fileName: attachmentData.file_name,
+    fileUrl: attachmentData.file_url,
+    fileType: attachmentData.file_type,
+    fileSize: attachmentData.file_size,
+    uploadedAt: attachmentData.uploaded_at,
   } as Attachment
 }
 
@@ -85,7 +86,8 @@ export async function deleteAttachment(attachmentId: string) {
   if (fetchError) throw fetchError
 
   // 2. Storage에서 파일 삭제
-  const fileUrl = attachment.file_url
+  const attachmentData = attachment as any
+  const fileUrl = attachmentData.file_url
   const filePath = fileUrl.split('/attachments/')[1]
   
   if (filePath) {
@@ -99,7 +101,7 @@ export async function deleteAttachment(attachmentId: string) {
   }
 
   // 3. 데이터베이스에서 메타데이터 삭제
-  const { error: deleteDbError } = await supabase
+  const { error: deleteDbError } = await (supabase as any)
     .from('participant_attachments')
     .delete()
     .eq('id', attachmentId)
