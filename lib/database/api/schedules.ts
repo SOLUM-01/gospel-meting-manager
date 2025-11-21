@@ -229,7 +229,7 @@ export async function getSchedulesByDateRange(startDate: Date, endDate: Date) {
 
 // 일정 생성
 export async function createSchedule(schedule: CreateScheduleDto) {
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('schedules')
     .insert({
       title: schedule.title,
@@ -305,7 +305,7 @@ export async function updateSchedule(id: string, updates: UpdateScheduleDto) {
   if (updates.tags !== undefined) updateData.tags = updates.tags
   if (updates.isPublic !== undefined) updateData.is_public = updates.isPublic
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('schedules')
     .update(updateData)
     .eq('id', id)
@@ -344,7 +344,7 @@ export async function updateSchedule(id: string, updates: UpdateScheduleDto) {
 
 // 일정 삭제
 export async function deleteSchedule(id: string) {
-  const { error } = await supabase
+  const { error } = await (supabase as any)
     .from('schedules')
     .delete()
     .eq('id', id)
@@ -361,7 +361,7 @@ export async function incrementParticipants(id: string) {
     throw new Error('Maximum participants reached')
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('schedules')
     .update({ current_participants: (schedule.currentParticipants || 0) + 1 })
     .eq('id', id)
