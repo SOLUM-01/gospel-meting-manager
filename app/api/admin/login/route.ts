@@ -38,8 +38,11 @@ export async function POST(request: Request) {
       )
     }
 
+    // 타입 안정성을 위한 명시적 체크
+    const adminData = admin as any
+
     // 비밀번호 확인 (실제로는 bcrypt 등을 사용해야 하지만, 현재는 평문)
-    if (admin.password !== password) {
+    if (adminData.password !== password) {
       return NextResponse.json(
         { error: '이메일 또는 비밀번호가 올바르지 않습니다.' },
         { status: 401 }
@@ -50,23 +53,23 @@ export async function POST(request: Request) {
     await supabase
       .from('admins')
       .update({ last_login_at: new Date().toISOString() })
-      .eq('id', admin.id)
+      .eq('id', adminData.id)
 
     // 관리자 정보 반환 (비밀번호 제외)
     const user = {
-      id: admin.id,
-      email: admin.email,
-      name: admin.name,
-      role: admin.role,
-      permissions: admin.permissions,
-      isActive: admin.is_active,
+      id: adminData.id,
+      email: adminData.email,
+      name: adminData.name,
+      role: adminData.role,
+      permissions: adminData.permissions,
+      isActive: adminData.is_active,
     }
 
     // 간단한 토큰 생성 (실제로는 JWT 등을 사용해야 함)
     const token = Buffer.from(JSON.stringify({
-      id: admin.id,
-      email: admin.email,
-      role: admin.role,
+      id: adminData.id,
+      email: adminData.email,
+      role: adminData.role,
       timestamp: Date.now()
     })).toString('base64')
 
