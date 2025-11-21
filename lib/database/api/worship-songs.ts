@@ -64,7 +64,7 @@ export async function searchWorshipSongs(query: string) {
 
 // 찬양 생성
 export async function createWorshipSong(song: CreateWorshipSongDto) {
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('worship_songs')
     .insert({
       title: song.title,
@@ -102,7 +102,7 @@ export async function updateWorshipSong(id: string, updates: Partial<CreateWorsh
   if (updates.tags !== undefined) updateData.tags = updates.tags
   if (updates.isPublic !== undefined) updateData.is_public = updates.isPublic
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('worship_songs')
     .update(updateData)
     .eq('id', id)
@@ -115,7 +115,7 @@ export async function updateWorshipSong(id: string, updates: Partial<CreateWorsh
 
 // 찬양 삭제
 export async function deleteWorshipSong(id: string) {
-  const { error } = await supabase
+  const { error } = await (supabase as any)
     .from('worship_songs')
     .delete()
     .eq('id', id)

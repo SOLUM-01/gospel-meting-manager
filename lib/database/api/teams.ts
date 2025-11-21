@@ -26,7 +26,7 @@ export async function getTeamById(id: string) {
 
 // 팀 생성
 export async function createTeam(team: CreateTeamDto) {
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('teams')
     .insert({
       name: team.name,
@@ -54,7 +54,7 @@ export async function updateTeam(id: string, updates: UpdateTeamDto) {
   if (updates.color !== undefined) updateData.color = updates.color
   if (updates.memberCount !== undefined) updateData.member_count = updates.memberCount
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('teams')
     .update(updateData)
     .eq('id', id)
@@ -67,7 +67,7 @@ export async function updateTeam(id: string, updates: UpdateTeamDto) {
 
 // 팀 삭제
 export async function deleteTeam(id: string) {
-  const { error } = await supabase
+  const { error } = await (supabase as any)
     .from('teams')
     .delete()
     .eq('id', id)
@@ -88,7 +88,7 @@ export async function updateTeamMemberCount(teamId: string) {
   if (countError) throw countError
 
   // 팀 멤버 수 업데이트
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('teams')
     .update({ member_count: count || 0 })
     .eq('id', teamId)

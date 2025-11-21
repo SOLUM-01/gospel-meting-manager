@@ -138,7 +138,7 @@ export async function getParticipantsByRole(role: 'leader' | 'member' | 'volunte
 
 // 참가자 생성
 export async function createParticipant(participant: CreateParticipantDto) {
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from('participants')
     .insert({
       name: participant.name,
