@@ -92,13 +92,14 @@ export async function deleteAdmin(id: string) {
 export async function loginAdmin(credentials: LoginDto) {
   try {
     const admin = await getAdminByEmail(credentials.email)
+    const adminData = admin as any
     
     // 실제로는 bcrypt.compare를 사용해야 합니다
-    if (admin.password !== credentials.password) {
+    if (adminData.password !== credentials.password) {
       throw new Error('Invalid credentials')
     }
 
-    if (!admin.is_active) {
+    if (!adminData.is_active) {
       throw new Error('Account is inactive')
     }
 
@@ -106,10 +107,10 @@ export async function loginAdmin(credentials: LoginDto) {
     await (supabase as any)
       .from('admins')
       .update({ last_login_at: new Date().toISOString() })
-      .eq('id', admin.id)
+      .eq('id', adminData.id)
 
     // 비밀번호 제외하고 반환
-    const { password, ...adminWithoutPassword } = admin
+    const { password, ...adminWithoutPassword } = adminData
     return adminWithoutPassword
   } catch (error) {
     throw error
