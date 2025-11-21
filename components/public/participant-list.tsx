@@ -25,17 +25,17 @@ export function ParticipantList({ participants }: ParticipantListProps) {
     switch (category) {
       case '전도팀':
         return 'bg-blue-600 hover:bg-blue-700'
-      case '중보기도팀':
+      case '중보기도':
         return 'bg-purple-600 hover:bg-purple-700'
       case '찬양팀':
         return 'bg-pink-600 hover:bg-pink-700'
-      case '부채춤팀':
+      case '부채춤':
         return 'bg-yellow-600 hover:bg-yellow-700'
-      case '푸드팀':
+      case '푸드':
         return 'bg-green-600 hover:bg-green-700'
-      case '미용팀':
+      case '미용':
         return 'bg-indigo-600 hover:bg-indigo-700'
-      case '물품팀':
+      case '차량물품':
         return 'bg-orange-600 hover:bg-orange-700'
       default:
         return 'bg-gray-500 hover:bg-gray-600'

@@ -39,7 +39,7 @@ export default function TaskDetailPage() {
         // task 제목에 따라 팀원 필터링
         let filteredMembers: Participant[] = []
         
-        if (data.title === '부채춤팀') {
+        if (data.title === '부채춤팀' || data.title === '부채춤') {
           // position에 '부채춤'이 포함된 사람들 필터링
           filteredMembers = participants.filter(p => 
             p.position && p.position.includes('부채춤')
@@ -63,7 +63,7 @@ export default function TaskDetailPage() {
             if (b.name === '오경자') return 1
             return 0
           })
-        } else if (data.title === '푸드팀') {
+        } else if (data.title === '푸드팀' || data.title === '푸드') {
           // position에 '푸드'가 포함된 사람들 필터링
           filteredMembers = participants.filter(p => 
             p.position && p.position.includes('푸드')
@@ -75,7 +75,7 @@ export default function TaskDetailPage() {
             if (b.position?.includes('팀장')) return 1
             return 0
           })
-        } else if (data.title === '물품팀') {
+        } else if (data.title === '물품팀' || data.title === '차량물품') {
           // position에 '물품'이 포함된 사람들 필터링
           filteredMembers = participants.filter(p => 
             p.position && p.position.includes('물품')
@@ -99,7 +99,7 @@ export default function TaskDetailPage() {
             if (b.position?.includes('전도팀장')) return 1
             return 0
           })
-        } else if (data.title === '중보기도팀') {
+        } else if (data.title === '중보기도팀' || data.title === '중보기도') {
           // position에 '중보'가 포함된 사람들 필터링
           filteredMembers = participants.filter(p => 
             p.position && p.position.includes('중보')
@@ -111,7 +111,7 @@ export default function TaskDetailPage() {
             if (b.position?.includes('중보기도팀장')) return 1
             return 0
           })
-        } else if (data.title === '미용팀') {
+        } else if (data.title === '미용팀' || data.title === '미용') {
           // position에 '미용'이 포함된 사람들 필터링
           filteredMembers = participants.filter(p => 
             p.position && p.position.includes('미용')

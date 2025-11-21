@@ -93,14 +93,18 @@ export default function AdminParticipantsPage() {
   }
 
   const teamCategories: TeamCategory[] = [
+    '목사',
+    '선교사',
+    '장로',
+    '총괄팀장',
     '전폭특강',
     '전도팀',
-    '중보기도팀',
     '찬양팀',
-    '부채춤팀',
-    '푸드팀',
-    '미용팀',
-    '물품팀',
+    '중보기도',
+    '부채춤',
+    '푸드',
+    '차량물품',
+    '미용',
   ]
 
   // 로딩 중 UI

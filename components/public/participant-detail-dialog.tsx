@@ -70,17 +70,17 @@ export function ParticipantDetailDialog({
         return 'bg-red-600'
       case '전도팀':
         return 'bg-blue-600'
-      case '중보기도팀':
+      case '중보기도':
         return 'bg-purple-600'
       case '찬양팀':
         return 'bg-pink-600'
-      case '부채춤팀':
+      case '부채춤':
         return 'bg-yellow-600'
-      case '푸드팀':
+      case '푸드':
         return 'bg-green-600'
-      case '미용팀':
+      case '미용':
         return 'bg-indigo-600'
-      case '물품팀':
+      case '차량물품':
         return 'bg-orange-600'
       default:
         return 'bg-gray-500'
