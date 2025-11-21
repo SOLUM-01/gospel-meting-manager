@@ -1,7 +1,7 @@
 // 참가자 타입 정의
 export type ParticipantRole = 'leader' | 'member' | 'volunteer'
 export type Gender = 'M' | 'F'
-export type TeamCategory = '전폭특강' | '전도팀' | '중보기도팀' | '찬양팀' | '부채춤팀' | '푸드팀' | '미용팀' | '물품팀'
+export type TeamCategory = '목사' | '선교사' | '전폭특강' | '전도팀' | '중보기도팀' | '찬양팀' | '부채춤팀' | '푸드팀' | '미용팀' | '물품팀'
 
 // 첨부파일 타입
 export interface Attachment {
