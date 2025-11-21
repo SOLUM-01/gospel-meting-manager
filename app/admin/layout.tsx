@@ -42,13 +42,6 @@ export default function AdminLayout({
       router.push('/admin/login')
       return
     }
-    
-    // role이 'user'인 경우 (일반 고객) admin 페이지 접근 불가
-    if (admin?.role === 'user') {
-      alert('관리자 권한이 필요합니다.')
-      router.push('/')
-      return
-    }
   }, [isAuthenticated, admin, router, pathname, isLoginPage])
 
   // 로그인 페이지는 레이아웃 없이 바로 렌더링
@@ -56,8 +49,8 @@ export default function AdminLayout({
     return <>{children}</>
   }
 
-  // 인증되지 않았거나 일반 사용자(user)인 경우 아무것도 렌더링하지 않음
-  if (!isAuthenticated || admin?.role === 'user') {
+  // 인증되지 않은 경우 아무것도 렌더링하지 않음
+  if (!isAuthenticated) {
     return null
   }
 
