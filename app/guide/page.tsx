@@ -1,12 +1,18 @@
 'use client'
 
+import { useState } from 'react'
 import { Footer } from '@/components/shared/footer'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Info, ArrowLeft } from 'lucide-react'
+import { Info, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 
 export default function GuidePage() {
+  const [expandedCard, setExpandedCard] = useState<string | null>(null)
+
+  const toggleCard = (cardId: string) => {
+    setExpandedCard(expandedCard === cardId ? null : cardId)
+  }
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-cyan-50 via-teal-50 to-blue-50">
       <main className="flex-1">
@@ -43,27 +49,42 @@ export default function GuidePage() {
           {/* 안내사항 그리드 */}
           <div className="grid gap-6 max-w-4xl mx-auto mb-8">
             {/* 여권 유효기간 확인 */}
-            <Card className="bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-4 border-red-400 shadow-2xl overflow-hidden">
+            <Card 
+              className="bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-4 border-red-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('passport')}
+            >
               {/* 헤더 배너 */}
               <div className="bg-gradient-to-r from-red-600 via-orange-600 to-red-600 text-white p-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 opacity-10 text-9xl">✈️</div>
                 <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📖</div>
                 <div className="relative z-10">
-                  <div className="flex items-center justify-center gap-3 mb-3">
-                    <div className="text-5xl animate-pulse">🛂</div>
-                    <div className="text-5xl animate-pulse delay-100">📖</div>
-                    <div className="text-5xl animate-pulse delay-200">✈️</div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">🛂</div>
+                        <div className="text-5xl animate-pulse delay-100">📖</div>
+                        <div className="text-5xl animate-pulse delay-200">✈️</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        여권 유효기간 확인 필독
+                      </h2>
+                      <p className="text-xl text-center font-bold text-yellow-200">
+                        護照有效期確認必讀
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'passport' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                    여권 유효기간 확인 필독
-                  </h2>
-                  <p className="text-xl text-center font-bold text-yellow-200">
-                    護照有效期確認必讀
-                  </p>
                 </div>
               </div>
 
               {/* 본문 내용 */}
+              {expandedCard === 'passport' && (
               <div className="p-8">
                 {/* 중요 안내 박스 */}
                 <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border-4 border-orange-300">
@@ -139,30 +160,46 @@ export default function GuidePage() {
                   </p>
                 </div>
               </div>
+              )}
             </Card>
 
             {/* 개인물품 준비물 */}
-            <Card className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-4 border-blue-400 shadow-2xl overflow-hidden">
+            <Card 
+              className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-4 border-blue-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('items')}
+            >
               {/* 헤더 배너 */}
               <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 text-white p-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 opacity-10 text-9xl">🎒</div>
                 <div className="absolute bottom-0 left-0 opacity-10 text-9xl">🧳</div>
                 <div className="relative z-10">
-                  <div className="flex items-center justify-center gap-3 mb-3">
-                    <div className="text-5xl animate-bounce">🎒</div>
-                    <div className="text-5xl animate-bounce delay-100">🧳</div>
-                    <div className="text-5xl animate-bounce delay-200">✈️</div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-bounce">🎒</div>
+                        <div className="text-5xl animate-bounce delay-100">🧳</div>
+                        <div className="text-5xl animate-bounce delay-200">✈️</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        개인물품 준비물
+                      </h2>
+                      <p className="text-xl text-center font-bold text-blue-200">
+                        個人物品準備清單
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'items' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                    개인물품 준비물
-                  </h2>
-                  <p className="text-xl text-center font-bold text-blue-200">
-                    個人物品準備清單
-                  </p>
                 </div>
               </div>
 
               {/* 본문 내용 */}
+              {expandedCard === 'items' && (
               <div className="p-8 space-y-6">
                 {/* 필수 준비물 */}
                 <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl p-6 border-4 border-red-300 shadow-lg">
@@ -361,6 +398,7 @@ export default function GuidePage() {
                   </div>
                 </div>
               </div>
+              )}
             </Card>
           </div>
 
