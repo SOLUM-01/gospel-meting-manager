@@ -48,6 +48,204 @@ export default function GuidePage() {
 
           {/* 안내사항 그리드 */}
           <div className="grid gap-6 max-w-4xl mx-auto mb-8">
+            {/* 대만아웃리치를 위한 기도 */}
+            <Card 
+              className="bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 border-4 border-purple-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('prayer')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">🙏</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">✝️</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">🙏</div>
+                        <div className="text-5xl animate-pulse delay-100">✝️</div>
+                        <div className="text-5xl animate-pulse delay-200">❤️</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        대만아웃리치를 위한 기도
+                      </h2>
+                      <p className="text-xl text-center font-bold text-purple-200">
+                        台灣外展代禱事項
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'prayer' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'prayer' && (
+              <div className="p-8 space-y-4">
+                {/* 기도 제목들 */}
+                <div className="space-y-4">
+                  {/* 기도 1 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-purple-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+                        1
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        대만 아웃리치를 통해 윈린현에 성령의 불이 일어나고 푸치교회가 날로 성장하는 교회되며 대만이 복음의 항공모함되는데 전초기지로 쓰임받길 기도합니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 2 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-pink-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold">
+                        2
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        대만전역에 우상들과 하나님을 대적하여 높아진 생각들은 무너지고 예수그리스도가 가장 존귀하게 되기를 기도합니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 3 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
+                        3
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        25년 대만 윈린에서의 성탄절 복음집회를 통한 하나님의 영광이 윈린현과 대만땅에 가득하도록...
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 4 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-purple-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+                        4
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        25년도에 함께 참여하시는 전폭팀과 대만 스텝들모두 아웃리치현장통해 성령의 능력과 권능으로 살아계신 하나님을 한마음으로 경험하며 사도행전29장을 써나가는 은혜의 시간되길.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 5 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-pink-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold">
+                        5
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        전폭팀과 대만팀이 아웃리치 세부일정에 상호 원할한 소통과 지혜주시길.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 6 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
+                        6
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        전도폭발교육을 맡은 제인량목사님에게 성령의 기름 부어주시고 윈린현에 잘 심겨지고 뿌리내려서 충성된 훈련자들과 리더쉽들이 세워지고 배가되게 하옵소서. 이를통해 평신도들도 전도의 사명을 품게 하옵소서.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 7 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-purple-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+                        7
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        전도폭발팀이 준비하는 모든 과정과 대만에 오가는 모든 여정가운데 하나님의 임재와 기쁨과 사랑이 모든 팀원들에게 가득하며 영혼육이 충만하도록. 대만준비팀에도 피곤치않게하시고 동일한 성령의 은혜를 주옵소서.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 8 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-pink-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold">
+                        8
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        12월20일 크리스마스거리 마켓행사가 은혜가운데 진행되고 영혼구원의 귀한 시간이 되도록 윈린의 많은 사람들로 채워주옵소서. 준비과정부터 공연하는 동안 팀들 (부채춤 워십팀 송솔나무등)의 연합및 기쁨과 충만함이 있게하옵소서 무대설치와 당일 날씨에도 은혜베풀어 주옵소서.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 9 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
+                        9
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        거리노방전도에서 꼭 만나야할 귀한 영혼들을 만나게 하시고 전폭교육이 현지교회들에게 귀한 실습이 되어지길. 또한 성령의 강력한 역사를 통해 복음의 능력을 경험하는 전도가 되길 기도합니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 10 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-purple-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+                        10
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        정웅규선교사님께 지혜와 계시의 영으로 충만케하셔서 팀을 잘이끄는데 부족함 없으시도록. 또한 아내 임난주선교사님 12/10 윈린 성탄절집회를 위한 차세대 k-pop훈련사역을 하는데 건강지켜주시길 기도합니다. 또한 참석하는 100여명 윈린정부관료들이 예수 그리스도의 참빛을 경험하고 윈린을 섬기고 대만을 섬기게 하옵소서
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 11 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-pink-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold">
+                        11
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        정회평팀장님과 권옥희총무님 그리고 각 사역팀장들에게 지혜를 주옵소서. 전폭팀모든 지체들이 은사대로 잘 조직되어 섬기며 순종의 믿음과 성령으로 연합되어 선한 열매주시길 기도합니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 기도 12 */}
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
+                        12
+                      </div>
+                      <p className="text-gray-700 leading-relaxed flex-1">
+                        참석자모두의 영육간 강건함과 안전을 지켜주시며 영적전쟁에서 승리케하옵소서. 참석자들이 자원함으로 모든 순서에 참여하며 전도의 지경과 비전을 확장시켜주옵소서.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 강조 메시지 */}
+                <div className="mt-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6 rounded-xl shadow-lg">
+                  <p className="text-center text-xl font-black">
+                    🙏 함께 기도해주세요 🙏
+                  </p>
+                  <p className="text-center text-sm mt-2 font-semibold">
+                    請為我們代禱
+                  </p>
+                </div>
+              </div>
+              )}
+            </Card>
+
             {/* 여권 유효기간 확인 */}
             <Card 
               className="bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-4 border-red-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
