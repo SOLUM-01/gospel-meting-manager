@@ -62,7 +62,7 @@ export default function InfoPage() {
       bgGradient: 'from-purple-50 to-pink-50',
     },
     {
-      title: '일정',
+      title: '일정 및 안내',
       titleZh: '日程',
       description: '크리스마스 마켓 및 축제 일정 안내',
       descriptionZh: '耶誕市集及慶典日程指南',
