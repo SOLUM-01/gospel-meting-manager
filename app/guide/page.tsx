@@ -226,7 +226,7 @@ export default function GuidePage() {
                     <div className="flex items-start gap-3">
                       <div className="text-3xl">📖</div>
                       <div className="flex-1">
-                        <p className="text-lg font-bold text-gray-800">성명, 생명의 샘, 필기도구</p>
+                        <p className="text-lg font-bold text-gray-800">성경, 생명의 삶, 필기도구</p>
                       </div>
                     </div>
                   </div>
@@ -235,61 +235,10 @@ export default function GuidePage() {
                     <div className="flex items-start gap-3">
                       <div className="text-3xl">🧴</div>
                       <div className="flex-1">
-                        <p className="text-lg font-bold text-gray-800 mb-2">세면도구 및 생활용품</p>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>옷, 클린징폼</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>면도기, 빗</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>칫솔/치약</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>따뜻한 기초화장품</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>선크림, 모자, 우산</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>복용약 및 상비약</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>단체티, 대형 단체티</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>대만 현금(NTD2,000)</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>휴대폰 충전기/케이블</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span className="text-red-600 font-bold">전원 어댑터(110V 알)</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>작은옷(양말)</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>썬뱅, 손수건</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-blue-500">•</span>
-                            <span>충전시 등</span>
-                          </div>
-                        </div>
+                        <p className="text-lg font-bold text-gray-800 mb-3">세면도구 및 생활용품</p>
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                          세면도구(치약, 칫솔, 클렌징폼, (면도기), 빗), 면봉/솜, 때수건) 기초화장품, 선글라스, 모자, 우산, 썬크림, 복용약 및 상비약, 단체티, 대청 단체티, 대만 현금 (NTD2,000), 휴대폰 충전기/케이블, <span className="text-red-600 font-bold">전원 아답터(110V임)</span>, 각종 옷(양말), 신발, 슬리퍼, 동전지갑
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -303,48 +252,9 @@ export default function GuidePage() {
                   </div>
                   
                   <div className="bg-white rounded-xl p-5 border-2 border-green-200">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">💄</span>
-                        <span>최소 의장품, 고데기</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">🍫</span>
-                        <span>개인식품</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">🔋</span>
-                        <span>보조 밧데리, 승용자</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">🎧</span>
-                        <span>이어폰, 셀카봉</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">💼</span>
-                        <span>화장품/팔렘유</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">🛍️</span>
-                        <span>비닐봉지(핸드백)</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">📖</span>
-                        <span className="line-through">홈런볼</span> 충선볼
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">🧤</span>
-                        <span>손수건, 귀마개</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">😷</span>
-                        <span>마스크팩, 백팩</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                        <span className="text-lg">📹</span>
-                        <span>비디오카메라, 광각렌즈</span>
-                      </div>
-                    </div>
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      기타 화장품, 고데기, 개인식품, 보조 밧데리, 손톱깍이, 이어폰, 셀카봉, 휴지/물티슈, 비닐봉지(빨래) /지퍼백, 휴대용선풍기, 손수건, 귀마개, 마스크팩, 백팩/가방, 접이식 장바구니
+                    </p>
                   </div>
                 </div>
 
@@ -360,10 +270,11 @@ export default function GuidePage() {
                       <div className="flex items-start gap-3">
                         <div className="text-3xl">✈️</div>
                         <div className="flex-1">
-                          <p className="text-lg font-bold text-orange-700 mb-2">화물 수하물</p>
-                          <p className="text-gray-700">배낭만은 집을 각자 소지하여 맡은곳으로 가저감</p>
-                          <div className="mt-2 inline-block bg-orange-100 px-4 py-2 rounded-lg">
-                            <p className="text-sm font-bold text-orange-800">출항가방 28인치 이상</p>
+                          <p className="text-lg font-bold text-orange-700 mb-2">화물</p>
+                          <p className="text-gray-700 mb-3">배분받은 짐을 각자 소지하여 방문국으로 가져감 (물품가방 28인치 이상~)</p>
+                          <div className="bg-orange-100 p-4 rounded-lg">
+                            <p className="text-sm font-bold text-orange-800 mb-1">위탁 수화물:</p>
+                            <p className="text-sm text-gray-700">일반석: 23Kg 1개, 비즈니스: 32Kg 2개+ 모닝캄 이상 1개 추가</p>
                           </div>
                         </div>
                       </div>
@@ -373,15 +284,8 @@ export default function GuidePage() {
                       <div className="flex items-start gap-3">
                         <div className="text-3xl">🎒</div>
                         <div className="flex-1">
-                          <p className="text-lg font-bold text-orange-700 mb-2">기내 수하물</p>
-                          <div className="flex flex-wrap gap-3">
-                            <div className="bg-orange-100 px-4 py-2 rounded-lg">
-                              <p className="text-sm font-bold text-orange-800">기내 20인치</p>
-                            </div>
-                            <div className="bg-orange-100 px-4 py-2 rounded-lg">
-                              <p className="text-sm font-bold text-orange-800">10Kg 이내</p>
-                            </div>
-                          </div>
+                          <p className="text-lg font-bold text-orange-700 mb-2">기내</p>
+                          <p className="text-gray-700">기내 20인치 10Kg 이내</p>
                         </div>
                       </div>
                     </div>
@@ -390,11 +294,26 @@ export default function GuidePage() {
 
                 {/* 주의사항 */}
                 <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-xl shadow-lg">
-                  <div className="text-center space-y-2">
-                    <p className="text-2xl font-black">📢 오디오 가이드를 위하여 유선 3.5 파이 이어존 준비</p>
-                    <p className="text-lg font-semibold">*숙박 방문금지</p>
-                    <p className="text-base">*기내가방 중량: 바데리 밧드시 기내가방에 휴대</p>
-                    <p className="text-base">*수하물: 액체류, 스프레이, 날카로운 제품(가위, 칼등)</p>
+                  <div className="space-y-3">
+                    <p className="text-xl font-black text-center mb-4">⚠️ 주의사항</p>
+                    <div className="space-y-2 text-sm md:text-base">
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>오디오 가이드를 위하여 유선 3.5파이 이어폰 준비</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>육류 반입금지</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>기내가방: 보조 바데리 반드시 기내가방(개인 휴대)</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>수하물: 액체류, 스프레이, 날카로운 제품(가위, 칼등)</span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
