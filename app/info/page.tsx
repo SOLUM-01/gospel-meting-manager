@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Footer } from '@/components/shared/footer'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Users, Calendar, ListTodo, ArrowRight, Home, LogIn, LogOut, UserPlus, Music } from 'lucide-react'
+import { Users, Calendar, ListTodo, ArrowRight, Home, LogIn, LogOut, UserPlus, Music, Info } from 'lucide-react'
 import { supabase } from '@/lib/database/supabase'
 import { useEffect, useState } from 'react'
 
@@ -62,14 +62,24 @@ export default function InfoPage() {
       bgGradient: 'from-purple-50 to-pink-50',
     },
     {
-      title: '일정 및 안내',
+      title: '일정',
       titleZh: '日程',
-      description: '크리스마스 마켓 및 축제 일정 안내',
-      descriptionZh: '耶誕市集及慶典日程指南',
+      description: '크리스마스 마켓 및 축제 일정',
+      descriptionZh: '耶誕市集及慶典日程',
       icon: Calendar,
       href: '/schedule',
       color: 'from-green-500 to-blue-500',
       bgGradient: 'from-green-50 to-blue-50',
+    },
+    {
+      title: '안내',
+      titleZh: '指南',
+      description: '이벤트 준비 및 참가 안내 사항',
+      descriptionZh: '活動準備及參加指南事項',
+      icon: Info,
+      href: '/guide',
+      color: 'from-cyan-500 to-teal-500',
+      bgGradient: 'from-cyan-50 to-teal-50',
     },
     {
       title: '사역',
