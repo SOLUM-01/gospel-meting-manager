@@ -99,7 +99,7 @@ export const ko = {
     },
   },
   schedule: {
-    title: '일정',
+    title: '일정 및 안내',
     eventDetail: '일정 상세',
     location: '장소',
     address: '주소',
