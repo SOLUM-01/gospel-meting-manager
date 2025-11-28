@@ -3,7 +3,7 @@
 import { Footer } from '@/components/shared/footer'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Info, ArrowLeft, Sparkles, MapPin, Clock, Users as UsersIcon, Gift, Utensils, Music as MusicIcon } from 'lucide-react'
+import { Info, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 export default function GuidePage() {
@@ -41,114 +41,102 @@ export default function GuidePage() {
           </div>
 
           {/* 안내사항 그리드 */}
-          <div className="grid gap-6 max-w-5xl mx-auto mb-8">
-            {/* 주요 일정 */}
-            <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <Sparkles className="h-6 w-6 text-green-600" />
-                📍 주요 일정
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded-lg border-2 border-green-100">
-                  <h4 className="font-bold text-green-700 mb-2">북항 문화 탐방</h4>
-                  <p className="text-sm text-gray-700">北港文化探訪</p>
-                </div>
-                <div className="bg-white p-4 rounded-lg border-2 border-green-100">
-                  <h4 className="font-bold text-green-700 mb-2">크리스마스 마켓</h4>
-                  <p className="text-sm text-gray-700">耶誕市集</p>
-                </div>
-                <div className="bg-white p-4 rounded-lg border-2 border-green-100">
-                  <h4 className="font-bold text-green-700 mb-2">성탄 음악회</h4>
-                  <p className="text-sm text-gray-700">耶誕晚會</p>
-                </div>
-                <div className="bg-white p-4 rounded-lg border-2 border-green-100">
-                  <h4 className="font-bold text-green-700 mb-2">주일 예배</h4>
-                  <p className="text-sm text-gray-700">主日禮拜</p>
+          <div className="grid gap-6 max-w-4xl mx-auto mb-8">
+            {/* 여권 유효기간 확인 */}
+            <Card className="bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-4 border-red-400 shadow-2xl overflow-hidden">
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-red-600 via-orange-600 to-red-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">✈️</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📖</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <div className="text-5xl animate-pulse">🛂</div>
+                    <div className="text-5xl animate-pulse delay-100">📖</div>
+                    <div className="text-5xl animate-pulse delay-200">✈️</div>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                    여권 유효기간 확인 필독
+                  </h2>
+                  <p className="text-xl text-center font-bold text-yellow-200">
+                    護照有效期確認必讀
+                  </p>
                 </div>
               </div>
-            </Card>
 
-            {/* 크리스마스 마켓 정보 */}
-            <Card className="bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <Gift className="h-6 w-6 text-red-600" />
-                🎄 크리스마스 마켓
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3 bg-white p-3 rounded-lg">
-                  <MapPin className="h-5 w-5 text-red-600 mt-1" />
-                  <div>
-                    <p className="font-bold text-gray-800">장소</p>
-                    <p className="text-sm text-gray-700">斗六郡公園 (두류군 공원)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 bg-white p-3 rounded-lg">
-                  <Clock className="h-5 w-5 text-red-600 mt-1" />
-                  <div>
-                    <p className="font-bold text-gray-800">시간</p>
-                    <p className="text-sm text-gray-700">13:00 - 16:00</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 bg-white p-3 rounded-lg">
-                  <Utensils className="h-5 w-5 text-red-600 mt-1" />
-                  <div>
-                    <p className="font-bold text-gray-800">프로그램</p>
-                    <ul className="text-sm text-gray-700 list-disc list-inside space-y-1">
-                      <li>한국 공연 (韓國公演)</li>
-                      <li>한국 음식 (韓國美食)</li>
-                      <li>시 낭송 대회 (詩朗誦比賽)</li>
-                      <li>국제 미식 (國際美食)</li>
-                      <li>클래식 카드 해석 (經典卡片解說)</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </Card>
+              {/* 본문 내용 */}
+              <div className="p-8">
+                {/* 중요 안내 박스 */}
+                <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border-4 border-orange-300">
+                  <div className="flex items-start gap-4">
+                    <div className="text-6xl flex-shrink-0">⚠️</div>
+                    <div className="space-y-4 flex-1">
+                      <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+                        <p className="text-lg font-bold text-gray-800 mb-2">
+                          🌏 해외여행 경우 각 나라마다 다르지만
+                        </p>
+                        <p className="text-xl font-extrabold text-red-600">
+                          대만은 출국일로부터 <span className="text-3xl underline decoration-wavy decoration-red-500">6개월</span> 이상이어야 합니다
+                        </p>
+                      </div>
 
-            {/* 크리스마스 축제 정보 */}
-            <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <MusicIcon className="h-6 w-6 text-purple-600" />
-                🎵 크리스마스 축제
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3 bg-white p-3 rounded-lg">
-                  <MapPin className="h-5 w-5 text-purple-600 mt-1" />
-                  <div>
-                    <p className="font-bold text-gray-800">장소</p>
-                    <p className="text-sm text-gray-700">雲科大 雲秀廳 (윈커따 윈슈팅)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 bg-white p-3 rounded-lg">
-                  <Clock className="h-5 w-5 text-purple-600 mt-1" />
-                  <div>
-                    <p className="font-bold text-gray-800">시간</p>
-                    <p className="text-sm text-gray-700">19:00 - 21:30</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
+                      <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <p className="text-lg font-bold text-gray-800 mb-2">
+                          ✅ 안심하려면
+                        </p>
+                        <p className="text-xl font-extrabold text-green-600">
+                          <span className="text-3xl">2026년 6월</span> 이후 유효기간이어야 합니다
+                        </p>
+                      </div>
 
-            {/* 참가 안내 */}
-            <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 border-2 border-orange-200 p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <UsersIcon className="h-6 w-6 text-orange-600" />
-                🎯 참가 안내
-              </h3>
-              <div className="space-y-3 text-gray-700">
-                <div className="bg-white p-4 rounded-lg border-2 border-orange-100">
-                  <p className="font-semibold mb-2">📌 주의 사항</p>
-                  <ul className="list-disc list-inside space-y-2 text-sm ml-2">
-                    <li>일정은 현지 사정에 따라 변경될 수 있습니다</li>
-                    <li>본인 일정은 현지 상황에 따라 조정될 수 있습니다</li>
-                  </ul>
+                      <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+                        <p className="text-lg font-bold text-gray-800 mb-2">
+                          🔄 만약 그 이전이라면
+                        </p>
+                        <p className="text-xl font-extrabold text-red-600">
+                          재발급을 하시는 게 좋습니다
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-white p-4 rounded-lg border-2 border-orange-100">
-                  <p className="font-semibold mb-2">📞 문의</p>
-                  <ul className="list-disc list-inside space-y-2 text-sm ml-2">
-                    <li>자세한 내용은 담당자에게 문의하세요</li>
-                    <li>차량팀 내용은 담당자에게 문의하세요</li>
-                  </ul>
+
+                {/* 시각적 타임라인 */}
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border-2 border-blue-300">
+                  <h3 className="text-xl font-bold text-center mb-4 text-gray-800">
+                    📅 여권 유효기간 타임라인
+                  </h3>
+                  <div className="flex flex-col md:flex-row items-center justify-around gap-4">
+                    <div className="text-center">
+                      <div className="bg-blue-500 text-white rounded-full w-24 h-24 flex items-center justify-center text-3xl font-bold mb-2 shadow-lg">
+                        📅
+                      </div>
+                      <p className="font-bold text-gray-700">출국일</p>
+                      <p className="text-sm text-gray-600">2025.12.18</p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="text-5xl">➕</div>
+                      <p className="font-bold text-orange-600 mt-2">6개월</p>
+                    </div>
+
+                    <div className="text-center">
+                      <div className="bg-green-500 text-white rounded-full w-24 h-24 flex items-center justify-center text-3xl font-bold mb-2 shadow-lg">
+                        ✅
+                      </div>
+                      <p className="font-bold text-gray-700">최소 유효기간</p>
+                      <p className="text-sm text-green-600 font-bold">2026년 6월 이후</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 강조 메시지 */}
+                <div className="mt-6 bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 rounded-xl shadow-lg">
+                  <p className="text-center text-2xl font-black animate-pulse">
+                    ⚠️ 꼭 확인해 보시기 바랍니다 ⚠️
+                  </p>
+                  <p className="text-center text-lg mt-2 font-semibold">
+                    請務必確認護照有效期
+                  </p>
                 </div>
               </div>
             </Card>
