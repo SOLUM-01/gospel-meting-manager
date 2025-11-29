@@ -657,6 +657,117 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
+
+            {/* 회비 공지 */}
+            <Card 
+              className="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 border-4 border-amber-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('fee')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">💰</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📢</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">💰</div>
+                        <div className="text-5xl animate-pulse delay-100">📢</div>
+                        <div className="text-5xl animate-pulse delay-200">💳</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        회비 공지
+                      </h2>
+                      <p className="text-xl text-center font-bold text-amber-200">
+                        繳費通知
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'fee' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'fee' && (
+              <div className="p-8 space-y-6">
+                {/* 1. 회비 금액 */}
+                <div className="bg-white rounded-xl p-6 border-2 border-amber-300 shadow-md">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-amber-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
+                      1
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-2xl font-black text-gray-800 mb-3">
+                        1인당 55만원
+                      </p>
+                      <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
+                        <p className="text-sm text-gray-700">
+                          <span className="font-bold">- 산출근거:</span> 첨부예산(안) 참조
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. 입금 계좌 */}
+                <div className="bg-white rounded-xl p-6 border-2 border-orange-300 shadow-md">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
+                      2
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xl font-bold text-gray-800 mb-3">
+                        입금계좌: 카카오뱅크
+                      </p>
+                      <div className="bg-gradient-to-r from-yellow-100 to-orange-100 p-5 rounded-lg border-2 border-orange-300">
+                        <p className="text-2xl font-black text-center text-orange-900 tracking-wider">
+                          3333-34-2421695
+                        </p>
+                        <p className="text-lg font-bold text-center text-orange-800 mt-2">
+                          (조영선)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. 기한 */}
+                <div className="bg-white rounded-xl p-6 border-2 border-red-300 shadow-md">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
+                      3
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xl font-bold text-gray-800 mb-3">
+                        기한
+                      </p>
+                      <div className="bg-red-50 border-l-4 border-red-500 p-5 rounded">
+                        <p className="text-3xl font-black text-red-600 text-center animate-pulse">
+                          12.3(수) 까지
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 감사 메시지 */}
+                <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-6 rounded-xl shadow-lg">
+                  <p className="text-center text-2xl font-black">
+                    🙏 감사합니다 🙏
+                  </p>
+                  <p className="text-center text-lg mt-2 font-semibold">
+                    謝謝
+                  </p>
+                </div>
+              </div>
+              )}
+            </Card>
           </div>
 
           {/* 크리스마스 장식 하단 */}
