@@ -517,6 +517,146 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
+
+            {/* 단체티 명단 */}
+            <Card 
+              className="bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 border-4 border-emerald-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('tshirt')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">👕</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📋</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-bounce">👕</div>
+                        <div className="text-5xl animate-bounce delay-100">📋</div>
+                        <div className="text-5xl animate-bounce delay-200">✨</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        단체티 명단 (최종본)
+                      </h2>
+                      <p className="text-xl text-center font-bold text-emerald-200">
+                        團體T恤名單 (最終版)
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'tshirt' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'tshirt' && (
+              <div className="p-8 space-y-6">
+                {/* S 사이즈 */}
+                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 border-4 border-pink-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-pink-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      S
+                    </div>
+                    <h3 className="text-2xl font-black text-pink-700">Small</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-pink-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['신교순', '이명대'].map((name, index) => (
+                        <span key={index} className="bg-pink-100 text-pink-800 px-4 py-2 rounded-lg font-bold border border-pink-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* M 사이즈 */}
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border-4 border-blue-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      M
+                    </div>
+                    <h3 className="text-2xl font-black text-blue-700">Medium</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['곽미동', '김신하', '문유선', '박세은', '백승이', '이서은', '강성혜', '정정희', '이아셀', '이영민', '이예진', '정선은', '정재영', '조하령', '최미자', '윤효정', '조영선', '김민지', '김덕희'].map((name, index) => (
+                        <span key={index} className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-bold border border-blue-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* L 사이즈 */}
+                <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 border-4 border-purple-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      L
+                    </div>
+                    <h3 className="text-2xl font-black text-purple-700">Large</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-purple-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['김유하', '김진해', '류은진', '서희숙', '유영단', '이보라', '최옥자', '임종옥', '최우현', '박세은', '김화숙'].map((name, index) => (
+                        <span key={index} className="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg font-bold border border-purple-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* XL 사이즈 */}
+                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-black shadow-lg">
+                      XL
+                    </div>
+                    <h3 className="text-2xl font-black text-orange-700">Extra Large</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-orange-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['김정', '이미경', '이승헌', '양인숙', '김동환', '김대현'].map((name, index) => (
+                        <span key={index} className="bg-orange-100 text-orange-800 px-4 py-2 rounded-lg font-bold border border-orange-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 총인원 안내 */}
+                <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="text-center">
+                    <p className="text-2xl font-black mb-2">
+                      👕 총 인원: 39명
+                    </p>
+                    <div className="flex justify-center gap-6 mt-4 flex-wrap">
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">S: 2명</span>
+                      </div>
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">M: 19명</span>
+                      </div>
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">L: 11명</span>
+                      </div>
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">XL: 6명</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
           </div>
 
           {/* 크리스마스 장식 하단 */}
