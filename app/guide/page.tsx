@@ -768,6 +768,84 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
+
+            {/* 블레싱 타이완 기도제목 */}
+            <Card 
+              className="bg-gradient-to-br from-red-50 via-green-50 to-red-50 border-4 border-red-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('blessing')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-red-600 via-green-600 to-red-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">🎄</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">✨</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">🎄</div>
+                        <div className="text-5xl animate-pulse delay-100">⭐</div>
+                        <div className="text-5xl animate-pulse delay-200">🎁</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        블레싱 타이완 2025
+                      </h2>
+                      <p className="text-xl text-center font-bold text-red-200">
+                        雲林城市耶誕慶典 (2025.12.18-22)
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'blessing' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'blessing' && (
+              <div className="p-8 space-y-6">
+                {/* 메인 포스터 이미지 */}
+                <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-red-300">
+                  <div className="relative w-full aspect-[3/4] overflow-hidden rounded-xl">
+                    <img 
+                      src="/images/gospel-training-poster-1.jpg" 
+                      alt="블레싱 타이완 메인 포스터"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+
+                {/* 기도제목 포스터 이미지 */}
+                <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-green-300">
+                  <div className="relative w-full aspect-[3/4] overflow-hidden rounded-xl">
+                    <img 
+                      src="/images/gospel-training-poster-2.jpg" 
+                      alt="블레싱 타이완 기도제목"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+
+                {/* 행사 안내 */}
+                <div className="bg-gradient-to-r from-red-600 to-green-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="text-center space-y-3">
+                    <p className="text-2xl font-black">
+                      🎄 2025 雲林城市耶誕慶典 🎄
+                    </p>
+                    <p className="text-xl font-bold">
+                      2025.12.18 - 12.22
+                    </p>
+                    <p className="text-lg font-semibold">
+                      윈린 雲林 | 주최: 온누리 전도폭발 홀연하교
+                    </p>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
           </div>
 
           {/* 크리스마스 장식 하단 */}
