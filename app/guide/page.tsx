@@ -807,24 +807,24 @@ export default function GuidePage() {
               {/* 본문 내용 */}
               {expandedCard === 'blessing' && (
               <div className="p-8 space-y-6">
-                {/* 메인 포스터 이미지 */}
-                <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-red-300">
-                  <div className="relative w-full aspect-[3/4] overflow-hidden rounded-xl">
+                {/* 메인 포스터 이미지 - 블레싱 타이완 2025 */}
+                <div className="bg-white rounded-2xl p-4 shadow-lg border-4 border-red-400">
+                  <div className="relative w-full overflow-hidden rounded-xl">
                     <img 
-                      src="/images/gospel-training-poster-1.jpg" 
-                      alt="블레싱 타이완 메인 포스터"
-                      className="w-full h-full object-contain"
+                      src="/images/blessing-taiwan-2025-main.jpg" 
+                      alt="블레싱 타이완 2025 메인 포스터"
+                      className="w-full h-auto object-contain"
                     />
                   </div>
                 </div>
 
                 {/* 기도제목 포스터 이미지 */}
-                <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-green-300">
-                  <div className="relative w-full aspect-[3/4] overflow-hidden rounded-xl">
+                <div className="bg-white rounded-2xl p-4 shadow-lg border-4 border-green-400">
+                  <div className="relative w-full overflow-hidden rounded-xl">
                     <img 
-                      src="/images/gospel-training-poster-2.jpg" 
-                      alt="블레싱 타이완 기도제목"
-                      className="w-full h-full object-contain"
+                      src="/images/blessing-taiwan-2025-prayer.jpg" 
+                      alt="블레싱 타이완 2025 기도제목"
+                      className="w-full h-auto object-contain"
                     />
                   </div>
                 </div>
@@ -839,7 +839,7 @@ export default function GuidePage() {
                       2025.12.18 - 12.22
                     </p>
                     <p className="text-lg font-semibold">
-                      윈린 雲林 | 주최: 온누리 전도폭발 홀연하교
+                      윈린 雲林 | 주최: 온누리 전도폭발 훈련 학교
                     </p>
                   </div>
                 </div>
