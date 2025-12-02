@@ -328,46 +328,79 @@ export default function TaskDetailPage() {
                   )}
                 </div>
 
-                {/* 악보/이미지 갤러리 섹션 */}
+                {/* 악보/이미지/동영상 갤러리 섹션 */}
                 {task.images && task.images.length > 0 && (
                   <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-3">
                       {task.title === '찬양팀' ? '🎵 찬양 악보' : '📸 사진 갤러리'}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {task.images.map((imageUrl: string, index: number) => (
-                        <div
-                          key={index}
-                          className="relative bg-white rounded-lg overflow-hidden border-2 border-gray-200 hover:border-purple-400 transition-all cursor-pointer group shadow-md"
-                        >
-                          {task.title === '찬양팀' ? (
-                            // 찬양팀 악보: A4 비율 고정
-                            <div className="relative w-full" style={{ paddingTop: '141.4%' }}>
-                              <Image
-                                src={imageUrl}
-                                alt={`${language === 'zh-TW' ? task.titleZh : task.title} - 악보 ${index + 1}`}
-                                fill
-                                className="object-contain group-hover:scale-105 transition-transform duration-300 p-2"
-                              />
-                              <div className="absolute bottom-2 right-2 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                악보 {index + 1}
+                      {task.images.map((imageUrl: string, index: number) => {
+                        // URL이 동영상인지 확인
+                        const isVideo = imageUrl.match(/\.(mp4|webm|mov|avi|m4v)$/i) || imageUrl.includes('youtube.com/embed/')
+                        
+                        return (
+                          <div
+                            key={index}
+                            className="relative bg-white rounded-lg overflow-hidden border-2 border-gray-200 hover:border-purple-400 transition-all cursor-pointer group shadow-md"
+                          >
+                            {isVideo ? (
+                              // 동영상 표시
+                              <div className="relative w-full">
+                                {imageUrl.includes('youtube.com/embed/') ? (
+                                  // 유튜브 embed
+                                  <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                                    <iframe
+                                      src={imageUrl}
+                                      className="absolute inset-0 w-full h-full"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                      allowFullScreen
+                                    ></iframe>
+                                  </div>
+                                ) : (
+                                  // 로컬 동영상 파일
+                                  <video
+                                    controls
+                                    className="w-full h-auto"
+                                    preload="metadata"
+                                  >
+                                    <source src={imageUrl} type={`video/${imageUrl.split('.').pop()}`} />
+                                    동영상을 재생할 수 없습니다.
+                                  </video>
+                                )}
+                                <div className="absolute bottom-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                  🎥 동영상
+                                </div>
                               </div>
-                            </div>
-                          ) : (
-                            // 다른 팀: 원본 이미지 비율 유지
-                            <div className="relative w-full">
-                              <Image
-                                src={imageUrl}
-                                alt={`${language === 'zh-TW' ? task.titleZh : task.title} - 사진 ${index + 1}`}
-                                width={800}
-                                height={600}
-                                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                                style={{ aspectRatio: 'auto' }}
-                              />
-                            </div>
-                          )}
-                        </div>
-                      ))}
+                            ) : task.title === '찬양팀' ? (
+                              // 찬양팀 악보: A4 비율 고정
+                              <div className="relative w-full" style={{ paddingTop: '141.4%' }}>
+                                <Image
+                                  src={imageUrl}
+                                  alt={`${language === 'zh-TW' ? task.titleZh : task.title} - 악보 ${index + 1}`}
+                                  fill
+                                  className="object-contain group-hover:scale-105 transition-transform duration-300 p-2"
+                                />
+                                <div className="absolute bottom-2 right-2 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                  악보 {index + 1}
+                                </div>
+                              </div>
+                            ) : (
+                              // 다른 팀: 원본 이미지 비율 유지
+                              <div className="relative w-full">
+                                <Image
+                                  src={imageUrl}
+                                  alt={`${language === 'zh-TW' ? task.titleZh : task.title} - 사진 ${index + 1}`}
+                                  width={800}
+                                  height={600}
+                                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                                  style={{ aspectRatio: 'auto' }}
+                                />
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })}
                     </div>
                   </div>
                 )}
