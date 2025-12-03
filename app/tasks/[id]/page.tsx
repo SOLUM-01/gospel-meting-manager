@@ -334,9 +334,11 @@ export default function TaskDetailPage() {
                     <h2 className="text-xl font-semibold mb-3">
                       {task.title === '찬양팀' 
                         ? '🎵 찬양 악보' 
-                        : task.images.every((url: string) => url.includes('youtube.com/embed/') || url.match(/\.(mp4|webm|mov|avi|m4v)$/i))
-                          ? '🎥 동영상'
-                          : '📸 사진 갤러리'}
+                        : task.title === '전폭특강'
+                          ? '🎥 온누리교회 전도폭발 40기'
+                          : task.images.every((url: string) => url.includes('youtube.com/embed/') || url.match(/\.(mp4|webm|mov|avi|m4v)$/i))
+                            ? '🎥 동영상'
+                            : '📸 사진 갤러리'}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {task.images.map((imageUrl: string, index: number) => {
