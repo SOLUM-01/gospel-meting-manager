@@ -332,7 +332,11 @@ export default function TaskDetailPage() {
                 {task.images && task.images.length > 0 && (
                   <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-3">
-                      {task.title === '찬양팀' ? '🎵 찬양 악보' : '📸 사진 갤러리'}
+                      {task.title === '찬양팀' 
+                        ? '🎵 찬양 악보' 
+                        : task.images.every((url: string) => url.includes('youtube.com/embed/') || url.match(/\.(mp4|webm|mov|avi|m4v)$/i))
+                          ? '🎥 동영상'
+                          : '📸 사진 갤러리'}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {task.images.map((imageUrl: string, index: number) => {
@@ -342,14 +346,14 @@ export default function TaskDetailPage() {
                         return (
                           <div
                             key={index}
-                            className="relative bg-white rounded-lg overflow-hidden border-2 border-gray-200 hover:border-purple-400 transition-all cursor-pointer group shadow-md"
+                            className={`relative bg-white rounded-lg overflow-hidden border-2 border-gray-200 hover:border-purple-400 transition-all cursor-pointer group shadow-md ${isVideo ? 'md:col-span-2' : ''}`}
                           >
                             {isVideo ? (
-                              // 동영상 표시
+                              // 동영상 표시 (전체 너비로 크게)
                               <div className="relative w-full">
                                 {imageUrl.includes('youtube.com/embed/') ? (
-                                  // 유튜브 embed
-                                  <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                                  // 유튜브 embed - 더 큰 비율로
+                                  <div className="relative w-full" style={{ paddingTop: '50%' }}>
                                     <iframe
                                       src={imageUrl}
                                       className="absolute inset-0 w-full h-full"
