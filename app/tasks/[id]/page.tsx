@@ -270,8 +270,8 @@ export default function TaskDetailPage() {
                 {/* 설명 및 팀원 */}
                 <div className="mb-8">
                   <h2 className="text-xl font-semibold mb-3">사역 소개</h2>
-                  {task.title === '전폭특강' && (
-                    <div className="text-center py-6 mb-4">
+                  {task.title === '전폭특강' ? (
+                    <div className="text-center py-6">
                       <p className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-200 leading-relaxed">
                         예수께서 이르시되 나를 따라오라 내가 너희로
                       </p>
@@ -282,12 +282,13 @@ export default function TaskDetailPage() {
                         (마가복음 1:17)
                       </p>
                     </div>
-                  )}
+                  ) : (
                   <p className="text-muted-foreground whitespace-pre-wrap leading-relaxed mb-4">
                     {language === 'zh-TW'
                       ? (task.descriptionZh || '사역에 대한 설명이 준비 중입니다.')
                       : (task.description || '사역에 대한 설명이 준비 중입니다.')}
                   </p>
+                  )}
                   
                   {/* 팀원 목록 */}
                   {teamMembers.length > 0 && (
