@@ -287,6 +287,7 @@ export default function TaskDetailPage() {
                     {language === 'zh-TW'
                       ? (task.descriptionZh || '사역에 대한 설명이 준비 중입니다.')
                       : (task.description || '사역에 대한 설명이 준비 중입니다.')}
+                  </p>
                   
                   {/* 팀원 목록 */}
                   {teamMembers.length > 0 && (
