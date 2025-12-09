@@ -846,6 +846,674 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
+
+            {/* 대만 방문 일정표 */}
+            <Card 
+              className="bg-gradient-to-br from-sky-50 via-cyan-50 to-teal-50 border-4 border-sky-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('schedule')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-sky-600 via-cyan-600 to-teal-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">✈️</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📅</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">✈️</div>
+                        <div className="text-5xl animate-pulse delay-100">📅</div>
+                        <div className="text-5xl animate-pulse delay-200">🇹🇼</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        대만 방문 일정표
+                      </h2>
+                      <p className="text-xl text-center font-bold text-sky-200">
+                        韓國參訪台灣行程表 (2025.12.18-22)
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'schedule' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'schedule' && (
+              <div className="p-8 space-y-6">
+                {/* 전체 일정 요약 */}
+                <div className="bg-gradient-to-r from-sky-100 to-cyan-100 rounded-2xl p-6 border-4 border-sky-300 shadow-lg">
+                  <h3 className="text-2xl font-black text-center text-sky-800 mb-4">📅 전체 일정 요약</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div className="bg-white rounded-xl p-4 text-center border-2 border-sky-200 shadow-md">
+                      <div className="text-lg font-black text-sky-600">12/18</div>
+                      <div className="text-sm text-gray-600">목 Thu.</div>
+                      <div className="text-xs mt-2 text-gray-700">서울팀 도착<br/>환영 만찬</div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 text-center border-2 border-green-200 shadow-md">
+                      <div className="text-lg font-black text-green-600">12/19</div>
+                      <div className="text-sm text-gray-600">금 Fri.</div>
+                      <div className="text-xs mt-2 text-gray-700">북항탐방<br/>연합경배기도회</div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 text-center border-2 border-orange-200 shadow-md">
+                      <div className="text-lg font-black text-orange-600">12/20</div>
+                      <div className="text-sm text-gray-600">토 Sat.</div>
+                      <div className="text-xs mt-2 text-gray-700">크리스마스 마켓<br/>성탄 만찬회</div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 text-center border-2 border-purple-200 shadow-md">
+                      <div className="text-lg font-black text-purple-600">12/21</div>
+                      <div className="text-sm text-gray-600">일 Sun.</div>
+                      <div className="text-xs mt-2 text-gray-700">연합 주일<br/>복음폭발 수업</div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 text-center border-2 border-red-200 shadow-md">
+                      <div className="text-lg font-black text-red-600">12/22</div>
+                      <div className="text-sm text-gray-600">월 Mon.</div>
+                      <div className="text-xs mt-2 text-gray-700">타이중 유람<br/>귀국</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12/18 목요일 */}
+                <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-2xl p-6 border-4 border-sky-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-sky-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-lg font-black shadow-lg">
+                      12/18
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-sky-700">목요일 (Thursday)</h3>
+                      <p className="text-lg font-bold text-sky-600">首爾團隊抵達 서울 팀 도착</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-sky-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-sky-100 text-sky-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">15:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">정 목사&사우, 타이중공항 도착</p>
+                          <p className="text-sm text-gray-600">鄭牧師＆思羽抵達台中機場 | 공항 픽업 코리아 동종업계</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-sky-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-sky-100 text-sky-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">18:00-19:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통시간</p>
+                          <p className="text-sm text-gray-600">交通時間 | 공항→호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-sky-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-sky-100 text-sky-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">19:30-21:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">환영 만찬</p>
+                          <p className="text-sm text-gray-600">歡迎晚宴 | 호텔 12층. 끝나고 사우님이 격일 일정을 설명해 주신다</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12/19 금요일 */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-lg font-black shadow-lg">
+                      12/19
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-green-700">금요일 (Friday)</h3>
+                      <p className="text-lg font-bold text-green-600">雲林北港探訪、市集預備、台韓聯合敬拜禱告會</p>
+                      <p className="text-sm text-gray-600">운림북항탐방, 장보기비, 대한합동경배기도회</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">조식</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">아침을 먹다</p>
+                          <p className="text-sm text-gray-600">享用早餐 | 호텔 조식은 6:30-9:30</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">8:10-9:10</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통교통</p>
+                          <p className="text-sm text-gray-600">交通教通 | 호텔→북항</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">9:10-12:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">운림북항탐방, 점심식사</p>
+                          <p className="text-sm text-gray-600">雲林北港探訪、午餐 | 거리 복음전, 소대 방문, 노인학당 탐방</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">12:30-13:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통교통</p>
+                          <p className="text-sm text-gray-600">交通教通 | 북항→교회호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 border-2 border-yellow-300 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">14:00-17:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-2">팀별 활동</p>
+                          <div className="space-y-2 text-sm">
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">서울복음전도구:</span> 1층 선물 꾸러미, 복음 전도 시 리허설
+                            </div>
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">식재료 예비팀:</span> 식당&교회 뒤편 모든 재료 준비 ★10인 대만 요리 도우미
+                            </div>
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">한복 체험팀:</span> 2층 정리 한복
+                            </div>
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">한국 뷰티팀:</span> 2층 교구실 뷰티 서비스, 예비
+                            </div>
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">대한민국의 공연팀:</span> 3층 메인 홀 연습
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">17:30-18:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">저녁 식사</p>
+                          <p className="text-sm text-gray-600">晚餐저녁 식사 | 교회 1층</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">19:00-21:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">대만한국연합경배기도회</p>
+                          <p className="text-sm text-gray-600">台韓聯合敬拜禱告會 | 교회교회</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-green-100 text-green-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">21:50-</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통교통</p>
+                          <p className="text-sm text-gray-600">交通教通 | 교회→호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12/20 토요일 */}
+                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-lg font-black shadow-lg">
+                      12/20
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-orange-700">토요일 (Saturday)</h3>
+                      <p className="text-lg font-bold text-orange-600">市集預備、耶誕晚會</p>
+                      <p className="text-sm text-gray-600">시장 준비, 크리스마스 이브닝 파티</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">조식</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">아침을 먹다</p>
+                          <p className="text-sm text-gray-600">享用早餐 | 호텔 조식은 6:30-9:30</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">8:30-8:40</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 호텔→교회</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 border-2 border-yellow-300 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">8:40-11:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-2">팀별 활동</p>
+                          <div className="space-y-2 text-sm">
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">식재료 예비팀:</span> 레스토랑 예비소식: 떡볶이, 김밥 각 500인분 ★10인 대만 요리 도우미
+                            </div>
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">서울복음전도구:</span> 1층 선물 꾸러미, 복음 전도 시 리허설
+                            </div>
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">한복 체험팀:</span> 2층 확인 한복
+                            </div>
+                            <div className="bg-white/70 p-2 rounded border border-yellow-200">
+                              <span className="font-bold text-orange-700">한국 뷰티팀:</span> 2층 교구실 준비
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">11:30-12:20</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">점심식사</p>
+                          <p className="text-sm text-gray-600">午餐점심식사 | 교회 1층</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">12:20-12:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 시장 판매부 & 모든 동종 교회→공원</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">12:30-13:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">성탄절 장(공원)</p>
+                          <p className="text-sm text-gray-600">耶誕市集（公園）| 예비기간(대만동시조합은 미리 장에 도착하여 예비)</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-4 border-2 border-red-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">13:00-16:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-red-800 text-lg">🎄 크리스마스 마켓 🎄</p>
+                          <p className="text-sm text-gray-700">한국음식판매, 한복체험, 한국뷰티, 복음전파 부스</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">16:00-16:10</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 공원→호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">16:10-17:50</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">호텔 라운지&디너</p>
+                          <p className="text-sm text-gray-600">飯店休息＆晚餐 | 17:00 저녁 도시락은 호텔까지 배달됩니다</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">17:50-18:10</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 호텔→공연장</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">18:10-19:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">공연장</p>
+                          <p className="text-sm text-gray-600">表演廳공연장 | 진장예비입장준비</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-4 border-2 border-red-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">19:00-21:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-red-800 text-lg">🎄 성탄 만찬회 🎄</p>
+                          <p className="text-sm text-gray-700">耶誕晚會성탄 음악회</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">22:00-</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 공연장→호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12/20 공연팀 별도 일정 */}
+                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 border-4 border-pink-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-pink-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-lg font-black shadow-lg">
+                      12/20
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-pink-700">토요일 - 공연팀 별도 일정</h3>
+                      <p className="text-lg font-bold text-pink-600">表演團隊-彩排、耶誕市集、耶誕晚會</p>
+                      <p className="text-sm text-gray-600">공연팀-리허설, 크리스마스 마켓, 크리스마스 이브닝 파티</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">조식</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">아침을 먹다</p>
+                          <p className="text-sm text-gray-600">享用早餐 | 호텔 조식은 6:30-9:30</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">9:30-9:50</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 호텔→공연장</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">9:30-12:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">공연장</p>
+                          <p className="text-sm text-gray-600">表演廳공연장 | 채배리허설</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">12:00-13:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">점심식사</p>
+                          <p className="text-sm text-gray-600">午餐점심식사 | 공연장 대기실 식사</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-4 border-2 border-red-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">13:00-16:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-red-800 text-lg">🎄 성탄절 장터 공연 🎄</p>
+                          <p className="text-sm text-gray-700">耶誕市集表演 성탄절 장터 공연.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">17:00-17:50</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">저녁 식사</p>
+                          <p className="text-sm text-gray-600">晚餐저녁 식사 | 공연장 대기실 식사</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-4 border-2 border-red-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">19:00-21:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-red-800 text-lg">🎄 성탄 만찬회 🎄</p>
+                          <p className="text-sm text-gray-700">耶誕晚會성탄 만찬회</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">21:40-</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 공연장→호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12/21 일요일 */}
+                <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 border-4 border-purple-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-lg font-black shadow-lg">
+                      12/21
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-purple-700">일요일 (Sunday)</h3>
+                      <p className="text-lg font-bold text-purple-600">台韓聯合主日、縣府午宴、福音爆發課程＆探訪、家樂福</p>
+                      <p className="text-sm text-gray-600">대한 연합 주일, 현청 오찬, 복음폭발 수업&탐방, 까르푸</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">조식</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">아침을 먹다</p>
+                          <p className="text-sm text-gray-600">享用早餐 | 호텔 조식은 6:30-9:30</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">9:30-9:40</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 호텔→교회</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-4 border-2 border-indigo-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">10:00-11:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-indigo-800 text-lg">⛪ 대만과 한국의 합동군주일 ⛪</p>
+                          <p className="text-sm text-gray-700">台韓聯合主日</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">11:40-11:50</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 교회→호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">12:00-13:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">현청 오찬</p>
+                          <p className="text-sm text-gray-600">縣府午宴현청 오찬 | 호텔 12층</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">13:30-13:40</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 호텔→교회</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 border-2 border-yellow-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">14:00-16:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-yellow-800 text-lg">📖 복음서 폭발 과정 📖</p>
+                          <p className="text-sm text-gray-700">傳福音爆發課程</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">16:30-18:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">탐방 소대가 운림향진으로 출발하다.</p>
+                          <p className="text-sm text-gray-600">探訪小隊出發到雲林鄉鎮</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">18:30-20:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">탐방소대 저녁식사, 교통시간</p>
+                          <p className="text-sm text-gray-600">探訪小隊共進晚餐、交通時間</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4 border-2 border-blue-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">20:30-21:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-blue-800 text-lg">🛒 까르푸 쇼핑!! 🛒</p>
+                          <p className="text-sm text-gray-700">家樂福까르푸 shopping!!</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">21:30-21:40</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 까르푸→호텔</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">21:40-22:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">대한민국의 팀별 공유</p>
+                          <p className="text-sm text-gray-600">韓國各團隊分享</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12/22 월요일 */}
+                <div className="bg-gradient-to-r from-red-50 to-rose-50 rounded-2xl p-6 border-4 border-red-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-red-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-lg font-black shadow-lg">
+                      12/22
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-red-700">월요일 (Monday)</h3>
+                      <p className="text-lg font-bold text-red-600">台灣觀光＆回韓國</p>
+                      <p className="text-sm text-gray-600">타이완 관광&한국으로 돌아가기</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-red-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">조식</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">아침을 먹다</p>
+                          <p className="text-sm text-gray-600">享用早餐 | 호텔 조식은 6:30-9:30</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-red-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">9:00-9:40</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 호텔→嘉義자이</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl p-4 border-2 border-yellow-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">9:40-12:20</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-yellow-800 text-lg">🍍 펑리수 관광공장, 금귤공장 DIY 🍊</p>
+                          <p className="text-sm text-gray-700">鳳梨酥觀光工廠、金桔工廠DIY</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-4 border-2 border-orange-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">12:30-13:30</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-orange-800 text-lg">🍜 우육면!! 🍜</p>
+                          <p className="text-sm text-gray-700">午餐점심식사 | 牛肉麵！우육면!</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-red-200 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">14:30-16:00</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800">교통</p>
+                          <p className="text-sm text-gray-600">交通 | 타이중 공항으로 출발합니다.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-xl p-4 border-2 border-sky-300 shadow-md">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-sky-100 text-sky-800 px-3 py-1 rounded-lg font-bold text-sm min-w-[100px] text-center">✈️</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-sky-800 text-lg">✈️ 한국으로 귀국 ✈️</p>
+                          <p className="text-sm text-gray-700">台灣台中機場 to 韓國 대만타이중의 공항 to 대만</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 하단 강조 메시지 */}
+                <div className="bg-gradient-to-r from-sky-600 via-cyan-600 to-teal-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="text-center space-y-2">
+                    <p className="text-2xl font-black">
+                      ✈️ 2025.12.18 - 12.22 ✈️
+                    </p>
+                    <p className="text-xl font-bold">
+                      🇹🇼 韓國參訪台灣行程表 🇰🇷
+                    </p>
+                    <p className="text-lg font-semibold">
+                      한국의 대만 방문 일정표
+                    </p>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
           </div>
 
           {/* 크리스마스 장식 하단 */}
