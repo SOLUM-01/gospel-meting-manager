@@ -1,10 +1,21 @@
 import { supabase } from '../supabase'
 import type { Prayer, CreatePrayerInput } from '@/types/prayer'
 
+// 데이터베이스 행 타입
+interface PrayerRow {
+  id: string
+  user_id: string
+  user_name: string
+  content: string
+  type: 'prayer' | 'devotion'
+  created_at: string
+  updated_at: string
+}
+
 // 기도/말씀 목록 가져오기
 export async function getPrayers(): Promise<Prayer[]> {
   const { data, error } = await supabase
-    .from('prayers')
+    .from('prayers' as never)
     .select('*')
     .order('created_at', { ascending: false })
 
@@ -13,7 +24,7 @@ export async function getPrayers(): Promise<Prayer[]> {
     throw error
   }
 
-  return (data || []).map((item) => ({
+  return ((data as PrayerRow[]) || []).map((item) => ({
     id: item.id,
     userId: item.user_id,
     userName: item.user_name,
@@ -26,14 +37,14 @@ export async function getPrayers(): Promise<Prayer[]> {
 
 // 기도/말씀 추가하기
 export async function createPrayer(input: CreatePrayerInput): Promise<Prayer> {
-  const { data, error } = await supabase
-    .from('prayers')
+  const { data, error } = await (supabase
+    .from('prayers' as never) as ReturnType<typeof supabase.from>)
     .insert({
       user_id: input.userId,
       user_name: input.userName,
       content: input.content,
       type: input.type,
-    })
+    } as never)
     .select()
     .single()
 
@@ -42,21 +53,23 @@ export async function createPrayer(input: CreatePrayerInput): Promise<Prayer> {
     throw error
   }
 
+  const row = data as unknown as PrayerRow
+
   return {
-    id: data.id,
-    userId: data.user_id,
-    userName: data.user_name,
-    content: data.content,
-    type: data.type,
-    createdAt: data.created_at,
-    updatedAt: data.updated_at,
+    id: row.id,
+    userId: row.user_id,
+    userName: row.user_name,
+    content: row.content,
+    type: row.type,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
   }
 }
 
 // 기도/말씀 삭제하기
 export async function deletePrayer(id: string): Promise<void> {
   const { error } = await supabase
-    .from('prayers')
+    .from('prayers' as never)
     .delete()
     .eq('id', id)
 
@@ -65,4 +78,3 @@ export async function deletePrayer(id: string): Promise<void> {
     throw error
   }
 }
-
