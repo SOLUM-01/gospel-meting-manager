@@ -910,7 +910,7 @@ export default function GuidePage() {
                         <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
                         <div className="flex-1">
                           <p className="font-bold text-gray-800 mb-1">📚 팝업북(교육용), 121권(1포장 4권)</p>
-                          <p className="text-gray-700 text-sm leading-relaxed">김유하, 송형숙(2개), 이승헌, 최세정(2개), 곽미동(2개), 김진해(2개), 최희주, 이혜승, 오경자(2개, 5권포함), 이보라, 김동환, 정회평(2개), 김양신, 김민중, 최미자(2개), 김정, 조하령(2개), 서희숙, 김영미, 제인현, 조영선, 박혜성</p>
+                          <p className="text-gray-700 text-sm leading-relaxed">곽미동(2개), 김동환, 김민중, 김양신, 김영미, 김유하, 김정, 김진해(2개), 박혜성, 서희숙, 송형숙(2개), 오경자(2개, 5권포함), 이보라, 이승헌, 이혜승, 정회평(2개), 제인현, 조영선, 조하령(2개), 최미자(2개), 최세정(2개), 최희주</p>
                         </div>
                       </div>
                     </div>
@@ -943,7 +943,7 @@ export default function GuidePage() {
                         <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">5</div>
                         <div className="flex-1">
                           <p className="font-bold text-gray-800 mb-1">👨‍🍳 푸드팀(앞치마) 22개</p>
-                          <p className="text-gray-700 text-sm">서희숙, 이순옥, 조하령, 박효양, 임종옥(2개), 최우현, 김유하, 이혜승, 이보라, 김영미(3개), 김진해(9개)</p>
+                          <p className="text-gray-700 text-sm">김영미(3개), 김유하, 김진해(9개), 박효양, 서희숙, 이보라, 이순옥, 이혜승, 임종옥(2개), 조하령, 최우현</p>
                         </div>
                       </div>
                     </div>
