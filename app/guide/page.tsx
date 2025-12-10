@@ -245,7 +245,83 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
+            {/* 블레싱 타이완 기도제목 */}
+            <Card 
+              className="bg-gradient-to-br from-red-50 via-green-50 to-red-50 border-4 border-red-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('blessing')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-red-600 via-green-600 to-red-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">🎄</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">✨</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">🎄</div>
+                        <div className="text-5xl animate-pulse delay-100">⭐</div>
+                        <div className="text-5xl animate-pulse delay-200">🎁</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        블레싱 타이완 2025
+                      </h2>
+                      <p className="text-xl text-center font-bold text-red-200">
+                        雲林城市耶誕慶典 (2025.12.18-22)
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'blessing' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              {/* 본문 내용 */}
+              {expandedCard === 'blessing' && (
+              <div className="p-8 space-y-6">
+                {/* 메인 포스터 이미지 - 블레싱 타이완 2025 */}
+                <div className="bg-white rounded-2xl p-4 shadow-lg border-4 border-red-400">
+                  <div className="relative w-full overflow-hidden rounded-xl">
+                    <img 
+                      src="/images/blessing-taiwan-2025-main.jpg" 
+                      alt="블레싱 타이완 2025 메인 포스터"
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </div>
+
+                {/* 기도제목 포스터 이미지 */}
+                <div className="bg-white rounded-2xl p-4 shadow-lg border-4 border-green-400">
+                  <div className="relative w-full overflow-hidden rounded-xl">
+                    <img 
+                      src="/images/blessing-taiwan-2025-prayer.jpg" 
+                      alt="블레싱 타이완 2025 기도제목"
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </div>
+
+                {/* 행사 안내 */}
+                <div className="bg-gradient-to-r from-red-600 to-green-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="text-center space-y-3">
+                    <p className="text-2xl font-black">
+                      🎄 2025 雲林城市耶誕慶典 🎄
+                    </p>
+                    <p className="text-xl font-bold">
+                      2025.12.18 - 12.22
+                    </p>
+                    <p className="text-lg font-semibold">
+                      윈린 雲林 | 주최: 온누리 전도폭발 훈련 학교
+                    </p>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
             {/* 여권 유효기간 확인 */}
             <Card 
               className="bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-4 border-red-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
@@ -360,882 +436,6 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
-
-            {/* 개인물품 준비물 */}
-            <Card 
-              className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-4 border-blue-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
-              onClick={() => toggleCard('items')}
-            >
-              {/* 헤더 배너 */}
-              <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 text-white p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 opacity-10 text-9xl">🎒</div>
-                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">🧳</div>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-center gap-3 mb-3">
-                        <div className="text-5xl animate-bounce">🎒</div>
-                        <div className="text-5xl animate-bounce delay-100">🧳</div>
-                        <div className="text-5xl animate-bounce delay-200">✈️</div>
-                      </div>
-                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                        개인물품 준비물
-                      </h2>
-                      <p className="text-xl text-center font-bold text-blue-200">
-                        個人物品準備清單
-                      </p>
-                    </div>
-                    <div className="ml-4">
-                      {expandedCard === 'items' ? (
-                        <ChevronUp className="h-8 w-8" />
-                      ) : (
-                        <ChevronDown className="h-8 w-8 animate-bounce" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 본문 내용 */}
-              {expandedCard === 'items' && (
-              <div className="p-8 space-y-6">
-                {/* 필수 준비물 */}
-                <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl p-6 border-4 border-red-300 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">🔴</div>
-                    <h3 className="text-2xl font-black text-red-700">필수 준비물</h3>
-                  </div>
-                  
-                  <div className="bg-white rounded-xl p-5 border-2 border-red-200 mb-4">
-                    <div className="flex items-start gap-3">
-                      <div className="text-3xl">📋</div>
-                      <div className="flex-1">
-                        <p className="text-lg font-bold text-gray-800 mb-3">여권, 지갑, 여권사본, 현지화폐, 신용카드(VISA 또는 MASTER), 여권사진 2매(분실)</p>
-                        <div className="bg-red-100 border-l-4 border-red-500 p-4 rounded">
-                          <p className="text-xl font-black text-red-600">
-                            ※ 여권유효 기간 필 확인
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-5 border-2 border-red-200 mb-4">
-                    <div className="flex items-start gap-3">
-                      <div className="text-3xl">📖</div>
-                      <div className="flex-1">
-                        <p className="text-lg font-bold text-gray-800">성경, 생명의 삶, 필기도구</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-5 border-2 border-red-200">
-                    <div className="flex items-start gap-3">
-                      <div className="text-3xl">🧴</div>
-                      <div className="flex-1">
-                        <p className="text-lg font-bold text-gray-800 mb-3">세면도구 및 생활용품</p>
-                        <p className="text-sm text-gray-700 leading-relaxed">
-                          세면도구(치약, 칫솔, 클렌징폼, (면도기), 빗), 면봉/솜, 때수건) 기초화장품, 선글라스, 모자, 우산, 썬크림, 복용약 및 상비약, 단체티, 대청 단체티, 대만 현금 (NTD2,000), 휴대폰 충전기/케이블, <span className="text-red-600 font-bold">전원 아답터(110V임)</span>, 각종 옷(양말), 신발, 슬리퍼, 동전지갑
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 부가 준비물 */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-300 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">🟢</div>
-                    <h3 className="text-2xl font-black text-green-700">부가 준비물 (선택사항)</h3>
-                  </div>
-                  
-                  <div className="bg-white rounded-xl p-5 border-2 border-green-200">
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      기타 화장품, 고데기, 개인식품, 보조 밧데리, 손톱깍이, 이어폰, 셀카봉, 휴지/물티슈, 비닐봉지(빨래) /지퍼백, 휴대용선풍기, 손수건, 귀마개, 마스크팩, 백팩/가방, 접이식 장바구니
-                    </p>
-                  </div>
-                </div>
-
-                {/* 수하물 안내 */}
-                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-300 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">🧳</div>
-                    <h3 className="text-2xl font-black text-orange-700">수하물 규정</h3>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="bg-white rounded-xl p-5 border-2 border-orange-200">
-                      <div className="flex items-start gap-3">
-                        <div className="text-3xl">✈️</div>
-                        <div className="flex-1">
-                          <p className="text-lg font-bold text-orange-700 mb-2">화물</p>
-                          <p className="text-gray-700 mb-3">배분받은 짐을 각자 소지하여 방문국으로 가져감 (물품가방 28인치 이상~)</p>
-                          <div className="bg-orange-100 p-4 rounded-lg">
-                            <p className="text-sm font-bold text-orange-800 mb-1">위탁 수화물:</p>
-                            <p className="text-sm text-gray-700">일반석: 23Kg 1개, 비즈니스: 32Kg 2개+ 모닝캄 이상 1개 추가</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-white rounded-xl p-5 border-2 border-orange-200">
-                      <div className="flex items-start gap-3">
-                        <div className="text-3xl">🎒</div>
-                        <div className="flex-1">
-                          <p className="text-lg font-bold text-orange-700 mb-2">기내</p>
-                          <p className="text-gray-700">기내 20인치 10Kg 이내</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 주의사항 */}
-                <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-xl shadow-lg">
-                  <div className="space-y-3">
-                    <p className="text-xl font-black text-center mb-4">⚠️ 주의사항</p>
-                    <div className="space-y-2 text-sm md:text-base">
-                      <p className="flex items-start gap-2">
-                        <span className="text-yellow-300">•</span>
-                        <span>오디오 가이드를 위하여 유선 3.5파이 이어폰 준비</span>
-                      </p>
-                      <p className="flex items-start gap-2">
-                        <span className="text-yellow-300">•</span>
-                        <span>육류 반입금지</span>
-                      </p>
-                      <p className="flex items-start gap-2">
-                        <span className="text-yellow-300">•</span>
-                        <span>기내가방: 보조 바데리 반드시 기내가방(개인 휴대)</span>
-                      </p>
-                      <p className="flex items-start gap-2">
-                        <span className="text-yellow-300">•</span>
-                        <span>수하물: 액체류, 스프레이, 날카로운 제품(가위, 칼등)</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              )}
-            </Card>
-
-            {/* 단체티 명단 */}
-            <Card 
-              className="bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 border-4 border-emerald-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
-              onClick={() => toggleCard('tshirt')}
-            >
-              {/* 헤더 배너 */}
-              <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 opacity-10 text-9xl">👕</div>
-                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📋</div>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-center gap-3 mb-3">
-                        <div className="text-5xl animate-bounce">👕</div>
-                        <div className="text-5xl animate-bounce delay-100">📋</div>
-                        <div className="text-5xl animate-bounce delay-200">✨</div>
-                      </div>
-                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                        단체티 명단 (최종본)
-                      </h2>
-                      <p className="text-xl text-center font-bold text-emerald-200">
-                        團體T恤名單 (最終版)
-                      </p>
-                    </div>
-                    <div className="ml-4">
-                      {expandedCard === 'tshirt' ? (
-                        <ChevronUp className="h-8 w-8" />
-                      ) : (
-                        <ChevronDown className="h-8 w-8 animate-bounce" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 본문 내용 */}
-              {expandedCard === 'tshirt' && (
-              <div className="p-8 space-y-6">
-                {/* S 사이즈 */}
-                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 border-4 border-pink-300 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-pink-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
-                      S
-                    </div>
-                    <h3 className="text-2xl font-black text-pink-700">Small</h3>
-                  </div>
-                  <div className="bg-white rounded-xl p-5 border-2 border-pink-200">
-                    <div className="flex flex-wrap gap-3">
-                      {['신교순', '이명대'].map((name, index) => (
-                        <span key={index} className="bg-pink-100 text-pink-800 px-4 py-2 rounded-lg font-bold border border-pink-300">
-                          {name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* M 사이즈 */}
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border-4 border-blue-300 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
-                      M
-                    </div>
-                    <h3 className="text-2xl font-black text-blue-700">Medium</h3>
-                  </div>
-                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200">
-                    <div className="flex flex-wrap gap-3">
-                      {['곽미동', '김신하', '문유선', '박세은', '백승이', '이서은', '강성혜', '정정희', '이아셀', '이영민', '이예진', '정선은', '정재영', '조하령', '최미자', '윤효정', '조영선', '김민지', '김덕희'].map((name, index) => (
-                        <span key={index} className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-bold border border-blue-300">
-                          {name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* L 사이즈 */}
-                <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 border-4 border-purple-300 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
-                      L
-                    </div>
-                    <h3 className="text-2xl font-black text-purple-700">Large</h3>
-                  </div>
-                  <div className="bg-white rounded-xl p-5 border-2 border-purple-200">
-                    <div className="flex flex-wrap gap-3">
-                      {['김유하', '김진해', '류은진', '서희숙', '유영단', '이보라', '최옥자', '임종옥', '최우현', '박세은', '김화숙'].map((name, index) => (
-                        <span key={index} className="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg font-bold border border-purple-300">
-                          {name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* XL 사이즈 */}
-                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-300 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-black shadow-lg">
-                      XL
-                    </div>
-                    <h3 className="text-2xl font-black text-orange-700">Extra Large</h3>
-                  </div>
-                  <div className="bg-white rounded-xl p-5 border-2 border-orange-200">
-                    <div className="flex flex-wrap gap-3">
-                      {['김정', '이미경', '이승헌', '양인숙', '김동환', '김대현'].map((name, index) => (
-                        <span key={index} className="bg-orange-100 text-orange-800 px-4 py-2 rounded-lg font-bold border border-orange-300">
-                          {name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* 총인원 안내 */}
-                <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6 rounded-xl shadow-lg">
-                  <div className="text-center">
-                    <p className="text-2xl font-black mb-2">
-                      👕 총 인원: 39명
-                    </p>
-                    <div className="flex justify-center gap-6 mt-4 flex-wrap">
-                      <div className="bg-white/20 px-4 py-2 rounded-lg">
-                        <span className="font-bold">S: 2명</span>
-                      </div>
-                      <div className="bg-white/20 px-4 py-2 rounded-lg">
-                        <span className="font-bold">M: 19명</span>
-                      </div>
-                      <div className="bg-white/20 px-4 py-2 rounded-lg">
-                        <span className="font-bold">L: 11명</span>
-                      </div>
-                      <div className="bg-white/20 px-4 py-2 rounded-lg">
-                        <span className="font-bold">XL: 6명</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              )}
-            </Card>
-
-            {/* 회비 공지 */}
-            <Card 
-              className="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 border-4 border-amber-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
-              onClick={() => toggleCard('fee')}
-            >
-              {/* 헤더 배너 */}
-              <div className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-600 text-white p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 opacity-10 text-9xl">💰</div>
-                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📢</div>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-center gap-3 mb-3">
-                        <div className="text-5xl animate-pulse">💰</div>
-                        <div className="text-5xl animate-pulse delay-100">📢</div>
-                        <div className="text-5xl animate-pulse delay-200">💳</div>
-                      </div>
-                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                        회비 공지
-                      </h2>
-                      <p className="text-xl text-center font-bold text-amber-200">
-                        繳費通知
-                      </p>
-                    </div>
-                    <div className="ml-4">
-                      {expandedCard === 'fee' ? (
-                        <ChevronUp className="h-8 w-8" />
-                      ) : (
-                        <ChevronDown className="h-8 w-8 animate-bounce" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 본문 내용 */}
-              {expandedCard === 'fee' && (
-              <div className="p-8 space-y-6">
-                {/* 1. 회비 금액 */}
-                <div className="bg-white rounded-xl p-6 border-2 border-amber-300 shadow-md">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-amber-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
-                      1
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-2xl font-black text-gray-800 mb-3">
-                        1인당 55만원
-                      </p>
-                      <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
-                        <p className="text-sm text-gray-700">
-                          <span className="font-bold">- 산출근거:</span> 첨부예산(안) 참조
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. 입금 계좌 */}
-                <div className="bg-white rounded-xl p-6 border-2 border-orange-300 shadow-md">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
-                      2
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-xl font-bold text-gray-800 mb-3">
-                        입금계좌: 카카오뱅크
-                      </p>
-                      <div className="bg-gradient-to-r from-yellow-100 to-orange-100 p-5 rounded-lg border-2 border-orange-300">
-                        <p className="text-2xl font-black text-center text-orange-900 tracking-wider">
-                          3333-34-2421695
-                        </p>
-                        <p className="text-lg font-bold text-center text-orange-800 mt-2">
-                          (조영선)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3. 기한 */}
-                <div className="bg-white rounded-xl p-6 border-2 border-red-300 shadow-md">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
-                      3
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-xl font-bold text-gray-800 mb-3">
-                        기한
-                      </p>
-                      <div className="bg-red-50 border-l-4 border-red-500 p-5 rounded">
-                        <p className="text-3xl font-black text-red-600 text-center animate-pulse">
-                          12.3(수) 까지
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 감사 메시지 */}
-                <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-6 rounded-xl shadow-lg">
-                  <p className="text-center text-2xl font-black">
-                    🙏 감사합니다 🙏
-                  </p>
-                  <p className="text-center text-lg mt-2 font-semibold">
-                    謝謝
-                  </p>
-                </div>
-              </div>
-              )}
-            </Card>
-
-            {/* 블레싱 타이완 기도제목 */}
-            <Card 
-              className="bg-gradient-to-br from-red-50 via-green-50 to-red-50 border-4 border-red-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
-              onClick={() => toggleCard('blessing')}
-            >
-              {/* 헤더 배너 */}
-              <div className="bg-gradient-to-r from-red-600 via-green-600 to-red-600 text-white p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 opacity-10 text-9xl">🎄</div>
-                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">✨</div>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-center gap-3 mb-3">
-                        <div className="text-5xl animate-pulse">🎄</div>
-                        <div className="text-5xl animate-pulse delay-100">⭐</div>
-                        <div className="text-5xl animate-pulse delay-200">🎁</div>
-                      </div>
-                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                        블레싱 타이완 2025
-                      </h2>
-                      <p className="text-xl text-center font-bold text-red-200">
-                        雲林城市耶誕慶典 (2025.12.18-22)
-                      </p>
-                    </div>
-                    <div className="ml-4">
-                      {expandedCard === 'blessing' ? (
-                        <ChevronUp className="h-8 w-8" />
-                      ) : (
-                        <ChevronDown className="h-8 w-8 animate-bounce" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 본문 내용 */}
-              {expandedCard === 'blessing' && (
-              <div className="p-8 space-y-6">
-                {/* 메인 포스터 이미지 - 블레싱 타이완 2025 */}
-                <div className="bg-white rounded-2xl p-4 shadow-lg border-4 border-red-400">
-                  <div className="relative w-full overflow-hidden rounded-xl">
-                    <img 
-                      src="/images/blessing-taiwan-2025-main.jpg" 
-                      alt="블레싱 타이완 2025 메인 포스터"
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                </div>
-
-                {/* 기도제목 포스터 이미지 */}
-                <div className="bg-white rounded-2xl p-4 shadow-lg border-4 border-green-400">
-                  <div className="relative w-full overflow-hidden rounded-xl">
-                    <img 
-                      src="/images/blessing-taiwan-2025-prayer.jpg" 
-                      alt="블레싱 타이완 2025 기도제목"
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                </div>
-
-                {/* 행사 안내 */}
-                <div className="bg-gradient-to-r from-red-600 to-green-600 text-white p-6 rounded-xl shadow-lg">
-                  <div className="text-center space-y-3">
-                    <p className="text-2xl font-black">
-                      🎄 2025 雲林城市耶誕慶典 🎄
-                    </p>
-                    <p className="text-xl font-bold">
-                      2025.12.18 - 12.22
-                    </p>
-                    <p className="text-lg font-semibold">
-                      윈린 雲林 | 주최: 온누리 전도폭발 훈련 학교
-                    </p>
-                  </div>
-                </div>
-              </div>
-              )}
-            </Card>
-
-            {/* 대면회의내용(25.12.8) */}
-            <Card 
-              className="bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 border-4 border-rose-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
-              onClick={() => toggleCard('meeting1208')}
-            >
-              {/* 헤더 배너 */}
-              <div className="bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 text-white p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 opacity-10 text-9xl">📋</div>
-                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📝</div>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-center gap-3 mb-3">
-                        <div className="text-5xl animate-pulse">📋</div>
-                        <div className="text-5xl animate-pulse delay-100">✏️</div>
-                        <div className="text-5xl animate-pulse delay-200">📝</div>
-                      </div>
-                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                        대면회의내용(25.12.8)
-                      </h2>
-                      <p className="text-xl text-center font-bold text-rose-200">
-                        對面會議內容
-                      </p>
-                    </div>
-                    <div className="ml-4">
-                      {expandedCard === 'meeting1208' ? (
-                        <ChevronUp className="h-8 w-8" />
-                      ) : (
-                        <ChevronDown className="h-8 w-8 animate-bounce" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 본문 내용 */}
-              {expandedCard === 'meeting1208' && (
-              <div className="p-8 space-y-6">
-                {/* 물품 배분 현황(25.12.8) */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">📦</div>
-                    <h3 className="text-2xl font-black text-blue-700">물품 배분 현황(25.12.8)</h3>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    {/* 1. 한복 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">👘 한복</p>
-                          <p className="text-gray-700">문유선(전량)</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 2. 팝업북 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">📚 팝업북(교육용), 121권(1포장 4권)</p>
-                          <p className="text-gray-700 text-sm leading-relaxed">곽미동(2개), 김동환, 김민중, 김양신, 김영미, 김유하, 김정, 김진해(2개), 박혜성, 서희숙, 송형숙(2개), 오경자(2개, 5권포함), 이보라, 이승헌, 이혜승, 정회평(2개), 제인현, 조영선, 조하령(2개), 최미자(2개), 최세정(2개), 최희주</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 3. 복음팔찌 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">📿 복음팔찌(300개)</p>
-                          <p className="text-gray-700">김동환</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 4. 복 주머니 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">🧧 복 주머니(150개)</p>
-                          <p className="text-gray-700">제인현</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 5. 푸드팀 앞치마 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">5</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">👨‍🍳 푸드팀(앞치마) 22개</p>
-                          <p className="text-gray-700 text-sm">김영미(3개), 김유하, 김진해(9개), 박효양, 서희숙, 이보라, 이순옥, 이혜승, 임종옥(2개), 조하령, 최우현</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 6. 대만 교육용 배너 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">6</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">🎌 대만 교육용 배너</p>
-                          <p className="text-gray-700">김진해 : 대(1개), 소(1개)</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 7. 남녀두루마기 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">7</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">👘 남녀두루마기</p>
-                          <p className="text-gray-700">김진해</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 8. 엽서 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">8</div>
-                        <div className="flex-1">
-                          <p className="font-bold text-gray-800 mb-1">✉️ 엽서</p>
-                          <p className="text-gray-700">1명당 3장씩</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 물품 배분 예정(25.12.15) */}
-                <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 border-4 border-purple-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">📅</div>
-                    <h3 className="text-2xl font-black text-purple-700">물품 배분 예정(25.12.15)</h3>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
-                      <p className="font-bold text-gray-800">1. 전도물품 2,000개 포장</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
-                      <p className="font-bold text-gray-800">2. 일반떡볶이소스(1,300g) 15병, 짜장떡볶이소스(1,300g) 5병</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
-                      <p className="font-bold text-gray-800">3. 준비물 : 은혜충만한 맘과 짐을 배분해서 가져가실 캐리어 또는 가방</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 bg-gradient-to-r from-red-500 to-pink-500 text-white p-4 rounded-xl shadow-lg">
-                    <p className="text-center text-lg font-black animate-pulse">
-                      ★ 25.12.15일 대면 모임 시 에는 전원이 참석하시어 전도물품 포장과 물품 배분에 협조하여 주시면 감사하겠습니다.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 초코파이 */}
-                <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl p-6 border-4 border-amber-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">🍫</div>
-                    <h3 className="text-2xl font-black text-amber-700">초코파이 준비</h3>
-                  </div>
-                  <div className="bg-white rounded-xl p-5 border-2 border-amber-200">
-                    <p className="text-xl font-bold text-center text-gray-800">
-                      초코파이 1인당 1Box 씩 준비하시기 바랍니다.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 초청자 현황 */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">👥</div>
-                    <h3 className="text-2xl font-black text-green-700">초청자 현황</h3>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
-                      <p className="font-bold text-gray-800">• 윈린현에서 현장님 초청으로 참석자 <span className="text-green-600 text-xl">100명</span></p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
-                      <p className="font-bold text-gray-800">• 동우료우 시장님이 초청한 시 행정관 <span className="text-green-600 text-xl">30명</span></p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 rounded-xl shadow-lg">
-                    <p className="text-center text-2xl font-black">
-                      총 130명 참석 예정
-                    </p>
-                  </div>
-                </div>
-
-                {/* 12.15 대면 모임 안내 */}
-                <div className="bg-gradient-to-r from-cyan-50 to-teal-50 rounded-2xl p-6 border-4 border-cyan-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">📍</div>
-                    <h3 className="text-2xl font-black text-cyan-700">12.15(월) 출발전 마지막 대면 모임안내</h3>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
-                      <p className="font-bold text-gray-800">1. 장소 : 서빙고 콘서트홀(선교관 B02)</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
-                      <div className="space-y-2">
-                        <p className="font-bold text-gray-800">2. 시간 : 19:00(저녁 7시)</p>
-                        <p className="text-gray-700 ml-4">- 찬양 팀 : 16:00(저녁 4시)</p>
-                        <p className="text-gray-700 ml-4">- 저녁식사 : 18:30~</p>
-                      </div>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
-                      <p className="font-bold text-gray-800">3. 준비물 : 은혜충만한 맘과 짐을 배분해서 가져가실 캐리어 또는 큰 가방</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
-                      <div className="space-y-2">
-                        <p className="font-bold text-gray-800">4. 할 일 :</p>
-                        <p className="text-gray-700 ml-4">• 선물 포장(2,000개)</p>
-                        <p className="text-gray-700 ml-4">• 공통짐 분배 및 출발전 최종 준비사항 점검</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 12.19 선물 교환 안내 */}
-                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 border-4 border-pink-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">🎁</div>
-                    <h3 className="text-2xl font-black text-pink-700">12월19일 저녁 선물 교환 관련 안내</h3>
-                  </div>
-                  
-                  <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mb-4">
-                    <p className="text-gray-700 italic">
-                      ※ 선물준비에 고민이 많으시죠? 부담갖지 마시고 우리 가족끼리 명절에 사랑을 담은 마음의 표시라고 생각하시면 될 거 같습니다
-                    </p>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
-                      <p className="font-bold text-gray-800">1. 일시 : 19일 저녁 연합기도회 후 일반 성도는 귀가하신 후</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
-                      <p className="font-bold text-gray-800">2. 교환 대상 : 후치교회 리더십(순장과 그 가족 60여명)</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
-                      <div className="space-y-2">
-                        <p className="font-bold text-gray-800">3. 선물 준비 :</p>
-                        <p className="text-gray-700 ml-4">• 한국 돈 17,000원 정도의 한국의 문화 전통을 담은 소박한 선물</p>
-                        <p className="text-gray-700 ml-4">• 손글씨로 축복과 사랑의 메세지를 쓴 카드와 함께</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 대만 반입 불가 물품 */}
-                <div className="bg-gradient-to-r from-red-100 to-orange-100 rounded-2xl p-6 border-4 border-red-500 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">🚫</div>
-                    <h3 className="text-2xl font-black text-red-700">대만 절대 반입 불가 물품</h3>
-                  </div>
-
-                  <div className="bg-red-50 border-l-4 border-red-600 p-4 rounded mb-4">
-                    <p className="text-red-700 font-bold text-lg">
-                      이 정도는 괜찮겠지~~~ 천만에 말씀입니다.
-                    </p>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-5 border-2 border-red-300 shadow-md mb-4">
-                    <p className="text-gray-800 leading-relaxed">
-                      육고기 냄새라도 들어있는 라면/컵라면, 볶음 고추장 등, <span className="font-bold text-red-600">육류/육류가공 모든 제품 반입 불가</span>입니다.
-                    </p>
-                    <p className="text-gray-600 text-sm mt-2">
-                      (육류: 소고기, 돼지고기, 닭고기, 오리고기, 양고기 등등등)
-                    </p>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="bg-red-500 text-white rounded-xl p-4 shadow-md">
-                      <p className="font-bold text-center">
-                        1차 적발시: NTD20만 = <span className="text-2xl">한화 약 800만원</span>
-                      </p>
-                    </div>
-                    <div className="bg-red-700 text-white rounded-xl p-4 shadow-md">
-                      <p className="font-bold text-center">
-                        최대: NTD100만 = <span className="text-2xl">한화 약 4천만원</span>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 bg-gradient-to-r from-red-600 to-orange-600 text-white p-4 rounded-xl shadow-lg">
-                    <p className="text-center text-xl font-black animate-pulse">
-                      ⚠️ 대만 세관을 시험하지 마세용~~ ⚠️
-                    </p>
-                  </div>
-                </div>
-
-                {/* Grand Earl Hotel */}
-                <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-6 border-4 border-indigo-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">🏨</div>
-                    <h3 className="text-2xl font-black text-indigo-700">Grand Earl Hotel</h3>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-5 border-2 border-indigo-200 shadow-md">
-                    <p className="text-gray-800 mb-3">저희가 머무르게 될 Grand Earl Hotel입니다.</p>
-                    <a 
-                      href="https://naver.me/FgTyEI2X" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block bg-indigo-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-600 transition-colors"
-                    >
-                      🔗 네이버에서 보기
-                    </a>
-                  </div>
-                </div>
-
-                {/* 준비물 및 대만 전압 안내 */}
-                <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 border-4 border-yellow-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">⚡</div>
-                    <h3 className="text-2xl font-black text-yellow-700">준비물 및 대만 전압 안내</h3>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-200 shadow-md">
-                      <p className="font-bold text-gray-800">• 기본적인 세면도구, 드라이기, 수건 비치되어 있음</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-200 shadow-md">
-                      <p className="font-bold text-gray-800">• 칫솔, 치약, 면도기, 개인용 전기장판(초겨울 날씨이나 난방이 안됩니다)은 준비하시는 게 좋겠습니다</p>
-                    </div>
-                    <div className="bg-yellow-100 rounded-xl p-4 border-2 border-yellow-400 shadow-md">
-                      <p className="font-bold text-yellow-800">
-                        ⚡ 대만 전압이 <span className="text-2xl text-red-600">110V</span>이니까 전기장판, 전기제품은 110V나 자동변압이 아니면 가져오지 마세요..
-                      </p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-200 shadow-md">
-                      <p className="font-bold text-gray-800">• 대만은 빌딩 자체가 난방이 없어서 추위 타시는 분은 보온에 잘 대비해오시는게 좋습니다</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 입국신고서 */}
-                <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl p-6 border-4 border-teal-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-4xl">📄</div>
-                    <h3 className="text-2xl font-black text-teal-700">입국신고서</h3>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-white rounded-xl p-4 border-2 border-teal-200 shadow-md">
-                      <p className="font-bold text-gray-800">• 비행기 타시기 전에 대만 입국 신고서 인터넷으로 작성해서 제출하고 오세요</p>
-                    </div>
-                    <div className="bg-teal-100 rounded-xl p-4 border-2 border-teal-400 shadow-md">
-                      <p className="font-bold text-teal-800">
-                        ⚠️ 10월부터 종이 입국 신고서가 폐지되서 인터넷으로 작성해서 제출하셔야 합니다
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 bg-white rounded-xl p-5 border-2 border-teal-200 shadow-md">
-                    <a 
-                      href="https://twac.immigration.gov.tw/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block bg-teal-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-teal-600 transition-colors"
-                    >
-                      🔗 대만 입국 신고서 작성하기
-                    </a>
-                  </div>
-                </div>
-
-                {/* 강조 메시지 */}
-                <div className="bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 text-white p-6 rounded-xl shadow-lg">
-                  <p className="text-center text-2xl font-black">
-                    🙏 함께 준비해요! 🙏
-                  </p>
-                  <p className="text-center text-lg mt-2 font-semibold">
-                    讓我們一起準備！
-                  </p>
-                </div>
-              </div>
-              )}
-            </Card>
-
             {/* 대만 방문 일정표 */}
             <Card 
               className="bg-gradient-to-br from-sky-50 via-cyan-50 to-teal-50 border-4 border-sky-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
@@ -1899,6 +1099,799 @@ export default function GuidePage() {
                       한국의 대만 방문 일정표
                     </p>
                   </div>
+                </div>
+              </div>
+              )}
+            </Card>
+            {/* 대면회의내용(25.12.8) */}
+            <Card 
+              className="bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 border-4 border-rose-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('meeting1208')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">📋</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📝</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">📋</div>
+                        <div className="text-5xl animate-pulse delay-100">✏️</div>
+                        <div className="text-5xl animate-pulse delay-200">📝</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        대면회의내용(25.12.8)
+                      </h2>
+                      <p className="text-xl text-center font-bold text-rose-200">
+                        對面會議內容
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'meeting1208' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'meeting1208' && (
+              <div className="p-8 space-y-6">
+                {/* 물품 배분 현황(25.12.8) */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">📦</div>
+                    <h3 className="text-2xl font-black text-blue-700">물품 배분 현황(25.12.8)</h3>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {/* 1. 한복 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">👘 한복</p>
+                          <p className="text-gray-700">문유선(전량)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 2. 팝업북 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">📚 팝업북(교육용), 121권(1포장 4권)</p>
+                          <p className="text-gray-700 text-sm leading-relaxed">곽미동(2개), 김동환, 김민중, 김양신, 김영미, 김유하, 김정, 김진해(2개), 박혜성, 서희숙, 송형숙(2개), 오경자(2개, 5권포함), 이보라, 이승헌, 이혜승, 정회평(2개), 제인현, 조영선, 조하령(2개), 최미자(2개), 최세정(2개), 최희주</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 3. 복음팔찌 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">📿 복음팔찌(300개)</p>
+                          <p className="text-gray-700">김동환</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 4. 복 주머니 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">🧧 복 주머니(150개)</p>
+                          <p className="text-gray-700">제인현</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 5. 푸드팀 앞치마 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">5</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">👨‍🍳 푸드팀(앞치마) 22개</p>
+                          <p className="text-gray-700 text-sm">김영미(3개), 김유하, 김진해(9개), 박효양, 서희숙, 이보라, 이순옥, 이혜승, 임종옥(2개), 조하령, 최우현</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 6. 대만 교육용 배너 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">6</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">🎌 대만 교육용 배너</p>
+                          <p className="text-gray-700">김진해 : 대(1개), 소(1개)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 7. 남녀두루마기 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">7</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">👘 남녀두루마기</p>
+                          <p className="text-gray-700">김진해</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 8. 엽서 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">8</div>
+                        <div className="flex-1">
+                          <p className="font-bold text-gray-800 mb-1">✉️ 엽서</p>
+                          <p className="text-gray-700">1명당 3장씩</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 물품 배분 예정(25.12.15) */}
+                <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 border-4 border-purple-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">📅</div>
+                    <h3 className="text-2xl font-black text-purple-700">물품 배분 예정(25.12.15)</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <p className="font-bold text-gray-800">1. 전도물품 2,000개 포장</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <p className="font-bold text-gray-800">2. 일반떡볶이소스(1,300g) 15병, 짜장떡볶이소스(1,300g) 5병</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <p className="font-bold text-gray-800">3. 준비물 : 은혜충만한 맘과 짐을 배분해서 가져가실 캐리어 또는 가방</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 bg-gradient-to-r from-red-500 to-pink-500 text-white p-4 rounded-xl shadow-lg">
+                    <p className="text-center text-lg font-black animate-pulse">
+                      ★ 25.12.15일 대면 모임 시 에는 전원이 참석하시어 전도물품 포장과 물품 배분에 협조하여 주시면 감사하겠습니다.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 초코파이 */}
+                <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl p-6 border-4 border-amber-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🍫</div>
+                    <h3 className="text-2xl font-black text-amber-700">초코파이 준비</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-amber-200">
+                    <p className="text-xl font-bold text-center text-gray-800">
+                      초코파이 1인당 1Box 씩 준비하시기 바랍니다.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 초청자 현황 */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">👥</div>
+                    <h3 className="text-2xl font-black text-green-700">초청자 현황</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <p className="font-bold text-gray-800">• 윈린현에서 현장님 초청으로 참석자 <span className="text-green-600 text-xl">100명</span></p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <p className="font-bold text-gray-800">• 동우료우 시장님이 초청한 시 행정관 <span className="text-green-600 text-xl">30명</span></p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 rounded-xl shadow-lg">
+                    <p className="text-center text-2xl font-black">
+                      총 130명 참석 예정
+                    </p>
+                  </div>
+                </div>
+
+                {/* 12.15 대면 모임 안내 */}
+                <div className="bg-gradient-to-r from-cyan-50 to-teal-50 rounded-2xl p-6 border-4 border-cyan-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">📍</div>
+                    <h3 className="text-2xl font-black text-cyan-700">12.15(월) 출발전 마지막 대면 모임안내</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
+                      <p className="font-bold text-gray-800">1. 장소 : 서빙고 콘서트홀(선교관 B02)</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
+                      <div className="space-y-2">
+                        <p className="font-bold text-gray-800">2. 시간 : 19:00(저녁 7시)</p>
+                        <p className="text-gray-700 ml-4">- 찬양 팀 : 16:00(저녁 4시)</p>
+                        <p className="text-gray-700 ml-4">- 저녁식사 : 18:30~</p>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
+                      <p className="font-bold text-gray-800">3. 준비물 : 은혜충만한 맘과 짐을 배분해서 가져가실 캐리어 또는 큰 가방</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-md">
+                      <div className="space-y-2">
+                        <p className="font-bold text-gray-800">4. 할 일 :</p>
+                        <p className="text-gray-700 ml-4">• 선물 포장(2,000개)</p>
+                        <p className="text-gray-700 ml-4">• 공통짐 분배 및 출발전 최종 준비사항 점검</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12.19 선물 교환 안내 */}
+                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 border-4 border-pink-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🎁</div>
+                    <h3 className="text-2xl font-black text-pink-700">12월19일 저녁 선물 교환 관련 안내</h3>
+                  </div>
+                  
+                  <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mb-4">
+                    <p className="text-gray-700 italic">
+                      ※ 선물준비에 고민이 많으시죠? 부담갖지 마시고 우리 가족끼리 명절에 사랑을 담은 마음의 표시라고 생각하시면 될 거 같습니다
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <p className="font-bold text-gray-800">1. 일시 : 19일 저녁 연합기도회 후 일반 성도는 귀가하신 후</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <p className="font-bold text-gray-800">2. 교환 대상 : 후치교회 리더십(순장과 그 가족 60여명)</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="space-y-2">
+                        <p className="font-bold text-gray-800">3. 선물 준비 :</p>
+                        <p className="text-gray-700 ml-4">• 한국 돈 17,000원 정도의 한국의 문화 전통을 담은 소박한 선물</p>
+                        <p className="text-gray-700 ml-4">• 손글씨로 축복과 사랑의 메세지를 쓴 카드와 함께</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 대만 반입 불가 물품 */}
+                <div className="bg-gradient-to-r from-red-100 to-orange-100 rounded-2xl p-6 border-4 border-red-500 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🚫</div>
+                    <h3 className="text-2xl font-black text-red-700">대만 절대 반입 불가 물품</h3>
+                  </div>
+
+                  <div className="bg-red-50 border-l-4 border-red-600 p-4 rounded mb-4">
+                    <p className="text-red-700 font-bold text-lg">
+                      이 정도는 괜찮겠지~~~ 천만에 말씀입니다.
+                    </p>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-5 border-2 border-red-300 shadow-md mb-4">
+                    <p className="text-gray-800 leading-relaxed">
+                      육고기 냄새라도 들어있는 라면/컵라면, 볶음 고추장 등, <span className="font-bold text-red-600">육류/육류가공 모든 제품 반입 불가</span>입니다.
+                    </p>
+                    <p className="text-gray-600 text-sm mt-2">
+                      (육류: 소고기, 돼지고기, 닭고기, 오리고기, 양고기 등등등)
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="bg-red-500 text-white rounded-xl p-4 shadow-md">
+                      <p className="font-bold text-center">
+                        1차 적발시: NTD20만 = <span className="text-2xl">한화 약 800만원</span>
+                      </p>
+                    </div>
+                    <div className="bg-red-700 text-white rounded-xl p-4 shadow-md">
+                      <p className="font-bold text-center">
+                        최대: NTD100만 = <span className="text-2xl">한화 약 4천만원</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 bg-gradient-to-r from-red-600 to-orange-600 text-white p-4 rounded-xl shadow-lg">
+                    <p className="text-center text-xl font-black animate-pulse">
+                      ⚠️ 대만 세관을 시험하지 마세용~~ ⚠️
+                    </p>
+                  </div>
+                </div>
+
+                {/* Grand Earl Hotel */}
+                <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-6 border-4 border-indigo-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🏨</div>
+                    <h3 className="text-2xl font-black text-indigo-700">Grand Earl Hotel</h3>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-5 border-2 border-indigo-200 shadow-md">
+                    <p className="text-gray-800 mb-3">저희가 머무르게 될 Grand Earl Hotel입니다.</p>
+                    <a 
+                      href="https://naver.me/FgTyEI2X" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block bg-indigo-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-600 transition-colors"
+                    >
+                      🔗 네이버에서 보기
+                    </a>
+                  </div>
+                </div>
+
+                {/* 준비물 및 대만 전압 안내 */}
+                <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 border-4 border-yellow-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">⚡</div>
+                    <h3 className="text-2xl font-black text-yellow-700">준비물 및 대만 전압 안내</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-200 shadow-md">
+                      <p className="font-bold text-gray-800">• 기본적인 세면도구, 드라이기, 수건 비치되어 있음</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-200 shadow-md">
+                      <p className="font-bold text-gray-800">• 칫솔, 치약, 면도기, 개인용 전기장판(초겨울 날씨이나 난방이 안됩니다)은 준비하시는 게 좋겠습니다</p>
+                    </div>
+                    <div className="bg-yellow-100 rounded-xl p-4 border-2 border-yellow-400 shadow-md">
+                      <p className="font-bold text-yellow-800">
+                        ⚡ 대만 전압이 <span className="text-2xl text-red-600">110V</span>이니까 전기장판, 전기제품은 110V나 자동변압이 아니면 가져오지 마세요..
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-200 shadow-md">
+                      <p className="font-bold text-gray-800">• 대만은 빌딩 자체가 난방이 없어서 추위 타시는 분은 보온에 잘 대비해오시는게 좋습니다</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 입국신고서 */}
+                <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl p-6 border-4 border-teal-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">📄</div>
+                    <h3 className="text-2xl font-black text-teal-700">입국신고서</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-4 border-2 border-teal-200 shadow-md">
+                      <p className="font-bold text-gray-800">• 비행기 타시기 전에 대만 입국 신고서 인터넷으로 작성해서 제출하고 오세요</p>
+                    </div>
+                    <div className="bg-teal-100 rounded-xl p-4 border-2 border-teal-400 shadow-md">
+                      <p className="font-bold text-teal-800">
+                        ⚠️ 10월부터 종이 입국 신고서가 폐지되서 인터넷으로 작성해서 제출하셔야 합니다
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 bg-white rounded-xl p-5 border-2 border-teal-200 shadow-md">
+                    <a 
+                      href="https://twac.immigration.gov.tw/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block bg-teal-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-teal-600 transition-colors"
+                    >
+                      🔗 대만 입국 신고서 작성하기
+                    </a>
+                  </div>
+                </div>
+
+                {/* 강조 메시지 */}
+                <div className="bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 text-white p-6 rounded-xl shadow-lg">
+                  <p className="text-center text-2xl font-black">
+                    🙏 함께 준비해요! 🙏
+                  </p>
+                  <p className="text-center text-lg mt-2 font-semibold">
+                    讓我們一起準備！
+                  </p>
+                </div>
+              </div>
+              )}
+            </Card>
+            {/* 개인물품 준비물 */}
+            <Card 
+              className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-4 border-blue-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('items')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">🎒</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">🧳</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-bounce">🎒</div>
+                        <div className="text-5xl animate-bounce delay-100">🧳</div>
+                        <div className="text-5xl animate-bounce delay-200">✈️</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        개인물품 준비물
+                      </h2>
+                      <p className="text-xl text-center font-bold text-blue-200">
+                        個人物品準備清單
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'items' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'items' && (
+              <div className="p-8 space-y-6">
+                {/* 필수 준비물 */}
+                <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl p-6 border-4 border-red-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🔴</div>
+                    <h3 className="text-2xl font-black text-red-700">필수 준비물</h3>
+                  </div>
+                  
+                  <div className="bg-white rounded-xl p-5 border-2 border-red-200 mb-4">
+                    <div className="flex items-start gap-3">
+                      <div className="text-3xl">📋</div>
+                      <div className="flex-1">
+                        <p className="text-lg font-bold text-gray-800 mb-3">여권, 지갑, 여권사본, 현지화폐, 신용카드(VISA 또는 MASTER), 여권사진 2매(분실)</p>
+                        <div className="bg-red-100 border-l-4 border-red-500 p-4 rounded">
+                          <p className="text-xl font-black text-red-600">
+                            ※ 여권유효 기간 필 확인
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-5 border-2 border-red-200 mb-4">
+                    <div className="flex items-start gap-3">
+                      <div className="text-3xl">📖</div>
+                      <div className="flex-1">
+                        <p className="text-lg font-bold text-gray-800">성경, 생명의 삶, 필기도구</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-5 border-2 border-red-200">
+                    <div className="flex items-start gap-3">
+                      <div className="text-3xl">🧴</div>
+                      <div className="flex-1">
+                        <p className="text-lg font-bold text-gray-800 mb-3">세면도구 및 생활용품</p>
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                          세면도구(치약, 칫솔, 클렌징폼, (면도기), 빗), 면봉/솜, 때수건) 기초화장품, 선글라스, 모자, 우산, 썬크림, 복용약 및 상비약, 단체티, 대청 단체티, 대만 현금 (NTD2,000), 휴대폰 충전기/케이블, <span className="text-red-600 font-bold">전원 아답터(110V임)</span>, 각종 옷(양말), 신발, 슬리퍼, 동전지갑
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 부가 준비물 */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🟢</div>
+                    <h3 className="text-2xl font-black text-green-700">부가 준비물 (선택사항)</h3>
+                  </div>
+                  
+                  <div className="bg-white rounded-xl p-5 border-2 border-green-200">
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      기타 화장품, 고데기, 개인식품, 보조 밧데리, 손톱깍이, 이어폰, 셀카봉, 휴지/물티슈, 비닐봉지(빨래) /지퍼백, 휴대용선풍기, 손수건, 귀마개, 마스크팩, 백팩/가방, 접이식 장바구니
+                    </p>
+                  </div>
+                </div>
+
+                {/* 수하물 안내 */}
+                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🧳</div>
+                    <h3 className="text-2xl font-black text-orange-700">수하물 규정</h3>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-white rounded-xl p-5 border-2 border-orange-200">
+                      <div className="flex items-start gap-3">
+                        <div className="text-3xl">✈️</div>
+                        <div className="flex-1">
+                          <p className="text-lg font-bold text-orange-700 mb-2">화물</p>
+                          <p className="text-gray-700 mb-3">배분받은 짐을 각자 소지하여 방문국으로 가져감 (물품가방 28인치 이상~)</p>
+                          <div className="bg-orange-100 p-4 rounded-lg">
+                            <p className="text-sm font-bold text-orange-800 mb-1">위탁 수화물:</p>
+                            <p className="text-sm text-gray-700">일반석: 23Kg 1개, 비즈니스: 32Kg 2개+ 모닝캄 이상 1개 추가</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-xl p-5 border-2 border-orange-200">
+                      <div className="flex items-start gap-3">
+                        <div className="text-3xl">🎒</div>
+                        <div className="flex-1">
+                          <p className="text-lg font-bold text-orange-700 mb-2">기내</p>
+                          <p className="text-gray-700">기내 20인치 10Kg 이내</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 주의사항 */}
+                <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="space-y-3">
+                    <p className="text-xl font-black text-center mb-4">⚠️ 주의사항</p>
+                    <div className="space-y-2 text-sm md:text-base">
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>오디오 가이드를 위하여 유선 3.5파이 이어폰 준비</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>육류 반입금지</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>기내가방: 보조 바데리 반드시 기내가방(개인 휴대)</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-yellow-300">•</span>
+                        <span>수하물: 액체류, 스프레이, 날카로운 제품(가위, 칼등)</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
+            {/* 단체티 명단 */}
+            <Card 
+              className="bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 border-4 border-emerald-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('tshirt')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">👕</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📋</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-bounce">👕</div>
+                        <div className="text-5xl animate-bounce delay-100">📋</div>
+                        <div className="text-5xl animate-bounce delay-200">✨</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        단체티 명단 (최종본)
+                      </h2>
+                      <p className="text-xl text-center font-bold text-emerald-200">
+                        團體T恤名單 (最終版)
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'tshirt' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'tshirt' && (
+              <div className="p-8 space-y-6">
+                {/* S 사이즈 */}
+                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 border-4 border-pink-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-pink-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      S
+                    </div>
+                    <h3 className="text-2xl font-black text-pink-700">Small</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-pink-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['신교순', '이명대'].map((name, index) => (
+                        <span key={index} className="bg-pink-100 text-pink-800 px-4 py-2 rounded-lg font-bold border border-pink-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* M 사이즈 */}
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border-4 border-blue-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      M
+                    </div>
+                    <h3 className="text-2xl font-black text-blue-700">Medium</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['곽미동', '김신하', '문유선', '박세은', '백승이', '이서은', '강성혜', '정정희', '이아셀', '이영민', '이예진', '정선은', '정재영', '조하령', '최미자', '윤효정', '조영선', '김민지', '김덕희'].map((name, index) => (
+                        <span key={index} className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-bold border border-blue-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* L 사이즈 */}
+                <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 border-4 border-purple-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      L
+                    </div>
+                    <h3 className="text-2xl font-black text-purple-700">Large</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-purple-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['김유하', '김진해', '류은진', '서희숙', '유영단', '이보라', '최옥자', '임종옥', '최우현', '박세은', '김화숙'].map((name, index) => (
+                        <span key={index} className="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg font-bold border border-purple-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* XL 사이즈 */}
+                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-300 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-black shadow-lg">
+                      XL
+                    </div>
+                    <h3 className="text-2xl font-black text-orange-700">Extra Large</h3>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border-2 border-orange-200">
+                    <div className="flex flex-wrap gap-3">
+                      {['김정', '이미경', '이승헌', '양인숙', '김동환', '김대현'].map((name, index) => (
+                        <span key={index} className="bg-orange-100 text-orange-800 px-4 py-2 rounded-lg font-bold border border-orange-300">
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 총인원 안내 */}
+                <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="text-center">
+                    <p className="text-2xl font-black mb-2">
+                      👕 총 인원: 39명
+                    </p>
+                    <div className="flex justify-center gap-6 mt-4 flex-wrap">
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">S: 2명</span>
+                      </div>
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">M: 19명</span>
+                      </div>
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">L: 11명</span>
+                      </div>
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">XL: 6명</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
+            {/* 회비 공지 */}
+            <Card 
+              className="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 border-4 border-amber-400 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('fee')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">💰</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">📢</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">💰</div>
+                        <div className="text-5xl animate-pulse delay-100">📢</div>
+                        <div className="text-5xl animate-pulse delay-200">💳</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        회비 공지
+                      </h2>
+                      <p className="text-xl text-center font-bold text-amber-200">
+                        繳費通知
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'fee' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'fee' && (
+              <div className="p-8 space-y-6">
+                {/* 1. 회비 금액 */}
+                <div className="bg-white rounded-xl p-6 border-2 border-amber-300 shadow-md">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-amber-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
+                      1
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-2xl font-black text-gray-800 mb-3">
+                        1인당 55만원
+                      </p>
+                      <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
+                        <p className="text-sm text-gray-700">
+                          <span className="font-bold">- 산출근거:</span> 첨부예산(안) 참조
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. 입금 계좌 */}
+                <div className="bg-white rounded-xl p-6 border-2 border-orange-300 shadow-md">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
+                      2
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xl font-bold text-gray-800 mb-3">
+                        입금계좌: 카카오뱅크
+                      </p>
+                      <div className="bg-gradient-to-r from-yellow-100 to-orange-100 p-5 rounded-lg border-2 border-orange-300">
+                        <p className="text-2xl font-black text-center text-orange-900 tracking-wider">
+                          3333-34-2421695
+                        </p>
+                        <p className="text-lg font-bold text-center text-orange-800 mt-2">
+                          (조영선)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. 기한 */}
+                <div className="bg-white rounded-xl p-6 border-2 border-red-300 shadow-md">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center text-xl font-black shadow-lg">
+                      3
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xl font-bold text-gray-800 mb-3">
+                        기한
+                      </p>
+                      <div className="bg-red-50 border-l-4 border-red-500 p-5 rounded">
+                        <p className="text-3xl font-black text-red-600 text-center animate-pulse">
+                          12.3(수) 까지
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 감사 메시지 */}
+                <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-6 rounded-xl shadow-lg">
+                  <p className="text-center text-2xl font-black">
+                    🙏 감사합니다 🙏
+                  </p>
+                  <p className="text-center text-lg mt-2 font-semibold">
+                    謝謝
+                  </p>
                 </div>
               </div>
               )}
