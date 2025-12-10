@@ -1104,6 +1104,272 @@ export default function GuidePage() {
               )}
             </Card>
 
+            {/* 전도메뉴얼 */}
+            <Card 
+              className="bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 border-4 border-amber-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('evangelism')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">📖</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">🇹🇼</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-pulse">📖</div>
+                        <div className="text-5xl animate-pulse delay-100">🗣️</div>
+                        <div className="text-5xl animate-pulse delay-200">🇹🇼</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        전도 메뉴얼
+                      </h2>
+                      <p className="text-xl text-center font-bold text-amber-200">
+                        傳道手冊 | 대만 현지 회화
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'evangelism' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'evangelism' && (
+              <div className="p-8 space-y-6">
+                {/* STEP 1: 도입 인사 */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-black shadow-lg">
+                      1
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-blue-700">도입 인사</h3>
+                      <p className="text-sm text-blue-600">Introduction 開場白</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {/* 인사 1 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <p className="text-3xl font-black text-red-600 mb-2">你好嗎？</p>
+                      <p className="text-xl font-bold text-orange-600 mb-1">Nǐ hǎo ma? | 니 하오 마?</p>
+                      <p className="text-lg text-gray-700 bg-blue-50 p-2 rounded">👋 안녕하세요?</p>
+                    </div>
+
+                    {/* 인사 2 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <p className="text-3xl font-black text-red-600 mb-2">我是韓國來的。</p>
+                      <p className="text-xl font-bold text-orange-600 mb-1">Wǒ shì Hán-guó lái de. | 워 쉬 한궈 라이 더</p>
+                      <p className="text-lg text-gray-700 bg-blue-50 p-2 rounded">🇰🇷 저는 한국에서 왔습니다.</p>
+                    </div>
+
+                    {/* 인사 3 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <p className="text-3xl font-black text-red-600 mb-2">可以跟你聊一會兒嗎？</p>
+                      <p className="text-xl font-bold text-orange-600 mb-1">Kěyǐ gēn nǐ liáo yí huìr ma? | 커이 건 니 랴오 이 후얼 마?</p>
+                      <p className="text-lg text-gray-700 bg-blue-50 p-2 rounded">💬 당신과 잠깐 이야기를 나눌 수 있을까요?</p>
+                    </div>
+
+                    {/* 인사 4 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-200 shadow-md">
+                      <p className="text-3xl font-black text-red-600 mb-2">我想和你分享一則好消息。</p>
+                      <p className="text-xl font-bold text-orange-600 mb-1">Wǒ xiǎng hé nǐ fēnxiǎng yì zé hǎo xiāoxi. | 워 시앙 허 니 펀샹 이 쩌 하오 샤오시</p>
+                      <p className="text-lg text-gray-700 bg-blue-50 p-2 rounded">✨ 저는 당신과 기쁜 소식을 나누고 싶습니다.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* STEP 2: 선물 전달 */}
+                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 border-4 border-pink-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-pink-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-black shadow-lg">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-pink-700">선물 전달</h3>
+                      <p className="text-sm text-pink-600">Gift Giving 送禮物</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {/* 선물 1 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-bold inline-block mb-2">선택 1</div>
+                      <p className="text-2xl font-black text-red-600 mb-2">這是我帶來的小禮物，準備送給我見面的人。請收下。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Zhè shì wǒ dài lái de xiǎo lǐwù, zhǔnbèi sòng gěi wǒ jiànmiàn de rén. Qǐng shōu xià.</p>
+                      <p className="text-base text-orange-500 mb-2">쯔 스 워 따이 라이 더 샤오 리우, 쥰베이 송 게이 워 지엔미엔 더 런. 칭 쇼우 시아.</p>
+                      <p className="text-lg text-gray-700 bg-pink-50 p-2 rounded">🎁 이것은 제가 만나는 사람들에게 주려고 가져온 작은 선물입니다. 받아주세요.</p>
+                    </div>
+
+                    {/* 선물 2 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-pink-200 shadow-md">
+                      <div className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-bold inline-block mb-2">선택 2</div>
+                      <p className="text-2xl font-black text-red-600 mb-2">這是給你的小禮物，希望能帶給你祝福。請收下。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Zhè shì gěi nǐ de xiǎo lǐwù, xīwàng néng dài gěi nǐ zhùfú. Qǐng shōu xià.</p>
+                      <p className="text-base text-orange-500 mb-2">쯔 스 게이 니 더 샤오 리우, 씨왕 능 따이 게이 니 주푸. 칭 쇼우 시아.</p>
+                      <p className="text-lg text-gray-700 bg-pink-50 p-2 rounded">🎁 이것은 당신에게 드리는 작은 선물입니다. 당신께 축복이 되기를 바랍니다. 받아주세요.</p>
+                    </div>
+
+                    {/* 영원한 선물 */}
+                    <div className="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl p-4 border-2 border-yellow-400 shadow-md">
+                      <p className="text-2xl font-black text-red-600 mb-2">這個禮物用完後就沒有了。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Zhè ge lǐwù yòng wán hòu jiù méi yǒu le. | 쩌 거 리우 용완 허우 지우 메이요우 러</p>
+                      <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded mb-3">📦 이 선물은 쓰고 나면 없어져버립니다.</p>
+                      
+                      <p className="text-2xl font-black text-red-600 mb-2">所以我把一份永不消失的禮物送給你。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Suǒyǐ wǒ bǎ yí fèn yǒng bù xiāoshī de lǐwù sòng gěi nǐ.</p>
+                      <p className="text-base text-orange-500 mb-2">쑤오이 워 바 이펀 용부 샤오스 더 리우 송 게이 니</p>
+                      <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded mb-3">✨ 그래서 영원히 없어지지 않는 선물을 드리려고 합니다.</p>
+                      
+                      <p className="text-2xl font-black text-red-600 mb-2">你願意接受這份永生的禮物嗎？</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Nǐ yuànyì jiēshòu zhè fèn yǒngshēng de lǐwù ma?</p>
+                      <p className="text-base text-orange-500 mb-2">니 위엔이 지에쇼우 쩌 펀 용성 더 리우 마?</p>
+                      <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded">🙏 당신은 이 영원한 선물을 받으시겠습니까?</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* STEP 3: 복음 제시 */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-black shadow-lg">
+                      3
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-green-700">복음 제시</h3>
+                      <p className="text-sm text-green-600">Gospel Presentation 福音分享</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {/* 책 보여주기 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-200 shadow-md">
+                      <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold inline-block mb-2">📖 책을 펴서 손가락으로 가리키면서</div>
+                      <p className="text-2xl font-black text-red-600 mb-2">你可以看一下這裡，請閱讀一下吧。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Nǐ kěyǐ kàn yíxià zhèlǐ, qǐng yuèdú yíxià ba.</p>
+                      <p className="text-base text-orange-500 mb-2">니 커이 칸 이샤 쩌리, 칭 위에두 이샤 바</p>
+                      <p className="text-lg text-gray-700 bg-green-50 p-2 rounded">👀 여기를 보면서 읽어보시겠어요.</p>
+                    </div>
+
+                    {/* 복음 제시 순서 */}
+                    <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl p-5 border-2 border-green-300">
+                      <h4 className="text-xl font-black text-green-800 mb-3">📋 복음 제시 순서</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="bg-white p-3 rounded-lg border border-green-200 flex items-center gap-2">
+                          <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                          <span className="font-bold text-gray-700">확신 질문 두 개</span>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-green-200 flex items-center gap-2">
+                          <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                          <span className="font-bold text-gray-700">은혜 恩典</span>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-green-200 flex items-center gap-2">
+                          <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                          <span className="font-bold text-gray-700">인간 人</span>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-green-200 flex items-center gap-2">
+                          <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+                          <span className="font-bold text-gray-700">하나님 神</span>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-green-200 flex items-center gap-2">
+                          <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">5</span>
+                          <span className="font-bold text-gray-700">예수 그리스도 耶穌基督</span>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-green-200 flex items-center gap-2">
+                          <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">6</span>
+                          <span className="font-bold text-gray-700">믿음 信心</span>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-green-200 flex items-center gap-2 md:col-span-2">
+                          <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">7</span>
+                          <span className="font-bold text-gray-700">결신 질문 / 결신 기도문 읽기</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* STEP 4: 마무리 인사 */}
+                <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 border-4 border-purple-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-purple-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-black shadow-lg">
+                      4
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-purple-700">마무리 인사</h3>
+                      <p className="text-sm text-purple-600">Closing 結束語</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {/* 마무리 1 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-bold inline-block mb-2">📚 전도지를 가리키면서</div>
+                      <p className="text-2xl font-black text-red-600 mb-2">請你回到家以後，一定要讀一讀這本小冊子。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Qǐng nǐ huí dào jiā yǐhòu, yídìng yào dú yí dú zhè běn xiǎo cèzi.</p>
+                      <p className="text-base text-orange-500 mb-2">칭 니 후이따오 지아 이호우, 이딩 야오 두 이두 쩌 번 샤오 쯔</p>
+                      <p className="text-lg text-gray-700 bg-purple-50 p-2 rounded">📖 당신은 집에 돌아가서 이 작은 책자를 꼭 반드시 읽어보세요.</p>
+                    </div>
+
+                    {/* 마무리 2 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <p className="text-2xl font-black text-red-600 mb-2">當你閱讀這本小冊子的時候，你將迎來一生之中最重要的時刻。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Dāng nǐ yuèdú zhè běn xiǎo cèzi de shíhou, nǐ jiāng yínglái yìshēng zhī zhōng zuì zhòngyào de shíkè.</p>
+                      <p className="text-base text-orange-500 mb-2">당 니 위에두 쩌 번 샤오 쯔 더 스허우, 니 지앙 잉라이 이성 즈쭝 쭈이 쭝야오 더 스커</p>
+                      <p className="text-lg text-gray-700 bg-purple-50 p-2 rounded">⭐ 당신이 이 작은 책자를 읽을 때 당신의 일생 중에 가장 중요한 순간을 맞이할 것입니다.</p>
+                    </div>
+
+                    {/* 마무리 3 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200 shadow-md">
+                      <p className="text-2xl font-black text-red-600 mb-2">如果你想作為上帝的孩子來生活，請去教會或禮拜堂。</p>
+                      <p className="text-lg font-bold text-orange-600 mb-1">Rúguǒ nǐ xiǎng zuòwéi Shàngdì de háizi lái shēnghuó, qǐng qù jiàohuì huòzhě lǐbàitáng.</p>
+                      <p className="text-base text-orange-500 mb-2">루궈 니 샹 쭈오웨이 샹디 더 하이즈 라이 셩후어, 칭 취 지아오후이 훠저 리바이탕</p>
+                      <p className="text-lg text-gray-700 bg-purple-50 p-2 rounded">⛪ 그리고 하나님의 자녀로 살고 싶다면 교회나 예배당을 가세요.</p>
+                    </div>
+
+                    {/* 축복 인사 */}
+                    <div className="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl p-4 border-2 border-yellow-400 shadow-md">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="text-center p-3 bg-white rounded-lg border border-yellow-300">
+                          <p className="text-3xl font-black text-red-600 mb-1">我們祝福你。</p>
+                          <p className="text-lg font-bold text-orange-600">Wǒmen zhùfú nǐ.</p>
+                          <p className="text-base text-orange-500">워먼 주푸 니</p>
+                          <p className="text-lg text-gray-700 mt-2">🙏 축복합니다.</p>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg border border-yellow-300">
+                          <p className="text-3xl font-black text-red-600 mb-1">我在主裡愛你。</p>
+                          <p className="text-lg font-bold text-orange-600">Wǒ zài zhǔ lǐ ài nǐ.</p>
+                          <p className="text-base text-orange-500">워 짜이 주 리 아이 니</p>
+                          <p className="text-lg text-gray-700 mt-2">❤️ 주님 안에서 당신을 사랑합니다.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 말씀 인용 */}
+                <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="text-center space-y-3">
+                    <p className="text-xl font-bold italic">
+                      "많은 사람을 옳은 데로 돌아오게 한 자는 별과 같이 영원토록 빛나리라"
+                    </p>
+                    <p className="text-lg font-semibold">
+                      다니엘 12:3
+                    </p>
+                    <p className="text-2xl font-black mt-4">
+                      🙏 하나님의 은혜가 함께 하시길! 🙏
+                    </p>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
+
             {/* 차량 탑승 현황 */}
             <Card 
               className="bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 border-4 border-slate-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
