@@ -1103,6 +1103,149 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
+
+            {/* 차량 탑승 현황 */}
+            <Card 
+              className="bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 border-4 border-slate-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
+              onClick={() => toggleCard('vehicle')}
+            >
+              {/* 헤더 배너 */}
+              <div className="bg-gradient-to-r from-slate-600 via-gray-600 to-slate-600 text-white p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 text-9xl">🚌</div>
+                <div className="absolute bottom-0 left-0 opacity-10 text-9xl">🚐</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="text-5xl animate-bounce">🚌</div>
+                        <div className="text-5xl animate-bounce delay-100">🚐</div>
+                        <div className="text-5xl animate-bounce delay-200">✈️</div>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
+                        차량 탑승 현황
+                      </h2>
+                      <p className="text-xl text-center font-bold text-slate-200">
+                        車輛乘車現況
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      {expandedCard === 'vehicle' ? (
+                        <ChevronUp className="h-8 w-8" />
+                      ) : (
+                        <ChevronDown className="h-8 w-8 animate-bounce" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 내용 */}
+              {expandedCard === 'vehicle' && (
+              <div className="p-8 space-y-6">
+                {/* 1차량 */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      1
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-blue-700">1차량</h3>
+                      <p className="text-lg font-bold text-blue-600">第1車 | 차장: 김대현</p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200">
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        '김요성', '김동환', '이혜승', '황철호', '박세은', '최우현', '임종옥',
+                        '정회평', '윤숙영', '이승헌', '김대현', '정선은', '강서현',
+                        '제인량', '제인현', '김화숙', '이아셀', '김신하', '김덕희',
+                        '서희숙', '김민경', '김정', '이순옥', '송형숙', '이영민',
+                        '정재영', '문유선', '이서은', '박혜성', '우주연'
+                      ].map((name, index) => (
+                        <span 
+                          key={index} 
+                          className={`px-3 py-1.5 rounded-lg font-bold border ${
+                            name === '김대현' 
+                              ? 'bg-blue-500 text-white border-blue-600' 
+                              : 'bg-blue-100 text-blue-800 border-blue-300'
+                          }`}
+                        >
+                          {name}{name === '김대현' && ' ⭐'}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-4 text-center">
+                      <span className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold">
+                        총 30명
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2차량 */}
+                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 border-4 border-emerald-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-emerald-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-emerald-700">2차량</h3>
+                      <p className="text-lg font-bold text-emerald-600">第2車 | 차장: 김진해</p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded-xl p-5 border-2 border-emerald-200">
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        '김진해', '조하령', '정정희', '양인숙', '유영단', '이정윤', '김양덕',
+                        '이미경', '김양신', '백승이', '백정희', '유은진', '최옥자',
+                        '이명대', '차승희', '김유하', '최희주', '이보라', '조영선',
+                        '이예진', '최세정', '윤효정', '오경자', '김영미', '권옥희',
+                        '박효양', '최미자', '곽미동', '신교순', '강성혜', '윤정현'
+                      ].map((name, index) => (
+                        <span 
+                          key={index} 
+                          className={`px-3 py-1.5 rounded-lg font-bold border ${
+                            name === '김진해' 
+                              ? 'bg-emerald-500 text-white border-emerald-600' 
+                              : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                          }`}
+                        >
+                          {name}{name === '김진해' && ' ⭐'}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-4 text-center">
+                      <span className="bg-emerald-600 text-white px-4 py-2 rounded-full font-bold">
+                        총 31명
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 총인원 요약 */}
+                <div className="bg-gradient-to-r from-slate-600 to-gray-600 text-white p-6 rounded-xl shadow-lg">
+                  <div className="text-center space-y-3">
+                    <p className="text-2xl font-black">
+                      🚌 전체 탑승 인원: 61명 🚐
+                    </p>
+                    <div className="flex justify-center gap-6 flex-wrap">
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">1차량: 30명</span>
+                      </div>
+                      <div className="bg-white/20 px-4 py-2 rounded-lg">
+                        <span className="font-bold">2차량: 31명</span>
+                      </div>
+                    </div>
+                    <p className="text-lg font-semibold mt-2">
+                      ⭐ 차장 표시 | 車長標示
+                    </p>
+                  </div>
+                </div>
+              </div>
+              )}
+            </Card>
             {/* 대면회의내용(25.12.8) */}
             <Card 
               className="bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 border-4 border-rose-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
