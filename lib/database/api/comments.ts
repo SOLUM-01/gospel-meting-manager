@@ -21,7 +21,7 @@ export interface TaskReaction {
 // 댓글 가져오기
 export async function getTaskComments(taskId: string): Promise<TaskComment[]> {
   const { data, error } = await supabase
-    .from('task_comments')
+    .from('task_comments' as any)
     .select('*')
     .eq('task_id', taskId)
     .order('created_at', { ascending: false })
@@ -31,7 +31,7 @@ export async function getTaskComments(taskId: string): Promise<TaskComment[]> {
     return []
   }
 
-  return data || []
+  return (data as TaskComment[]) || []
 }
 
 // 댓글 추가
@@ -48,13 +48,13 @@ export async function addTaskComment(
   }
 
   const { data, error } = await supabase
-    .from('task_comments')
+    .from('task_comments' as any)
     .insert({
       task_id: taskId,
       user_name: userName,
       content: content,
       image_url: imageUrl
-    })
+    } as any)
     .select()
     .single()
 
@@ -63,13 +63,13 @@ export async function addTaskComment(
     return null
   }
 
-  return data
+  return data as TaskComment
 }
 
 // 댓글 삭제
 export async function deleteTaskComment(commentId: string): Promise<boolean> {
   const { error } = await supabase
-    .from('task_comments')
+    .from('task_comments' as any)
     .delete()
     .eq('id', commentId)
 
@@ -84,7 +84,7 @@ export async function deleteTaskComment(commentId: string): Promise<boolean> {
 // 리액션 가져오기
 export async function getTaskReactions(taskId: string): Promise<TaskReaction[]> {
   const { data, error } = await supabase
-    .from('task_reactions')
+    .from('task_reactions' as any)
     .select('*')
     .eq('task_id', taskId)
 
@@ -93,7 +93,7 @@ export async function getTaskReactions(taskId: string): Promise<TaskReaction[]> 
     return []
   }
 
-  return data || []
+  return (data as TaskReaction[]) || []
 }
 
 // 리액션 추가/토글
@@ -104,7 +104,7 @@ export async function toggleTaskReaction(
 ): Promise<{ added: boolean; reaction?: TaskReaction }> {
   // 기존 리액션 확인
   const { data: existing } = await supabase
-    .from('task_reactions')
+    .from('task_reactions' as any)
     .select('*')
     .eq('task_id', taskId)
     .eq('user_name', userName)
@@ -114,19 +114,19 @@ export async function toggleTaskReaction(
   if (existing) {
     // 기존 리액션 삭제
     await supabase
-      .from('task_reactions')
+      .from('task_reactions' as any)
       .delete()
-      .eq('id', existing.id)
+      .eq('id', (existing as any).id)
     return { added: false }
   } else {
     // 새 리액션 추가
     const { data, error } = await supabase
-      .from('task_reactions')
+      .from('task_reactions' as any)
       .insert({
         task_id: taskId,
         user_name: userName,
         reaction_type: reactionType
-      })
+      } as any)
       .select()
       .single()
 
@@ -135,14 +135,14 @@ export async function toggleTaskReaction(
       return { added: false }
     }
 
-    return { added: true, reaction: data }
+    return { added: true, reaction: data as TaskReaction }
   }
 }
 
 // 리액션 통계 가져오기
 export async function getReactionCounts(taskId: string): Promise<Record<string, number>> {
   const { data, error } = await supabase
-    .from('task_reactions')
+    .from('task_reactions' as any)
     .select('reaction_type')
     .eq('task_id', taskId)
 
@@ -152,10 +152,9 @@ export async function getReactionCounts(taskId: string): Promise<Record<string, 
   }
 
   const counts: Record<string, number> = {}
-  data?.forEach(reaction => {
+  ;(data as any[])?.forEach(reaction => {
     counts[reaction.reaction_type] = (counts[reaction.reaction_type] || 0) + 1
   })
 
   return counts
 }
-
