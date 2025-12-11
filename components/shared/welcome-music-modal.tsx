@@ -1,19 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Music, X } from 'lucide-react'
 import { supabase } from '@/lib/database/supabase'
 
-// 한국어/중국어 가사
-const lyrics = {
+// 한국어/중국어 버전 정보
+const versions = {
   korean: {
     title: "당신은 사랑받기 위해",
     subtitle: "태어난 사람",
     english: "You were born to be loved",
     verse1: "당신은 사랑받기 위해 태어난 사람",
     verse2: "당신의 삶 속에서 그 사랑 받고 있지요",
-    verse3: "당신은 사랑받기 위해 태어난 사람",
-    verse4: "지금도 그 사랑 받고 있지요",
+    welcomeTitle: "환영합니다",
+    welcomeSuffix: "님",
+    loginSuccess: "로그인을 축하드립니다!",
+    hymnLabel: "♪ 찬송 ♪",
+    blessingMessage: "✨ 하나님의 사랑이 함께하시길 ✨",
+    youtubeId: "5MRH5oNG7hA", // 한국어 찬양
+    duration: 273, // 4분 33초
   },
   chinese: {
     title: "你是被愛的",
@@ -21,8 +26,13 @@ const lyrics = {
     english: "You were born to be loved",
     verse1: "你是被愛的而生的人",
     verse2: "在你的生命中正接受著那份愛",
-    verse3: "你是被愛的而生的人",
-    verse4: "現在也正接受著那份愛",
+    welcomeTitle: "歡迎光臨",
+    welcomeSuffix: "",
+    loginSuccess: "登入成功！",
+    hymnLabel: "♪ 讚美 ♪",
+    blessingMessage: "✨ 願神的愛與你同在 ✨",
+    youtubeId: "TDcGWrfWieI", // 중국어 커버 버전
+    duration: 277, // 4분 37초
   }
 }
 
@@ -30,19 +40,17 @@ export function WelcomeMusicModal() {
   const [user, setUser] = useState<{ name: string } | null>(null)
   const [showMusicPlayer, setShowMusicPlayer] = useState(false)
   const [language, setLanguage] = useState<'korean' | 'chinese'>('korean')
+  const [videoKey, setVideoKey] = useState(0) // YouTube 리로드용
 
   useEffect(() => {
-    // 현재 세션 확인 및 음악 플레이어 표시 여부 결정
+    // 현재 세션 확인
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setUser({
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
-        // 이번 브라우저 세션에서 음악을 아직 안 봤으면 표시
-        const musicShown = sessionStorage.getItem('musicShownThisSession')
-        if (!musicShown) {
-          setShowMusicPlayer(true)
-        }
+        // 로그인 상태면 항상 음악 플레이어 표시
+        setShowMusicPlayer(true)
       }
     })
 
@@ -52,11 +60,8 @@ export function WelcomeMusicModal() {
         setUser({
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
-        // 로그인 성공 후 음악 플레이어 표시 (이번 세션에서 안 봤으면)
-        const musicShown = sessionStorage.getItem('musicShownThisSession')
-        if (!musicShown) {
-          setShowMusicPlayer(true)
-        }
+        // 로그인 성공 시 음악 플레이어 표시
+        setShowMusicPlayer(true)
       } else {
         setUser(null)
         setShowMusicPlayer(false)
@@ -66,25 +71,38 @@ export function WelcomeMusicModal() {
     return () => subscription.unsubscribe()
   }, [])
 
-  // 한국어/중국어 번갈아 표시 (5초마다)
+  // 현재 찬양이 끝나면 다음 언어로 전환
+  const switchToNextLanguage = useCallback(() => {
+    setLanguage(prev => prev === 'korean' ? 'chinese' : 'korean')
+    setVideoKey(prev => prev + 1) // YouTube 다시 로드
+  }, [])
+
+  // 찬양 재생 타이머 (현재 언어의 duration 후 전환)
   useEffect(() => {
     if (!showMusicPlayer) return
 
-    const interval = setInterval(() => {
-      setLanguage(prev => prev === 'korean' ? 'chinese' : 'korean')
-    }, 5000)
+    const currentVersion = versions[language]
+    const timer = setTimeout(() => {
+      switchToNextLanguage()
+    }, currentVersion.duration * 1000) // 초를 밀리초로 변환
 
-    return () => clearInterval(interval)
-  }, [showMusicPlayer])
+    return () => clearTimeout(timer)
+  }, [showMusicPlayer, language, switchToNextLanguage])
 
+  // 닫아도 3초 후 다시 나타남
   const closeMusicPlayer = () => {
-    sessionStorage.setItem('musicShownThisSession', 'true')
     setShowMusicPlayer(false)
+    // 3초 후 다시 표시
+    setTimeout(() => {
+      if (user) {
+        setShowMusicPlayer(true)
+      }
+    }, 3000)
   }
 
   if (!showMusicPlayer || !user) return null
 
-  const currentLyrics = lyrics[language]
+  const currentVersion = versions[language]
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn">
@@ -110,64 +128,70 @@ export function WelcomeMusicModal() {
         {/* 환영 메시지 */}
         <div className="text-center mb-4 md:mb-6">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
-            🎵 {language === 'korean' ? '환영합니다' : '歡迎光臨'}, {user.name}
-            {language === 'korean' ? '님' : ''}! 🎵
+            🎵 {currentVersion.welcomeTitle}, {user.name}{currentVersion.welcomeSuffix}! 🎵
           </h2>
           <p className="text-purple-200 text-base md:text-lg">
-            {language === 'korean' ? '로그인을 축하드립니다!' : '登入成功！'}
+            {currentVersion.loginSuccess}
           </p>
         </div>
 
-        {/* 찬송 정보 - 언어 전환 애니메이션 */}
+        {/* 찬송 정보 */}
         <div className="bg-white/10 rounded-2xl p-4 md:p-6 mb-4 md:mb-6 border border-white/10">
           <p className="text-pink-300 text-sm mb-2 text-center">
-            {language === 'korean' ? '♪ 찬송 ♪' : '♪ 讚美 ♪'}
+            {currentVersion.hymnLabel}
           </p>
           
-          {/* 제목 - 페이드 애니메이션 */}
+          {/* 제목 */}
           <div className="transition-all duration-500 ease-in-out">
             <h3 className="text-lg md:text-xl font-bold text-white text-center mb-1">
-              {currentLyrics.title}
+              {currentVersion.title}
             </h3>
             <h3 className="text-lg md:text-xl font-bold text-white text-center mb-2">
-              {currentLyrics.subtitle}
+              {currentVersion.subtitle}
             </h3>
           </div>
           
           <p className="text-purple-200 text-center text-sm mb-3">
-            {currentLyrics.english}
+            {currentVersion.english}
           </p>
 
           {/* 가사 표시 */}
           <div className="text-center text-purple-100/80 text-xs md:text-sm space-y-1 mb-4 transition-all duration-500">
-            <p>{currentLyrics.verse1}</p>
-            <p>{currentLyrics.verse2}</p>
+            <p>{currentVersion.verse1}</p>
+            <p>{currentVersion.verse2}</p>
           </div>
 
           {/* 언어 표시기 */}
           <div className="flex justify-center gap-2 mb-4">
-            <span className={`px-3 py-1 rounded-full text-xs transition-all duration-300 ${
-              language === 'korean' 
-                ? 'bg-pink-500 text-white' 
-                : 'bg-white/20 text-white/60'
-            }`}>
-              한국어
-            </span>
-            <span className={`px-3 py-1 rounded-full text-xs transition-all duration-300 ${
-              language === 'chinese' 
-                ? 'bg-pink-500 text-white' 
-                : 'bg-white/20 text-white/60'
-            }`}>
-              中文
-            </span>
+            <button 
+              onClick={() => { setLanguage('korean'); setVideoKey(prev => prev + 1); }}
+              className={`px-3 py-1 rounded-full text-xs transition-all duration-300 cursor-pointer ${
+                language === 'korean' 
+                  ? 'bg-pink-500 text-white' 
+                  : 'bg-white/20 text-white/60 hover:bg-white/30'
+              }`}
+            >
+              🇰🇷 한국어
+            </button>
+            <button 
+              onClick={() => { setLanguage('chinese'); setVideoKey(prev => prev + 1); }}
+              className={`px-3 py-1 rounded-full text-xs transition-all duration-300 cursor-pointer ${
+                language === 'chinese' 
+                  ? 'bg-pink-500 text-white' 
+                  : 'bg-white/20 text-white/60 hover:bg-white/30'
+              }`}
+            >
+              🇹🇼 中文
+            </button>
           </div>
           
-          {/* YouTube 임베드 */}
+          {/* YouTube 임베드 - key로 리로드 */}
           <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
             <iframe
+              key={videoKey}
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/5MRH5oNG7hA?autoplay=1"
-              title="당신은 사랑받기 위해 태어난 사람"
+              src={`https://www.youtube.com/embed/${currentVersion.youtubeId}?autoplay=1&rel=0`}
+              title={currentVersion.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
@@ -176,12 +200,9 @@ export function WelcomeMusicModal() {
 
         {/* 하단 메시지 */}
         <p className="text-center text-purple-300/70 text-sm transition-all duration-500">
-          {language === 'korean' 
-            ? '✨ 하나님의 사랑이 함께하시길 ✨' 
-            : '✨ 願神的愛與你同在 ✨'}
+          {currentVersion.blessingMessage}
         </p>
       </div>
     </div>
   )
 }
-
