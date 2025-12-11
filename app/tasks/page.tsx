@@ -58,7 +58,8 @@ export default function TasksPage() {
     '푸드',
     '차량물품',
     '미용',
-    '선물팀'
+    '선물팀',
+    '어린이 사역팀'
   ]
 
   // 필터링된 사역 목록

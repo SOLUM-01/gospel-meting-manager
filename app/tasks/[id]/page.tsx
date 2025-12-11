@@ -134,6 +134,17 @@ export default function TaskDetailPage() {
           filteredMembers.sort((a, b) => {
             return giftTeamMembers.indexOf(a.name) - giftTeamMembers.indexOf(b.name)
           })
+        } else if (data.title === '어린이 사역팀') {
+          // 어린이 사역팀: 지정된 멤버들만 필터링
+          const childrenMinistryMembers = ['김동환', '제인현', '이혜승', '이승헌', '김대현']
+          filteredMembers = participants.filter(p => 
+            childrenMinistryMembers.includes(p.name)
+          )
+          
+          // 순서 유지
+          filteredMembers.sort((a, b) => {
+            return childrenMinistryMembers.indexOf(a.name) - childrenMinistryMembers.indexOf(b.name)
+          })
         }
         
         setTeamMembers(filteredMembers)
