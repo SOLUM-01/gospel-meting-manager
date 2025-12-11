@@ -13,7 +13,8 @@ import {
   ThumbsUp,
   Flame,
   Smile,
-  HandMetal
+  HandMetal,
+  Download
 } from 'lucide-react'
 import Image from 'next/image'
 import { 
@@ -161,6 +162,26 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     if (hours < 24) return `${hours}시간 전`
     if (days < 7) return `${days}일 전`
     return date.toLocaleDateString('ko-KR')
+  }
+
+  // 이미지 다운로드 함수
+  const handleDownload = async (imageUrl: string, userName: string) => {
+    try {
+      const response = await fetch(imageUrl)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      const timestamp = new Date().toISOString().slice(0, 10)
+      link.download = `${taskTitle}_${userName}_${timestamp}.jpg`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      // CORS 문제 시 새 탭에서 열기
+      window.open(imageUrl, '_blank')
+    }
   }
 
   return (
@@ -319,7 +340,7 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                     </div>
                     <p className="mt-2 text-sm whitespace-pre-wrap">{comment.content}</p>
                     {comment.image_url && (
-                      <div className="mt-2">
+                      <div className="mt-2 relative inline-block group">
                         <Image
                           src={comment.image_url}
                           alt="Comment image"
@@ -327,6 +348,25 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                           height={200}
                           className="rounded-lg object-cover"
                         />
+                        {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
+                        <button
+                          onClick={() => handleDownload(comment.image_url!, comment.user_name)}
+                          className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
+                            transition-all shadow-lg opacity-0 group-hover:opacity-100 md:opacity-0"
+                          title="다운로드"
+                        >
+                          <Download className="h-4 w-4" />
+                        </button>
+                        {/* 모바일용 다운로드 버튼 - 항상 표시 */}
+                        <button
+                          onClick={() => handleDownload(comment.image_url!, comment.user_name)}
+                          className="absolute bottom-2 right-2 bg-gradient-to-r from-blue-500 to-purple-500 
+                            text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1 
+                            shadow-lg md:hidden"
+                        >
+                          <Download className="h-3 w-3" />
+                          저장
+                        </button>
                       </div>
                     )}
                   </div>
