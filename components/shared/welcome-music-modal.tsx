@@ -43,7 +43,8 @@ export function WelcomeMusicModal() {
   const [isPaused, setIsPaused] = useState(false)
   const [language, setLanguage] = useState<'korean' | 'chinese'>('korean')
   const [videoKey, setVideoKey] = useState(0)
-  const [isMuted, setIsMuted] = useState(false)
+  const [isMuted, setIsMuted] = useState(true) // 모바일 자동재생을 위해 기본 음소거
+  const [showUnmuteHint, setShowUnmuteHint] = useState(true) // 소리 켜기 안내 표시
   
   // 타이머 ref
   const timerRef = useRef<NodeJS.Timeout | null>(null)
@@ -154,6 +155,7 @@ export function WelcomeMusicModal() {
   // 음소거 토글
   const toggleMute = () => {
     setIsMuted(prev => !prev)
+    setShowUnmuteHint(false) // 한번 터치하면 안내 숨김
     setVideoKey(prev => prev + 1)
   }
 
@@ -307,6 +309,19 @@ export function WelcomeMusicModal() {
             </div>
           )}
 
+          {/* 소리 켜기 안내 (음소거 상태일 때) */}
+          {isMuted && showUnmuteHint && (
+            <div className="fixed bottom-16 left-1/2 -translate-x-1/2 z-50 animate-bounce">
+              <button
+                onClick={toggleMute}
+                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 font-medium"
+              >
+                <Volume2 className="h-5 w-5" />
+                🔊 탭하여 소리 켜기
+              </button>
+            </div>
+          )}
+
           {/* 통합 음악 컨트롤 바 */}
           <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-24px)] max-w-md">
             <div className="bg-black/70 backdrop-blur-md rounded-full px-3 py-2 flex items-center justify-between shadow-lg border border-white/10">
@@ -324,6 +339,9 @@ export function WelcomeMusicModal() {
                   </span>
                   {isPaused && (
                     <span className="text-yellow-400 text-xs flex-shrink-0">⏸</span>
+                  )}
+                  {isMuted && (
+                    <span className="text-red-400 text-xs flex-shrink-0">🔇</span>
                   )}
                 </div>
               </div>
@@ -346,11 +364,15 @@ export function WelcomeMusicModal() {
                 >
                   <SkipForward className="h-4 w-4" />
                 </button>
-                {/* 음소거 */}
+                {/* 음소거/소리켜기 - 음소거 상태면 강조 */}
                 <button
                   onClick={toggleMute}
-                  className="bg-white/20 text-white p-2 rounded-full hover:bg-white/30 transition-all"
-                  title={isMuted ? "음소거 해제" : "음소거"}
+                  className={`p-2 rounded-full transition-all ${
+                    isMuted 
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white animate-pulse' 
+                      : 'bg-white/20 text-white hover:bg-white/30'
+                  }`}
+                  title={isMuted ? "소리 켜기" : "음소거"}
                 >
                   {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                 </button>
