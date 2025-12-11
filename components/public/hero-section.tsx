@@ -4,15 +4,18 @@ import { useTranslation } from '@/lib/i18n/use-translation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { UserPlus, LogIn, LogOut } from 'lucide-react'
+import { UserPlus, LogIn, LogOut, Music, X, Play, Pause } from 'lucide-react'
 import { supabase } from '@/lib/database/supabase'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 export function HeroSection() {
   const { t } = useTranslation()
   const router = useRouter()
   const [user, setUser] = useState<{ name: string } | null>(null)
+  const [showMusicPlayer, setShowMusicPlayer] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     // 현재 세션 확인
@@ -30,13 +33,50 @@ export function HeroSection() {
         setUser({
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
+        // 로그인 성공 후 음악 플레이어 표시
+        const justLoggedIn = localStorage.getItem('justLoggedIn')
+        if (justLoggedIn === 'true') {
+          setShowMusicPlayer(true)
+          localStorage.removeItem('justLoggedIn')
+        }
       } else {
         setUser(null)
+        setShowMusicPlayer(false)
       }
     })
 
+    // 페이지 로드 시 로그인 플래그 확인
+    const justLoggedIn = localStorage.getItem('justLoggedIn')
+    if (justLoggedIn === 'true') {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session?.user) {
+          setShowMusicPlayer(true)
+          localStorage.removeItem('justLoggedIn')
+        }
+      })
+    }
+
     return () => subscription.unsubscribe()
   }, [])
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+      } else {
+        audioRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
+
+  const closeMusicPlayer = () => {
+    if (audioRef.current) {
+      audioRef.current.pause()
+    }
+    setIsPlaying(false)
+    setShowMusicPlayer(false)
+  }
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -46,6 +86,88 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* 숨겨진 오디오 요소 */}
+      <audio 
+        ref={audioRef} 
+        src="/audio/you-are-loved.mp3"
+        onEnded={() => setIsPlaying(false)}
+      />
+
+      {/* 음악 플레이어 모달 */}
+      {showMusicPlayer && user && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="relative bg-gradient-to-br from-pink-900/90 via-purple-900/90 to-indigo-900/90 rounded-3xl p-8 max-w-md mx-4 shadow-2xl border border-white/20">
+            {/* 닫기 버튼 */}
+            <button 
+              onClick={closeMusicPlayer}
+              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            {/* 음악 아이콘 애니메이션 */}
+            <div className="flex justify-center mb-6">
+              <div className={`relative ${isPlaying ? 'animate-bounce' : ''}`}>
+                <div className="absolute -inset-4 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-xl opacity-50 animate-pulse"></div>
+                <div className="relative bg-gradient-to-r from-pink-500 to-purple-500 p-6 rounded-full">
+                  <Music className="h-12 w-12 text-white" />
+                </div>
+              </div>
+            </div>
+
+            {/* 환영 메시지 */}
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                🎵 환영합니다, {user.name}님! 🎵
+              </h2>
+              <p className="text-purple-200 text-lg">
+                로그인을 축하드립니다!
+              </p>
+            </div>
+
+            {/* 찬송 정보 */}
+            <div className="bg-white/10 rounded-2xl p-6 mb-6 border border-white/10">
+              <p className="text-pink-300 text-sm mb-2 text-center">♪ 찬송 ♪</p>
+              <h3 className="text-xl font-bold text-white text-center mb-2">
+                당신은 사랑받기 위해<br />태어난 사람
+              </h3>
+              <p className="text-purple-200 text-center text-sm">
+                You were born to be loved
+              </p>
+            </div>
+
+            {/* 재생 버튼 */}
+            <div className="flex justify-center gap-4">
+              <Button
+                onClick={togglePlay}
+                className={`px-8 py-6 rounded-full text-lg font-semibold transition-all duration-300 ${
+                  isPlaying 
+                    ? 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600' 
+                    : 'bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600'
+                }`}
+              >
+                {isPlaying ? (
+                  <>
+                    <Pause className="h-6 w-6 mr-2" />
+                    일시정지
+                  </>
+                ) : (
+                  <>
+                    <Play className="h-6 w-6 mr-2" />
+                    찬송 듣기
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* 하단 메시지 */}
+            <p className="text-center text-purple-300/70 text-sm mt-6">
+              ✨ 하나님의 사랑이 함께하시길 ✨
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* 배경 장식 */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>

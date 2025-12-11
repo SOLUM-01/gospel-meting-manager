@@ -47,7 +47,8 @@ export default function LoginPage() {
       }
 
       // 로그인 성공 - Supabase가 자동으로 세션 관리
-      alert('로그인 성공!')
+      // 로그인 성공 플래그 저장 (메인 페이지에서 음악 재생용)
+      localStorage.setItem('justLoggedIn', 'true')
       router.push('/')
       router.refresh()
     } catch (err) {
