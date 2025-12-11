@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { Music, X, Volume2, VolumeX, Play, Pause } from 'lucide-react'
+import { useEffect, useState, useRef } from 'react'
+import { Music, X, Volume2, VolumeX, Play, Pause, SkipForward } from 'lucide-react'
 import { supabase } from '@/lib/database/supabase'
 
 // 한국어/중국어 버전 정보
@@ -38,12 +38,16 @@ const versions = {
 
 export function WelcomeMusicModal() {
   const [user, setUser] = useState<{ name: string } | null>(null)
-  const [showModal, setShowModal] = useState(false) // 모달 표시 여부
-  const [playMusic, setPlayMusic] = useState(false) // 음악 재생 여부
-  const [isPaused, setIsPaused] = useState(false) // 일시정지 여부
+  const [showModal, setShowModal] = useState(false)
+  const [playMusic, setPlayMusic] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const [language, setLanguage] = useState<'korean' | 'chinese'>('korean')
   const [videoKey, setVideoKey] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
+  
+  // 타이머 ref
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const startTimeRef = useRef<number>(Date.now())
 
   useEffect(() => {
     // 현재 세션 확인
@@ -53,15 +57,12 @@ export function WelcomeMusicModal() {
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
         
-        // 이번 세션에서 모달을 이미 봤는지 확인
         const modalShown = sessionStorage.getItem('welcomeModalShown')
         
         if (!modalShown) {
-          // 처음 로그인 - 모달 표시 + 음악 재생
           setShowModal(true)
           setPlayMusic(true)
         } else {
-          // 이미 모달 봤음 - 음악만 재생
           setShowModal(false)
           setPlayMusic(true)
         }
@@ -78,11 +79,9 @@ export function WelcomeMusicModal() {
         const modalShown = sessionStorage.getItem('welcomeModalShown')
         
         if (!modalShown) {
-          // 처음 로그인 - 모달 표시 + 음악 재생
           setShowModal(true)
           setPlayMusic(true)
         } else {
-          // 이미 모달 봤음 - 음악만 재생
           setPlayMusic(true)
         }
       } else {
@@ -95,47 +94,83 @@ export function WelcomeMusicModal() {
     return () => subscription.unsubscribe()
   }, [])
 
-  // 현재 찬양이 끝나면 다음 언어로 전환
-  const switchToNextLanguage = useCallback(() => {
-    setLanguage(prev => prev === 'korean' ? 'chinese' : 'korean')
+  // 다음 언어로 전환하는 함수
+  const switchToNextLanguage = () => {
+    const nextLang = language === 'korean' ? 'chinese' : 'korean'
+    console.log(`🎵 언어 전환: ${language} → ${nextLang}`)
+    setLanguage(nextLang)
     setVideoKey(prev => prev + 1)
-  }, [])
+    startTimeRef.current = Date.now()
+  }
 
-  // 찬양 재생 타이머 (일시정지 상태면 타이머 중지)
+  // 타이머 설정 및 관리
   useEffect(() => {
-    if (!playMusic || isPaused) return
+    // 타이머 클리어
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
 
-    const currentVersion = versions[language]
-    const timer = setTimeout(() => {
+    // 재생 중이 아니거나 일시정지면 타이머 설정 안함
+    if (!playMusic || isPaused) {
+      return
+    }
+
+    // 현재 언어의 duration
+    const duration = versions[language].duration * 1000
+    
+    console.log(`⏱️ 타이머 설정: ${language} - ${duration / 1000}초 후 전환`)
+    startTimeRef.current = Date.now()
+
+    // 타이머 설정
+    timerRef.current = setTimeout(() => {
+      console.log(`⏱️ 타이머 완료! 전환 실행`)
       switchToNextLanguage()
-    }, currentVersion.duration * 1000)
+    }, duration)
 
-    return () => clearTimeout(timer)
-  }, [playMusic, isPaused, language, switchToNextLanguage])
+    // 클린업
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
+        timerRef.current = null
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playMusic, isPaused, language])
 
-  // 모달 닫기 - 음악은 계속 재생
+  // 모달 닫기
   const closeModal = () => {
     sessionStorage.setItem('welcomeModalShown', 'true')
     setShowModal(false)
-    // 음악은 계속 재생됨 (playMusic = true 유지)
   }
 
   // 음소거 토글
   const toggleMute = () => {
     setIsMuted(prev => !prev)
+    setVideoKey(prev => prev + 1)
   }
 
   // 재생/일시정지 토글
   const togglePause = () => {
-    setIsPaused(prev => !prev)
     if (isPaused) {
-      // 재생 재개 시 videoKey 증가하여 새로 로드
+      // 재생 재개
       setVideoKey(prev => prev + 1)
+      startTimeRef.current = Date.now()
     }
+    setIsPaused(prev => !prev)
+  }
+
+  // 다음 곡으로 수동 전환
+  const skipToNext = () => {
+    switchToNextLanguage()
   }
 
   // 음악 완전히 끄기
   const stopMusic = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
     setPlayMusic(false)
     setShowModal(false)
     setIsPaused(false)
@@ -206,7 +241,7 @@ export function WelcomeMusicModal() {
               {/* 언어 표시기 */}
               <div className="flex justify-center gap-2 mb-4">
                 <button 
-                  onClick={() => { setLanguage('korean'); setVideoKey(prev => prev + 1); }}
+                  onClick={() => { setLanguage('korean'); setVideoKey(prev => prev + 1); startTimeRef.current = Date.now(); }}
                   className={`px-3 py-1 rounded-full text-xs transition-all duration-300 cursor-pointer ${
                     language === 'korean' 
                       ? 'bg-pink-500 text-white' 
@@ -216,7 +251,7 @@ export function WelcomeMusicModal() {
                   🇰🇷 한국어
                 </button>
                 <button 
-                  onClick={() => { setLanguage('chinese'); setVideoKey(prev => prev + 1); }}
+                  onClick={() => { setLanguage('chinese'); setVideoKey(prev => prev + 1); startTimeRef.current = Date.now(); }}
                   className={`px-3 py-1 rounded-full text-xs transition-all duration-300 cursor-pointer ${
                     language === 'chinese' 
                       ? 'bg-pink-500 text-white' 
@@ -230,7 +265,7 @@ export function WelcomeMusicModal() {
               {/* YouTube 임베드 */}
               <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
                 <iframe
-                  key={videoKey}
+                  key={`modal-${videoKey}-${language}`}
                   className="absolute inset-0 w-full h-full"
                   src={`https://www.youtube.com/embed/${currentVersion.youtubeId}?autoplay=1&rel=0&mute=${isMuted ? 1 : 0}`}
                   title={currentVersion.title}
@@ -251,7 +286,7 @@ export function WelcomeMusicModal() {
       {/* 숨겨진 음악 플레이어 - 모달 닫아도 계속 재생 */}
       {playMusic && !showModal && (
         <>
-          {/* 숨겨진 YouTube iframe - 화면 밖에 배치 (일시정지 시 렌더링 안함) */}
+          {/* 숨겨진 YouTube iframe */}
           {!isPaused && (
             <div className="fixed -left-[9999px] -top-[9999px] w-[1px] h-[1px] overflow-hidden">
               <iframe
@@ -265,7 +300,7 @@ export function WelcomeMusicModal() {
             </div>
           )}
 
-          {/* 통합 음악 컨트롤 바 - 하단 중앙 (모바일 친화적) */}
+          {/* 통합 음악 컨트롤 바 */}
           <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-24px)] max-w-md">
             <div className="bg-black/70 backdrop-blur-md rounded-full px-3 py-2 flex items-center justify-between shadow-lg border border-white/10">
               {/* 좌측: 음악 정보 */}
@@ -295,6 +330,14 @@ export function WelcomeMusicModal() {
                   title={isPaused ? "재생" : "일시정지"}
                 >
                   {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                </button>
+                {/* 다음 곡 (수동 전환) */}
+                <button
+                  onClick={skipToNext}
+                  className="bg-blue-500/80 text-white p-2 rounded-full hover:bg-blue-600 transition-all"
+                  title="다음 곡"
+                >
+                  <SkipForward className="h-4 w-4" />
                 </button>
                 {/* 음소거 */}
                 <button
