@@ -1771,6 +1771,70 @@ export default function GuidePage() {
                   </div>
                 </div>
 
+                {/* 선물팀 */}
+                <div className="bg-gradient-to-r from-fuchsia-50 to-pink-50 rounded-2xl p-6 border-4 border-fuchsia-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-4xl">🎁</div>
+                    <h3 className="text-2xl font-black text-fuchsia-700">선물팀</h3>
+                  </div>
+                  
+                  <div className="bg-white rounded-xl p-5 border-2 border-fuchsia-200">
+                    <h4 className="text-lg font-bold text-gray-700 mb-4 flex items-center gap-2">
+                      👥 팀원 (4명)
+                    </h4>
+                    <div className="space-y-3">
+                      {/* 우주연 */}
+                      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-fuchsia-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
+                          우
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-gray-800">
+                            우주연 <span className="text-gray-500 font-normal">(禹周延)</span>
+                          </p>
+                          <p className="text-xs text-gray-500">찬양/푸드/통역/전도</p>
+                        </div>
+                      </div>
+                      {/* 김영미 */}
+                      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-fuchsia-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
+                          김
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-gray-800">
+                            김영미 <span className="text-gray-500 font-normal">(金英薇)</span>
+                          </p>
+                          <p className="text-xs text-gray-500">푸드/찬양/전도</p>
+                        </div>
+                      </div>
+                      {/* 이보라 */}
+                      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-fuchsia-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
+                          이
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-gray-800">
+                            이보라 <span className="text-gray-500 font-normal">(李保羅)</span>
+                          </p>
+                          <p className="text-xs text-gray-500">찬양/푸드/전도</p>
+                        </div>
+                      </div>
+                      {/* 최우현 */}
+                      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-fuchsia-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
+                          최
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-gray-800">
+                            최우현 <span className="text-gray-500 font-normal">(崔禹炫)</span>
+                          </p>
+                          <p className="text-xs text-gray-500">푸드/찬양</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* 대만 반입 불가 물품 */}
                 <div className="bg-gradient-to-r from-red-100 to-orange-100 rounded-2xl p-6 border-4 border-red-500 shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
