@@ -13,6 +13,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getTaskById } from '@/lib/database/api/tasks'
 import { getAllParticipants } from '@/lib/database/api/participants'
+import { TaskComments } from '@/components/task/task-comments'
 import type { Task } from '@/types/task'
 import type { Participant } from '@/types/participant'
 
@@ -506,6 +507,9 @@ export default function TaskDetailPage() {
                     </div>
                   </div>
                 )}
+
+                {/* 댓글 및 리액션 섹션 */}
+                <TaskComments taskId={taskId} taskTitle={task.title} />
 
                 {/* 하단 버튼 */}
                 <div className="flex gap-3 pt-6 border-t">
