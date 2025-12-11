@@ -115,7 +115,7 @@ export function HeroSection() {
               <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
                 <iframe
                   className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/4a6PO9UKTTA?autoplay=1&loop=1"
+                  src="https://www.youtube.com/embed/5MRH5oNG7hA?autoplay=1"
                   title="당신은 사랑받기 위해 태어난 사람"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
