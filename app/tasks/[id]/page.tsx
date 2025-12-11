@@ -383,6 +383,20 @@ export default function TaskDetailPage() {
                         // URL이 동영상인지 확인
                         const isVideo = imageUrl.match(/\.(mp4|webm|mov|avi|m4v)$/i) || imageUrl.includes('youtube.com/embed/')
                         
+                        // 찬양팀 악보 제목 매핑 (한국어/중국어)
+                        const worshipSongTitles: { ko: string; zh: string }[] = [
+                          { ko: '축복합니다 주님의 이름으로', zh: '我們祝福你' },
+                          { ko: '주님 다시 오실때까지 1절', zh: '直到主耶穌再來時候 1' },
+                          { ko: '주님 다시 오실때까지 2절', zh: '直到主耶穌再來時候 2' },
+                          { ko: '당신은 사랑받기 위해 태어난 사람', zh: '你是为了接受主爱被拣选的人' },
+                          { ko: '천사 찬송하기를 1절', zh: '聽啊天使高聲唱 (1)' },
+                          { ko: '천사 찬송하기를 2절', zh: '聽啊天使高聲唱 (2)' },
+                        ]
+                        
+                        const songTitle = task.title === '찬양팀' && worshipSongTitles[index]
+                          ? (language === 'zh-TW' ? worshipSongTitles[index].zh : worshipSongTitles[index].ko)
+                          : null
+                        
                         return (
                           <div
                             key={index}
@@ -417,16 +431,40 @@ export default function TaskDetailPage() {
                                 </div>
                               </div>
                             ) : task.title === '찬양팀' ? (
-                              // 찬양팀 악보: A4 비율 고정
-                              <div className="relative w-full" style={{ paddingTop: '141.4%' }}>
-                                <Image
-                                  src={imageUrl}
-                                  alt={`${language === 'zh-TW' ? task.titleZh : task.title} - 악보 ${index + 1}`}
-                                  fill
-                                  className="object-contain group-hover:scale-105 transition-transform duration-300 p-2"
-                                />
-                                <div className="absolute bottom-2 right-2 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                  악보 {index + 1}
+                              // 찬양팀 악보: A4 비율 고정 + 제목 표시
+                              <div className="relative w-full">
+                                {/* 악보 제목 헤더 */}
+                                <div className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-3">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-lg">🎵</span>
+                                    <div className="flex-1">
+                                      <p className="font-bold text-sm md:text-base">
+                                        {songTitle || `악보 ${index + 1}`}
+                                      </p>
+                                      {language !== 'zh-TW' && worshipSongTitles[index] && (
+                                        <p className="text-xs text-purple-100 mt-0.5">
+                                          {worshipSongTitles[index].zh}
+                                        </p>
+                                      )}
+                                      {language === 'zh-TW' && worshipSongTitles[index] && (
+                                        <p className="text-xs text-purple-100 mt-0.5">
+                                          {worshipSongTitles[index].ko}
+                                        </p>
+                                      )}
+                                    </div>
+                                    <Badge className="bg-white/20 text-white text-xs">
+                                      {index + 1}
+                                    </Badge>
+                                  </div>
+                                </div>
+                                {/* 악보 이미지 */}
+                                <div className="relative w-full" style={{ paddingTop: '141.4%' }}>
+                                  <Image
+                                    src={imageUrl}
+                                    alt={songTitle || `악보 ${index + 1}`}
+                                    fill
+                                    className="object-contain group-hover:scale-105 transition-transform duration-300 p-2"
+                                  />
                                 </div>
                               </div>
                             ) : (
