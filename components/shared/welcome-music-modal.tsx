@@ -4,35 +4,35 @@ import { useEffect, useState, useRef } from 'react'
 import { Music, X, Volume2, VolumeX, Play, Pause, SkipForward } from 'lucide-react'
 import { supabase } from '@/lib/database/supabase'
 
-// 한국어/중국어 버전 정보
+// 한국어/중국어 버전 정보 - 천사 찬송하기를 (Hark! The Herald Angels Sing)
 const versions = {
   korean: {
-    title: "당신은 사랑받기 위해",
-    subtitle: "태어난 사람",
-    english: "You were born to be loved",
-    verse1: "당신은 사랑받기 위해 태어난 사람",
-    verse2: "당신의 삶 속에서 그 사랑 받고 있지요",
+    title: "천사 찬송하기를",
+    subtitle: "(새찬송가 126장)",
+    english: "Hark! The Herald Angels Sing",
+    verse1: "천사 찬송하기를 거룩하신 구주께",
+    verse2: "땅에서는 평화요 사람에게 은혜라",
     welcomeTitle: "환영합니다",
     welcomeSuffix: "님",
     loginSuccess: "로그인을 축하드립니다!",
-    hymnLabel: "♪ 찬송 ♪",
-    blessingMessage: "✨ 하나님의 사랑이 함께하시길 ✨",
-    youtubeId: "5MRH5oNG7hA", // 한국어 찬양
-    duration: 273, // 4분 33초
+    hymnLabel: "♪ 성탄 찬송 ♪",
+    blessingMessage: "✨ 메리 크리스마스! 하나님의 사랑이 함께하시길 ✨",
+    youtubeId: "BinM3lQa_QA", // 한국어 찬송가 126장
+    duration: 199, // 3분 19초
   },
   chinese: {
-    title: "你是被愛的",
-    subtitle: "而生的人",
-    english: "You were born to be loved",
-    verse1: "你是被愛的而生的人",
-    verse2: "在你的生命中正接受著那份愛",
+    title: "聽啊，天使高聲唱",
+    subtitle: "(讚美詩)",
+    english: "Hark! The Herald Angels Sing",
+    verse1: "聽啊，天使高聲唱，榮耀歸與新生王",
+    verse2: "地上平安人蒙恩，神人和好喜訊來",
     welcomeTitle: "歡迎光臨",
     welcomeSuffix: "",
     loginSuccess: "登入成功！",
-    hymnLabel: "♪ 讚美 ♪",
-    blessingMessage: "✨ 願神的愛與你同在 ✨",
-    youtubeId: "TDcGWrfWieI", // 중국어 커버 버전
-    duration: 277, // 4분 37초
+    hymnLabel: "♪ 聖誕讚美 ♪",
+    blessingMessage: "✨ 聖誕快樂！願神的愛與你同在 ✨",
+    youtubeId: "mG7tXrUqU1k", // 중국어 新心音樂事工 버전
+    duration: 213, // 3분 33초
   }
 }
 
