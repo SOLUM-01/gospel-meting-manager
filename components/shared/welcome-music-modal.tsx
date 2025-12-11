@@ -85,9 +85,16 @@ export function WelcomeMusicModal() {
           setPlayMusic(true)
         }
       } else {
+        // 로그아웃 시 모든 상태 초기화
         setUser(null)
         setShowModal(false)
         setPlayMusic(false)
+        setIsPaused(false)
+        // 타이머 클리어
+        if (timerRef.current) {
+          clearTimeout(timerRef.current)
+          timerRef.current = null
+        }
       }
     })
 
