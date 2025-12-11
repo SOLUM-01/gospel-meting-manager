@@ -265,47 +265,54 @@ export function WelcomeMusicModal() {
             </div>
           )}
 
-          {/* 음악 컨트롤 버튼 - 우측 하단 */}
-          <div className="fixed bottom-4 right-4 z-50 flex gap-2">
-            {/* 재생/일시정지 버튼 */}
-            <button
-              onClick={togglePause}
-              className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-3 rounded-full shadow-lg hover:from-green-600 hover:to-emerald-600 transition-all"
-              title={isPaused ? "재생" : "일시정지"}
-            >
-              {isPaused ? <Play className="h-5 w-5" /> : <Pause className="h-5 w-5" />}
-            </button>
-            {/* 음소거 버튼 */}
-            <button
-              onClick={toggleMute}
-              className="bg-gradient-to-r from-pink-500 to-purple-500 text-white p-3 rounded-full shadow-lg hover:from-pink-600 hover:to-purple-600 transition-all"
-              title={isMuted ? "음소거 해제" : "음소거"}
-            >
-              {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-            </button>
-            {/* 끄기 버튼 */}
-            <button
-              onClick={stopMusic}
-              className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-full shadow-lg hover:bg-white/30 transition-all"
-              title="음악 끄기"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
+          {/* 통합 음악 컨트롤 바 - 하단 중앙 (모바일 친화적) */}
+          <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-24px)] max-w-md">
+            <div className="bg-black/70 backdrop-blur-md rounded-full px-3 py-2 flex items-center justify-between shadow-lg border border-white/10">
+              {/* 좌측: 음악 정보 */}
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <div className={`flex-shrink-0 ${isPaused ? '' : 'animate-pulse'}`}>
+                  <Music className={`h-4 w-4 ${isPaused ? 'text-gray-400' : 'text-pink-400'}`} />
+                </div>
+                <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
+                  <span className="text-white text-xs font-medium flex-shrink-0">
+                    {language === 'korean' ? '🇰🇷' : '🇹🇼'}
+                  </span>
+                  <span className="text-white/80 text-xs truncate">
+                    {currentVersion.title}
+                  </span>
+                  {isPaused && (
+                    <span className="text-yellow-400 text-xs flex-shrink-0">⏸</span>
+                  )}
+                </div>
+              </div>
 
-          {/* 현재 재생 중인 찬양 정보 - 좌측 하단 */}
-          <div className="fixed bottom-4 left-4 z-50 bg-black/40 backdrop-blur-sm rounded-lg px-4 py-2 flex items-center gap-3">
-            <div className={isPaused ? "" : "animate-pulse"}>
-              <Music className={`h-4 w-4 ${isPaused ? 'text-gray-400' : 'text-pink-400'}`} />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-white text-sm font-medium">
-                {language === 'korean' ? '🇰🇷 한국어' : '🇹🇼 中文'}
-                {isPaused && <span className="text-yellow-400 ml-2">⏸ 일시정지</span>}
-              </span>
-              <span className="text-white/70 text-xs">
-                {currentVersion.title} {currentVersion.subtitle}
-              </span>
+              {/* 우측: 컨트롤 버튼들 */}
+              <div className="flex items-center gap-1 flex-shrink-0 ml-2">
+                {/* 재생/일시정지 */}
+                <button
+                  onClick={togglePause}
+                  className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-2 rounded-full hover:from-green-600 hover:to-emerald-600 transition-all"
+                  title={isPaused ? "재생" : "일시정지"}
+                >
+                  {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                </button>
+                {/* 음소거 */}
+                <button
+                  onClick={toggleMute}
+                  className="bg-white/20 text-white p-2 rounded-full hover:bg-white/30 transition-all"
+                  title={isMuted ? "음소거 해제" : "음소거"}
+                >
+                  {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                </button>
+                {/* 끄기 */}
+                <button
+                  onClick={stopMusic}
+                  className="bg-red-500/80 text-white p-2 rounded-full hover:bg-red-600 transition-all"
+                  title="음악 끄기"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
         </>
