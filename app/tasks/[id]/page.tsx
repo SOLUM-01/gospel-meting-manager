@@ -8,7 +8,7 @@ import { useTranslation } from '@/lib/i18n/use-translation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowLeft, Calendar, Clock, Tag, Users, MapPin } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock, Tag, Users, MapPin, Download } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getTaskById } from '@/lib/database/api/tasks'
@@ -201,6 +201,25 @@ export default function TaskDetailPage() {
       month: 'long',
       day: 'numeric',
     }).format(date)
+  }
+
+  // 이미지 다운로드 함수
+  const handleDownload = async (imageUrl: string, fileName: string) => {
+    try {
+      const response = await fetch(imageUrl)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = fileName
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      // CORS 문제 시 새 탭에서 열기
+      window.open(imageUrl, '_blank')
+    }
   }
 
   if (loading) {
@@ -452,6 +471,17 @@ export default function TaskDetailPage() {
                                         </p>
                                       )}
                                     </div>
+                                    {/* 다운로드 버튼 */}
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleDownload(imageUrl, `${songTitle || `악보_${index + 1}`}.jpg`)
+                                      }}
+                                      className="bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition-all"
+                                      title="다운로드"
+                                    >
+                                      <Download className="h-4 w-4" />
+                                    </button>
                                     <Badge className="bg-white/20 text-white text-xs">
                                       {index + 1}
                                     </Badge>
@@ -468,7 +498,7 @@ export default function TaskDetailPage() {
                                 </div>
                               </div>
                             ) : (
-                              // 다른 팀: 원본 이미지 비율 유지
+                              // 다른 팀: 원본 이미지 비율 유지 + 다운로드 버튼
                               <div className="relative w-full">
                                 <Image
                                   src={imageUrl}
@@ -478,6 +508,32 @@ export default function TaskDetailPage() {
                                   className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                                   style={{ aspectRatio: 'auto' }}
                                 />
+                                {/* 다운로드 버튼 오버레이 */}
+                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      handleDownload(imageUrl, `${task.title}_사진_${index + 1}.jpg`)
+                                    }}
+                                    className="bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all shadow-lg"
+                                    title="다운로드"
+                                  >
+                                    <Download className="h-5 w-5" />
+                                  </button>
+                                </div>
+                                {/* 모바일용 다운로드 버튼 (항상 표시) */}
+                                <div className="absolute bottom-2 right-2 md:hidden">
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      handleDownload(imageUrl, `${task.title}_사진_${index + 1}.jpg`)
+                                    }}
+                                    className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1 shadow-lg"
+                                  >
+                                    <Download className="h-3 w-3" />
+                                    저장
+                                  </button>
+                                </div>
                               </div>
                             )}
                           </div>
