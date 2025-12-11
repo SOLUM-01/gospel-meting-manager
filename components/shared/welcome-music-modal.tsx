@@ -240,11 +240,13 @@ export function WelcomeMusicModal() {
       {/* 숨겨진 음악 플레이어 - 모달 닫아도 계속 재생 */}
       {playMusic && !showModal && (
         <>
-          {/* 숨겨진 YouTube iframe */}
-          <div className="hidden">
+          {/* 숨겨진 YouTube iframe - 화면 밖에 배치 (hidden은 재생 안됨) */}
+          <div className="fixed -left-[9999px] -top-[9999px] w-[1px] h-[1px] overflow-hidden">
             <iframe
-              key={`hidden-${videoKey}`}
-              src={`https://www.youtube.com/embed/${currentVersion.youtubeId}?autoplay=1&rel=0&mute=${isMuted ? 1 : 0}`}
+              key={`hidden-${videoKey}-${language}`}
+              width="1"
+              height="1"
+              src={`https://www.youtube.com/embed/${currentVersion.youtubeId}?autoplay=1&rel=0&mute=${isMuted ? 1 : 0}&enablejsapi=1`}
               title="Background Music"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             />
@@ -269,13 +271,18 @@ export function WelcomeMusicModal() {
           </div>
 
           {/* 현재 재생 중인 찬양 정보 - 좌측 하단 */}
-          <div className="fixed bottom-4 left-4 z-50 bg-black/40 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2">
+          <div className="fixed bottom-4 left-4 z-50 bg-black/40 backdrop-blur-sm rounded-lg px-4 py-2 flex items-center gap-3">
             <div className="animate-pulse">
               <Music className="h-4 w-4 text-pink-400" />
             </div>
-            <span className="text-white text-sm">
-              {language === 'korean' ? '🇰🇷' : '🇹🇼'} {currentVersion.title}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-white text-sm font-medium">
+                {language === 'korean' ? '🇰🇷 한국어' : '🇹🇼 中文'}
+              </span>
+              <span className="text-white/70 text-xs">
+                {currentVersion.title} {currentVersion.subtitle}
+              </span>
+            </div>
           </div>
         </>
       )}
