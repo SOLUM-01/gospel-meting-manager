@@ -370,6 +370,64 @@ export default function WorshipPage() {
           {/* 구분선 */}
           <div className="border-t-2 border-amber-200 my-8"></div>
 
+          {/* 생명의 삶 큐티 사진 갤러리 */}
+          <div className="mb-12">
+            <div className="flex items-center gap-2 mb-6">
+              <BookOpen className="h-6 w-6 text-green-600" />
+              <h2 className="text-2xl font-bold">이번 주 말씀 (여호수아)</h2>
+              <Badge variant="secondary" className="ml-2 bg-green-100 text-green-700">
+                12월 15일 ~ 20일
+              </Badge>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { day: '월', date: '15', title: '여호수아 19:1~23', image: '/images/qt-day15-mon.jpg', theme: '성경 예언을 성취한 기업 분배' },
+                { day: '화', date: '16', title: '여호수아 19:24~51', image: '/images/qt-day16-tue.jpg', theme: '사명을 우선시하는 지도자' },
+                { day: '수', date: '17', title: '여호수아 20:1~9', image: '/images/qt-day17-wed.jpg', theme: '도피성에 담긴 하나님의 정의' },
+                { day: '목', date: '18', title: '여호수아 21:1~7', image: '/images/qt-day18-thu.jpg', theme: '하나님의 봉사자들에게 주어지는 성읍' },
+                { day: '금', date: '19', title: '여호수아 21:8~26', image: '/images/qt-day19-fri.jpg', theme: '영적 파수꾼의 사명' },
+                { day: '토', date: '20', title: '여호수아 21:27~45', image: '/images/qt-day20-sat.jpg', theme: '온전히 성취된 하나님의 선한 말씀' },
+              ].map((qt, index) => (
+                <Card 
+                  key={index} 
+                  className="overflow-hidden border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg cursor-pointer group"
+                  onClick={() => window.open(qt.image, '_blank')}
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={qt.image}
+                      alt={`${qt.day}요일 - ${qt.title}`}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-2 left-2">
+                      <Badge className="bg-green-600 text-white font-bold">
+                        {qt.day}요일
+                      </Badge>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                      <p className="text-white font-bold text-lg">{qt.date}일</p>
+                      <p className="text-white/90 text-sm">{qt.title}</p>
+                    </div>
+                  </div>
+                  <CardContent className="p-3 bg-gradient-to-r from-green-50 to-emerald-50">
+                    <p className="text-sm font-medium text-green-800 flex items-center gap-1">
+                      📖 {qt.theme}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <p className="text-center text-sm text-muted-foreground mt-4">
+              💡 이미지를 클릭하면 크게 볼 수 있습니다
+            </p>
+          </div>
+
+          {/* 구분선 */}
+          <div className="border-t-2 border-amber-200 my-8"></div>
+
           {/* 큐티 자료 섹션 */}
           <div>
             <div className="flex items-center gap-2 mb-6">
