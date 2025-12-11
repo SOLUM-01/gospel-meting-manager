@@ -370,7 +370,7 @@ export default function WorshipPage() {
           {/* 구분선 */}
           <div className="border-t-2 border-amber-200 my-8"></div>
 
-          {/* 생명의 삶 큐티 사진 갤러리 */}
+          {/* 생명의 삶 큐티 - 텍스트 버전 */}
           <div className="mb-12">
             <div className="flex items-center gap-2 mb-6">
               <BookOpen className="h-6 w-6 text-green-600" />
@@ -381,48 +381,162 @@ export default function WorshipPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                { day: '월', date: '15', title: '여호수아 19:1~23', image: '/images/qt-day15-mon.jpg', theme: '성경 예언을 성취한 기업 분배' },
-                { day: '화', date: '16', title: '여호수아 19:24~51', image: '/images/qt-day16-tue.jpg', theme: '사명을 우선시하는 지도자' },
-                { day: '수', date: '17', title: '여호수아 20:1~9', image: '/images/qt-day17-wed.jpg', theme: '도피성에 담긴 하나님의 정의' },
-                { day: '목', date: '18', title: '여호수아 21:1~7', image: '/images/qt-day18-thu.jpg', theme: '하나님의 봉사자들에게 주어지는 성읍' },
-                { day: '금', date: '19', title: '여호수아 21:8~26', image: '/images/qt-day19-fri.jpg', theme: '영적 파수꾼의 사명' },
-                { day: '토', date: '20', title: '여호수아 21:27~45', image: '/images/qt-day20-sat.jpg', theme: '온전히 성취된 하나님의 선한 말씀' },
-              ].map((qt, index) => (
-                <Card 
-                  key={index} 
-                  className="overflow-hidden border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg cursor-pointer group"
-                  onClick={() => window.open(qt.image, '_blank')}
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image
-                      src={qt.image}
-                      alt={`${qt.day}요일 - ${qt.title}`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-2 left-2">
-                      <Badge className="bg-green-600 text-white font-bold">
-                        {qt.day}요일
-                      </Badge>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-                      <p className="text-white font-bold text-lg">{qt.date}일</p>
-                      <p className="text-white/90 text-sm">{qt.title}</p>
-                    </div>
+              {/* 월요일 15일 */}
+              <Card className="border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white pb-3">
+                  <div className="flex items-center justify-between">
+                    <Badge className="bg-white text-green-700 font-bold">월요일</Badge>
+                    <span className="text-2xl font-bold">15</span>
                   </div>
-                  <CardContent className="p-3 bg-gradient-to-r from-green-50 to-emerald-50">
-                    <p className="text-sm font-medium text-green-800 flex items-center gap-1">
-                      📖 {qt.theme}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
+                  <CardTitle className="text-lg mt-2">여호수아 19:1~23</CardTitle>
+                  <CardDescription className="text-green-100">성경 예언을 성취한 기업 분배</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4 text-sm space-y-3">
+                  <div className="bg-amber-50 p-3 rounded-lg">
+                    <p className="font-semibold text-amber-800 mb-1">🎵 오늘의 찬송 (새 390)</p>
+                    <p className="text-amber-700">예수가 거느리시니</p>
+                  </div>
+                  <div className="space-y-2 text-gray-700">
+                    <p><strong>1절</strong> 두 번째로는 시므온, 곧 시므온 자손의 지파를 위해 그 가문별로 제비를 뽑았습니다. 그 유산은 유다 자손들의 경계 내에 있습니다.</p>
+                    <p><strong>10절</strong> 세 번째로는 스불론 자손들을 위해 그 가문별로 제비를 뽑았습니다.</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p className="font-semibold text-green-800 mb-1">📝 오늘의 말씀 요약</p>
+                    <p className="text-green-700 text-xs">시므온 지파는 분깃이 많은 유다 지파 유산(기업) 중에서 그 가문별로 제비를 뽑아 18개 성과 마을들을 유산으로 받습니다. 스불론 지파는 그 가문별로 제비를 뽑아 12개 성과 그 마을들을 유산으로 받습니다. 잇사갈 지파는 그 가문별로 제비를 뽑아 16개 성과 그 마을들을 유산으로 받습니다.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 화요일 16일 */}
+              <Card className="border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white pb-3">
+                  <div className="flex items-center justify-between">
+                    <Badge className="bg-white text-green-700 font-bold">화요일</Badge>
+                    <span className="text-2xl font-bold">16</span>
+                  </div>
+                  <CardTitle className="text-lg mt-2">여호수아 19:24~51</CardTitle>
+                  <CardDescription className="text-green-100">사명을 우선시하는 지도자</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4 text-sm space-y-3">
+                  <div className="bg-amber-50 p-3 rounded-lg">
+                    <p className="font-semibold text-amber-800 mb-1">🎵 오늘의 찬송 (새 267)</p>
+                    <p className="text-amber-700">주의 확실한 약속의 말씀 듣고</p>
+                  </div>
+                  <div className="space-y-2 text-gray-700">
+                    <p><strong>24절</strong> 다섯 번째로 아셀 자손의 지파를 위해 그 가문별로 제비를 뽑았습니다.</p>
+                    <p><strong>32절</strong> 여섯 번째로는 납달리 자손들을 위해 제비를 뽑았습니다.</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p className="font-semibold text-green-800 mb-1">📝 오늘의 말씀 요약</p>
+                    <p className="text-green-700 text-xs">아셀 자손은 22개의 성과 그 주변 마을을 유산으로 받습니다. 납달리 자손은 19개의 성과 그 주변 마을을 유산으로 받습니다. 단 자손은 자기 경계에서 밀려나 북쪽 레셈을 쳐서 빼앗아 거기 살며 단이라 이름했습니다.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 수요일 17일 */}
+              <Card className="border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white pb-3">
+                  <div className="flex items-center justify-between">
+                    <Badge className="bg-white text-green-700 font-bold">수요일</Badge>
+                    <span className="text-2xl font-bold">17</span>
+                  </div>
+                  <CardTitle className="text-lg mt-2">여호수아 20:1~9</CardTitle>
+                  <CardDescription className="text-green-100">도피성에 담긴 하나님의 정의</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4 text-sm space-y-3">
+                  <div className="bg-amber-50 p-3 rounded-lg">
+                    <p className="font-semibold text-amber-800 mb-1">🎵 오늘의 찬송 (새 310)</p>
+                    <p className="text-amber-700">아 하나님의 은혜로</p>
+                  </div>
+                  <div className="space-y-2 text-gray-700">
+                    <p><strong>2절</strong> "이스라엘 백성들에게 내가 모세를 통해 지시한 도피성들을 지정하라고 말하여라."</p>
+                    <p><strong>7절</strong> 그리하여 그들은 납달리 산지의 갈릴리 게데스, 에브라임 산지의 세겜, 유다 산지의 기럇아르바, 곧 헤브론을 지정했습니다.</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p className="font-semibold text-green-800 mb-1">📝 오늘의 말씀 요약</p>
+                    <p className="text-green-700 text-xs">하나님은 실수로 살인한 자를 보호하기 위해 도피성을 정하게 하십니다. 이 성으로 도피한 자는 재판을 받거나 당시 대제사장이 죽기까지 거기서 살다가 자기 성으로 돌아갈 수 있습니다. 이스라엘 백성은 갈릴리 게데스, 세겜, 헤브론, 베셀, 길르앗 라못, 바산 골란을 도피성으로 구별합니다.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 목요일 18일 */}
+              <Card className="border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white pb-3">
+                  <div className="flex items-center justify-between">
+                    <Badge className="bg-white text-green-700 font-bold">목요일</Badge>
+                    <span className="text-2xl font-bold">18</span>
+                  </div>
+                  <CardTitle className="text-lg mt-2">여호수아 21:1~7</CardTitle>
+                  <CardDescription className="text-green-100">하나님의 봉사자들에게 주어지는 성읍</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4 text-sm space-y-3">
+                  <div className="bg-amber-50 p-3 rounded-lg">
+                    <p className="font-semibold text-amber-800 mb-1">🎵 오늘의 찬송 (새 393)</p>
+                    <p className="text-amber-700">오 신실하신 주</p>
+                  </div>
+                  <div className="space-y-2 text-gray-700">
+                    <p><strong>1절</strong> 그때 레위 사람들의 지도자들이 제사장 엘르아살과 눈의 아들 여호수아와 이스라엘의 다른 지파 지도자들에게 나아와</p>
+                    <p><strong>4절</strong> 우선 그핫 가문을 위해 제비를 뽑았습니다. 제사장 아론의 자손들인 레위 사람들은 제비를 뽑은 결과 유다 지파, 시므온 지파, 베냐민 지파에서 13개의 성을 갖게 됐고</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p className="font-semibold text-green-800 mb-1">📝 오늘의 말씀 요약</p>
+                    <p className="text-green-700 text-xs">레위 지도자들이 실로에 와서 하나님 명령대로 거주지와 초지를 달라고 요청합니다. 이에 이스라엘 각 지파는 자기 유산에서 성과 초지를 떼어 레위 자손에게 줍니다. 제비 뽑은 대로 아론 자손이 13개, 나머지 그핫 자손이 10개, 게르손 자손이 13개, 므라리 자손이 12개 성을 각각 받습니다.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 금요일 19일 */}
+              <Card className="border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white pb-3">
+                  <div className="flex items-center justify-between">
+                    <Badge className="bg-white text-green-700 font-bold">금요일</Badge>
+                    <span className="text-2xl font-bold">19</span>
+                  </div>
+                  <CardTitle className="text-lg mt-2">여호수아 21:8~26</CardTitle>
+                  <CardDescription className="text-green-100">영적 파수꾼의 사명</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4 text-sm space-y-3">
+                  <div className="bg-amber-50 p-3 rounded-lg">
+                    <p className="font-semibold text-amber-800 mb-1">🎵 오늘의 찬송 (새 370)</p>
+                    <p className="text-amber-700">주 안에 있는 나에게</p>
+                  </div>
+                  <div className="space-y-2 text-gray-700">
+                    <p><strong>8절</strong> 이렇게 해서 이스라엘 자손들은 여호와께서 모세를 통해 명령하신 대로 레위 사람들에게 성과 초지를 제비 뽑아 나눠 주었습니다.</p>
+                    <p><strong>20절</strong> 남은 레위 사람들 가운데 그핫 가문은 제비를 뽑은 결과 에브라임 지파에서 성을 얻었습니다.</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p className="font-semibold text-green-800 mb-1">📝 오늘의 말씀 요약</p>
+                    <p className="text-green-700 text-xs">이스라엘 자손은 여호와 명령대로 레위 사람들에게 성읍과 초지를 제비 뽑아 나눠줍니다. 아론 자손은 유다와 시므온 지파에게서 9개, 베냐민 지파에게서 4개 성을 받습니다. 그핫 자손의 나머지 사람들은 에브라임 지파에게서 4개, 단 지파에게서 4개, 므낫세 반 지파에게서 2개 성을 받습니다.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 토요일 20일 */}
+              <Card className="border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white pb-3">
+                  <div className="flex items-center justify-between">
+                    <Badge className="bg-white text-green-700 font-bold">토요일</Badge>
+                    <span className="text-2xl font-bold">20</span>
+                  </div>
+                  <CardTitle className="text-lg mt-2">여호수아 21:27~45</CardTitle>
+                  <CardDescription className="text-green-100">온전히 성취된 하나님의 선한 말씀</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4 text-sm space-y-3">
+                  <div className="bg-amber-50 p-3 rounded-lg">
+                    <p className="font-semibold text-amber-800 mb-1">🎵 오늘의 찬송 (새 445)</p>
+                    <p className="text-amber-700">태산을 넘어 험곡에 가도</p>
+                  </div>
+                  <div className="space-y-2 text-gray-700">
+                    <p><strong>27절</strong> 레위 사람 게르손 가문에게 준 것은 다음과 같습니다. 므낫세 반 지파에서는 살인자를 위한 도피성인 바산의 골란과 그 초지, 브에스드라와 그 초지로 두 개의 성을 주었습니다.</p>
+                    <p><strong>43절</strong> 이렇게 해서 여호와께서는 그 조상들에게 주겠다고 맹세하신 그 모든 땅을 이스라엘에게 주셨습니다.</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p className="font-semibold text-green-800 mb-1">📝 오늘의 말씀 요약</p>
+                    <p className="text-green-700 text-xs">게르손 자손은 므낫세 반 지파와 잇사갈 지파, 아셀 지파, 납달리 지파에게서 13개 성을 받습니다. 므라리 자손은 스불론 지파와 르우벤 지파, 갓 지파에게서 12개 성을 받습니다. 하나님은 맹세하신 대로 이스라엘에게 땅을 주셔서 거주하게 하셨고, 원수들을 그들 손에 넘겨주셨습니다.</p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-            
-            <p className="text-center text-sm text-muted-foreground mt-4">
-              💡 이미지를 클릭하면 크게 볼 수 있습니다
-            </p>
           </div>
 
           {/* 구분선 */}
