@@ -16,12 +16,18 @@ export function HeroSection() {
   const [showMusicPlayer, setShowMusicPlayer] = useState(false)
 
   useEffect(() => {
-    // 현재 세션 확인
+    // 현재 세션 확인 및 음악 플레이어 표시 여부 결정
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setUser({
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
+        // 이번 브라우저 세션에서 음악을 아직 안 봤으면 표시
+        // sessionStorage는 브라우저가 닫히면 초기화됨 (PC 재시작 시 다시 음악 나옴)
+        const musicShown = sessionStorage.getItem('musicShownThisSession')
+        if (!musicShown) {
+          setShowMusicPlayer(true)
+        }
       }
     })
 
@@ -31,11 +37,10 @@ export function HeroSection() {
         setUser({
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
-        // 로그인 성공 후 음악 플레이어 표시
-        const justLoggedIn = localStorage.getItem('justLoggedIn')
-        if (justLoggedIn === 'true') {
+        // 로그인 성공 후 음악 플레이어 표시 (이번 세션에서 안 봤으면)
+        const musicShown = sessionStorage.getItem('musicShownThisSession')
+        if (!musicShown) {
           setShowMusicPlayer(true)
-          localStorage.removeItem('justLoggedIn')
         }
       } else {
         setUser(null)
@@ -43,21 +48,12 @@ export function HeroSection() {
       }
     })
 
-    // 페이지 로드 시 로그인 플래그 확인
-    const justLoggedIn = localStorage.getItem('justLoggedIn')
-    if (justLoggedIn === 'true') {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session?.user) {
-          setShowMusicPlayer(true)
-          localStorage.removeItem('justLoggedIn')
-        }
-      })
-    }
-
     return () => subscription.unsubscribe()
   }, [])
 
   const closeMusicPlayer = () => {
+    // 이번 브라우저 세션에서 음악을 봤다고 기록 (PC 재시작하면 초기화됨)
+    sessionStorage.setItem('musicShownThisSession', 'true')
     setShowMusicPlayer(false)
   }
 
