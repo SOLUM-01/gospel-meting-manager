@@ -57,7 +57,8 @@ export default function TasksPage() {
     '부채춤',
     '푸드',
     '차량물품',
-    '미용'
+    '미용',
+    '선물팀'
   ]
 
   // 필터링된 사역 목록

@@ -1,4 +1,4 @@
--- 2025 블레싱 타이완 윈린3 아웃리치 참가자 더미 데이터 (59명)
+-- 2025 블레싱 타이완 윈린3 아웃리치 참가자 더미 데이터 (62명, 정웅규 선교사 제외 시 61명)
 -- Supabase SQL Editor에서 이 파일을 실행하세요!
 
 -- ⚠️ 기존 데이터 완전 삭제 (중복 방지)
@@ -60,6 +60,7 @@ INSERT INTO participants (name, name_zh, gender, english_first_name, english_las
 ('강성혜', '', 'F', '', '', '', NULL, '주간반', 'member', '한국', '푸드/중보/찬양', true),
 ('최옥자', '崔玉子', 'F', 'OKJA', 'CHOI', '', NULL, '주간반', 'member', '한국', '부채춤', true),
 ('최세정', '崔世真', 'F', 'SEJUNG', 'CHOI', '', NULL, '주간반', 'member', '한국', '찬양/팝업북', true),
+('강서헌', '姜錫憲', 'M', 'SEO HEON', 'KANG', '', NULL, '주간반', 'member', '한국', '팝업북', true),
 
 -- 44-55번 저녁반
 ('정회평', '鄭喜平', 'M', 'HOEPYEONG', 'JEONG', '', NULL, '총괄팀장', 'leader', '한국', '총괄팀장/찬양', true),
@@ -73,7 +74,7 @@ INSERT INTO participants (name, name_zh, gender, english_first_name, english_las
 ('최미자', '崔美子', 'F', 'MIJA', 'CHOI', '', NULL, '저녁반', 'member', '한국', '찬양/중보/전도', true),
 ('조하령', '趙夏玲', 'F', 'HALYEONG', 'CHO', '', NULL, '저녁반', 'member', '한국', '찬양/팝업북', true),
 ('곽미동', '郭美棟', 'F', 'MIDONG', 'KWAK', '', NULL, '저녁반', 'member', '한국', '찬양/팝업북/전도', true),
-('이혜승', '李惠承', 'F', 'HYESEUNG', 'KIM', '', NULL, '저녁반', 'member', '한국', '푸드/중보', true),
+('이혜승', '李惠承', 'F', 'HYESEUNG', 'LEE', '', NULL, '저녁반', 'member', '한국', '푸드/중보', true),
 
 -- 56-59번 무소속
 ('김덕희', '金德喜', 'F', 'DOKHEE', 'KIM', '', NULL, '무소속', 'member', '한국', '미용/찬양', true),

@@ -1,6 +1,6 @@
 import type { Participant } from '@/types/participant'
 
-// 2025 블레싱 타이완 윈린3 아웃리치 참가자 명단 (총 60명)
+// 2025 블레싱 타이완 윈린3 아웃리치 참가자 명단 (총 62명, 정웅규 선교사 포함)
 export const participantsData: Participant[] = [
   // 목사님
   {
@@ -182,7 +182,7 @@ export const participantsData: Participant[] = [
     name: '이혜승',
     nameZh: '李惠承',
     gender: 'F',
-    englishLastName: 'KIM',
+    englishLastName: 'LEE',
     englishFirstName: 'HYESEUNG',
     phone: '010-39133307',
     teamCategory: '전도팀',
@@ -479,6 +479,22 @@ export const participantsData: Participant[] = [
     role: 'member',
     nationality: '한국',
     position: '찬양/팝업북',
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'popup1',
+    name: '강서헌',
+    nameZh: '姜錫憲',
+    gender: 'M',
+    englishLastName: 'KANG',
+    englishFirstName: 'SEO HEON',
+    phone: '',
+    teamCategory: '주간반',
+    role: 'member',
+    nationality: '한국',
+    position: '팝업북',
     isActive: true,
     createdAt: new Date(),
     updatedAt: new Date(),

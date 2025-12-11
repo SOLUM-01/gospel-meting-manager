@@ -3,8 +3,8 @@
 
 UPDATE tasks
 SET 
-  description = '복음 집회를 위해 헤어와 메이크업으로 섬기는 미용팀입니다.',
-  description_zh = '为福音聚会提供发型和化妆服务的美容团队。'
+  description = '복음 집회를 위해 피부관리로 섬기는 미용팀입니다.',
+  description_zh = '为福音聚会提供皮肤护理服务的美容团队。'
 WHERE title = '미용팀';
 
 -- 결과 확인

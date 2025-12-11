@@ -123,6 +123,17 @@ export default function TaskDetailPage() {
             if (b.position?.includes('미용팀장')) return 1
             return 0
           })
+        } else if (data.title === '선물팀') {
+          // 선물팀: 지정된 멤버들만 필터링
+          const giftTeamMembers = ['우주연', '김영미', '이보라', '최우현']
+          filteredMembers = participants.filter(p => 
+            giftTeamMembers.includes(p.name)
+          )
+          
+          // 순서 유지
+          filteredMembers.sort((a, b) => {
+            return giftTeamMembers.indexOf(a.name) - giftTeamMembers.indexOf(b.name)
+          })
         }
         
         setTeamMembers(filteredMembers)
