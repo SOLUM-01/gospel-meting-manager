@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { Music, X, Volume2, VolumeX } from 'lucide-react'
+import { Music, X, Volume2, VolumeX, Play, Pause } from 'lucide-react'
 import { supabase } from '@/lib/database/supabase'
 
 // 한국어/중국어 버전 정보
@@ -40,6 +40,7 @@ export function WelcomeMusicModal() {
   const [user, setUser] = useState<{ name: string } | null>(null)
   const [showModal, setShowModal] = useState(false) // 모달 표시 여부
   const [playMusic, setPlayMusic] = useState(false) // 음악 재생 여부
+  const [isPaused, setIsPaused] = useState(false) // 일시정지 여부
   const [language, setLanguage] = useState<'korean' | 'chinese'>('korean')
   const [videoKey, setVideoKey] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
@@ -100,9 +101,9 @@ export function WelcomeMusicModal() {
     setVideoKey(prev => prev + 1)
   }, [])
 
-  // 찬양 재생 타이머
+  // 찬양 재생 타이머 (일시정지 상태면 타이머 중지)
   useEffect(() => {
-    if (!playMusic) return
+    if (!playMusic || isPaused) return
 
     const currentVersion = versions[language]
     const timer = setTimeout(() => {
@@ -110,7 +111,7 @@ export function WelcomeMusicModal() {
     }, currentVersion.duration * 1000)
 
     return () => clearTimeout(timer)
-  }, [playMusic, language, switchToNextLanguage])
+  }, [playMusic, isPaused, language, switchToNextLanguage])
 
   // 모달 닫기 - 음악은 계속 재생
   const closeModal = () => {
@@ -119,15 +120,25 @@ export function WelcomeMusicModal() {
     // 음악은 계속 재생됨 (playMusic = true 유지)
   }
 
-  // 음악 토글
+  // 음소거 토글
   const toggleMute = () => {
     setIsMuted(prev => !prev)
+  }
+
+  // 재생/일시정지 토글
+  const togglePause = () => {
+    setIsPaused(prev => !prev)
+    if (isPaused) {
+      // 재생 재개 시 videoKey 증가하여 새로 로드
+      setVideoKey(prev => prev + 1)
+    }
   }
 
   // 음악 완전히 끄기
   const stopMusic = () => {
     setPlayMusic(false)
     setShowModal(false)
+    setIsPaused(false)
   }
 
   if (!user) return null
@@ -240,20 +251,31 @@ export function WelcomeMusicModal() {
       {/* 숨겨진 음악 플레이어 - 모달 닫아도 계속 재생 */}
       {playMusic && !showModal && (
         <>
-          {/* 숨겨진 YouTube iframe - 화면 밖에 배치 (hidden은 재생 안됨) */}
-          <div className="fixed -left-[9999px] -top-[9999px] w-[1px] h-[1px] overflow-hidden">
-            <iframe
-              key={`hidden-${videoKey}-${language}`}
-              width="1"
-              height="1"
-              src={`https://www.youtube.com/embed/${currentVersion.youtubeId}?autoplay=1&rel=0&mute=${isMuted ? 1 : 0}&enablejsapi=1`}
-              title="Background Music"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            />
-          </div>
+          {/* 숨겨진 YouTube iframe - 화면 밖에 배치 (일시정지 시 렌더링 안함) */}
+          {!isPaused && (
+            <div className="fixed -left-[9999px] -top-[9999px] w-[1px] h-[1px] overflow-hidden">
+              <iframe
+                key={`hidden-${videoKey}-${language}`}
+                width="1"
+                height="1"
+                src={`https://www.youtube.com/embed/${currentVersion.youtubeId}?autoplay=1&rel=0&mute=${isMuted ? 1 : 0}&enablejsapi=1`}
+                title="Background Music"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
+            </div>
+          )}
 
           {/* 음악 컨트롤 버튼 - 우측 하단 */}
           <div className="fixed bottom-4 right-4 z-50 flex gap-2">
+            {/* 재생/일시정지 버튼 */}
+            <button
+              onClick={togglePause}
+              className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-3 rounded-full shadow-lg hover:from-green-600 hover:to-emerald-600 transition-all"
+              title={isPaused ? "재생" : "일시정지"}
+            >
+              {isPaused ? <Play className="h-5 w-5" /> : <Pause className="h-5 w-5" />}
+            </button>
+            {/* 음소거 버튼 */}
             <button
               onClick={toggleMute}
               className="bg-gradient-to-r from-pink-500 to-purple-500 text-white p-3 rounded-full shadow-lg hover:from-pink-600 hover:to-purple-600 transition-all"
@@ -261,6 +283,7 @@ export function WelcomeMusicModal() {
             >
               {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
             </button>
+            {/* 끄기 버튼 */}
             <button
               onClick={stopMusic}
               className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-full shadow-lg hover:bg-white/30 transition-all"
@@ -272,12 +295,13 @@ export function WelcomeMusicModal() {
 
           {/* 현재 재생 중인 찬양 정보 - 좌측 하단 */}
           <div className="fixed bottom-4 left-4 z-50 bg-black/40 backdrop-blur-sm rounded-lg px-4 py-2 flex items-center gap-3">
-            <div className="animate-pulse">
-              <Music className="h-4 w-4 text-pink-400" />
+            <div className={isPaused ? "" : "animate-pulse"}>
+              <Music className={`h-4 w-4 ${isPaused ? 'text-gray-400' : 'text-pink-400'}`} />
             </div>
             <div className="flex flex-col">
               <span className="text-white text-sm font-medium">
                 {language === 'korean' ? '🇰🇷 한국어' : '🇹🇼 中文'}
+                {isPaused && <span className="text-yellow-400 ml-2">⏸ 일시정지</span>}
               </span>
               <span className="text-white/70 text-xs">
                 {currentVersion.title} {currentVersion.subtitle}
