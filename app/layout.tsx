@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
+import { WelcomeMusicModal } from "@/components/shared/welcome-music-modal"
 
 export const metadata: Metadata = {
   title: "2025 雲林城市耶誕慶典 歡迎光臨",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className="antialiased">
         {children}
+        <WelcomeMusicModal />
         <Toaster />
       </body>
     </html>

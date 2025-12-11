@@ -4,7 +4,7 @@ import { useTranslation } from '@/lib/i18n/use-translation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { UserPlus, LogIn, LogOut, Music, X } from 'lucide-react'
+import { UserPlus, LogIn, LogOut } from 'lucide-react'
 import { supabase } from '@/lib/database/supabase'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -13,21 +13,14 @@ export function HeroSection() {
   const { t } = useTranslation()
   const router = useRouter()
   const [user, setUser] = useState<{ name: string } | null>(null)
-  const [showMusicPlayer, setShowMusicPlayer] = useState(false)
 
   useEffect(() => {
-    // 현재 세션 확인 및 음악 플레이어 표시 여부 결정
+    // 현재 세션 확인
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setUser({
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
-        // 이번 브라우저 세션에서 음악을 아직 안 봤으면 표시
-        // sessionStorage는 브라우저가 닫히면 초기화됨 (PC 재시작 시 다시 음악 나옴)
-        const musicShown = sessionStorage.getItem('musicShownThisSession')
-        if (!musicShown) {
-          setShowMusicPlayer(true)
-        }
       }
     })
 
@@ -37,25 +30,13 @@ export function HeroSection() {
         setUser({
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '사용자'
         })
-        // 로그인 성공 후 음악 플레이어 표시 (이번 세션에서 안 봤으면)
-        const musicShown = sessionStorage.getItem('musicShownThisSession')
-        if (!musicShown) {
-          setShowMusicPlayer(true)
-        }
       } else {
         setUser(null)
-        setShowMusicPlayer(false)
       }
     })
 
     return () => subscription.unsubscribe()
   }, [])
-
-  const closeMusicPlayer = () => {
-    // 이번 브라우저 세션에서 음악을 봤다고 기록 (PC 재시작하면 초기화됨)
-    sessionStorage.setItem('musicShownThisSession', 'true')
-    setShowMusicPlayer(false)
-  }
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -65,68 +46,6 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* 음악 플레이어 모달 */}
-      {showMusicPlayer && user && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn">
-          <div className="relative bg-gradient-to-br from-pink-900/90 via-purple-900/90 to-indigo-900/90 rounded-3xl p-6 md:p-8 max-w-lg w-[95%] mx-4 shadow-2xl border border-white/20">
-            {/* 닫기 버튼 */}
-            <button 
-              onClick={closeMusicPlayer}
-              className="absolute top-3 right-3 md:top-4 md:right-4 text-white/70 hover:text-white transition-colors z-10"
-            >
-              <X className="h-6 w-6" />
-            </button>
-
-            {/* 음악 아이콘 애니메이션 */}
-            <div className="flex justify-center mb-4 md:mb-6">
-              <div className="relative animate-bounce">
-                <div className="absolute -inset-4 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-xl opacity-50 animate-pulse"></div>
-                <div className="relative bg-gradient-to-r from-pink-500 to-purple-500 p-4 md:p-6 rounded-full">
-                  <Music className="h-8 w-8 md:h-12 md:w-12 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* 환영 메시지 */}
-            <div className="text-center mb-4 md:mb-6">
-              <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
-                🎵 환영합니다, {user.name}님! 🎵
-              </h2>
-              <p className="text-purple-200 text-base md:text-lg">
-                로그인을 축하드립니다!
-              </p>
-            </div>
-
-            {/* 찬송 정보 */}
-            <div className="bg-white/10 rounded-2xl p-4 md:p-6 mb-4 md:mb-6 border border-white/10">
-              <p className="text-pink-300 text-sm mb-2 text-center">♪ 찬송 ♪</p>
-              <h3 className="text-lg md:text-xl font-bold text-white text-center mb-3">
-                당신은 사랑받기 위해<br />태어난 사람
-              </h3>
-              <p className="text-purple-200 text-center text-sm mb-4">
-                You were born to be loved
-              </p>
-              
-              {/* YouTube 임베드 */}
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/5MRH5oNG7hA?autoplay=1"
-                  title="당신은 사랑받기 위해 태어난 사람"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
-
-            {/* 하단 메시지 */}
-            <p className="text-center text-purple-300/70 text-sm">
-              ✨ 하나님의 사랑이 함께하시길 ✨
-            </p>
-          </div>
-        </div>
-      )}
-
       {/* 배경 장식 */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
