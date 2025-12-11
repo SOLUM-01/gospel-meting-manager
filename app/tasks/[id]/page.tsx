@@ -1,4 +1,5 @@
 'use client'
+// Updated: 2025-12-11 - 선물팀, 어린이 사역팀 팀원 표시 기능
 
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
