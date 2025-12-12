@@ -3,6 +3,7 @@
   "short_name": "복음집회",
   "description": "2025 대만 윈린 성탄절 복음집회 - HI LIGHT CHRISTMAS",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#1e1b4b",
   "theme_color": "#7c3aed",
@@ -12,17 +13,24 @@
       "src": "/gospel-meeting-icon.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/gospel-meeting-icon.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/gospel-meeting-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["lifestyle", "social"],
   "lang": "ko",
-  "dir": "ltr"
+  "dir": "ltr",
+  "prefer_related_applications": false
 }
 
