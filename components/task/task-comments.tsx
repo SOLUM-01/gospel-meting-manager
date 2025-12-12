@@ -357,16 +357,6 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                         >
                           <Download className="h-4 w-4" />
                         </button>
-                        {/* 모바일용 다운로드 버튼 - 항상 표시 */}
-                        <button
-                          onClick={() => handleDownload(comment.image_url!, comment.user_name)}
-                          className="absolute bottom-2 right-2 bg-gradient-to-r from-blue-500 to-purple-500 
-                            text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1 
-                            shadow-lg md:hidden"
-                        >
-                          <Download className="h-3 w-3" />
-                          저장
-                        </button>
                       </div>
                     )}
                   </div>
