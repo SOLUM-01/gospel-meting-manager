@@ -46,7 +46,16 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showComments, setShowComments] = useState(true)
+  const [showReactionPicker, setShowReactionPicker] = useState(false)
+  const [showReactionUsers, setShowReactionUsers] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // 특정 리액션을 누른 사용자 목록 가져오기
+  const getReactionUsers = (reactionType: string) => {
+    return reactions
+      .filter(r => r.reaction_type === reactionType)
+      .map(r => r.user_name)
+  }
 
   // 저장된 사용자 이름 불러오기
   useEffect(() => {
@@ -181,31 +190,95 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
 
   return (
     <div className="mt-8 space-y-6">
-      {/* 리액션 섹션 */}
-      <Card className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20">
-        <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-          <span>😊</span> 이 사역에 반응하기
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {REACTIONS.map((reaction) => (
+      {/* 리액션 섹션 - 카카오톡 스타일 */}
+      <div className="flex items-center gap-2 flex-wrap">
+        {/* 리액션이 있는 것만 표시 */}
+        {REACTIONS.filter(r => reactionCounts[r.type] > 0).map((reaction) => (
+          <div key={reaction.type} className="relative">
             <button
-              key={reaction.type}
-              onClick={() => handleReaction(reaction.type)}
+              onClick={() => setShowReactionUsers(showReactionUsers === reaction.type ? null : reaction.type)}
               className={`
-                flex items-center gap-1 px-3 py-2 rounded-full text-sm font-medium
-                transition-all duration-200 transform hover:scale-105
+                flex items-center gap-1 px-2.5 py-1 rounded-full text-sm
+                transition-all duration-200 
                 ${isMyReaction(reaction.type)
-                  ? 'bg-blue-500 text-white shadow-lg'
-                  : 'bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600'
+                  ? 'bg-blue-100 dark:bg-blue-900/50 border-2 border-blue-400'
+                  : 'bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-600'
                 }
+                hover:shadow-md
               `}
             >
-              <span className="text-lg">{reaction.emoji}</span>
-              <span>{reactionCounts[reaction.type] || 0}</span>
+              <span>{reaction.emoji}</span>
+              <span className="font-medium text-gray-700 dark:text-gray-300">{reactionCounts[reaction.type]}</span>
             </button>
-          ))}
+            
+            {/* 누가 눌렀는지 팝업 */}
+            {showReactionUsers === reaction.type && (
+              <div className="absolute bottom-full left-0 mb-2 z-50 min-w-[120px] max-w-[200px]">
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-2">
+                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1 px-1">
+                    {reaction.emoji} {reaction.label}
+                  </p>
+                  <div className="max-h-32 overflow-y-auto">
+                    {getReactionUsers(reaction.type).map((name, idx) => (
+                      <p key={idx} className="text-sm py-0.5 px-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                        {name}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+                <div className="absolute left-3 -bottom-1 w-2 h-2 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-600 transform rotate-45"></div>
+              </div>
+            )}
+          </div>
+        ))}
+        
+        {/* 리액션 추가 버튼 */}
+        <div className="relative">
+          <button
+            onClick={() => setShowReactionPicker(!showReactionPicker)}
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+          >
+            <span className="text-gray-500 dark:text-gray-400">😊</span>
+          </button>
+          
+          {/* 리액션 선택 팝업 */}
+          {showReactionPicker && (
+            <div className="absolute bottom-full left-0 mb-2 z-50">
+              <div className="bg-white dark:bg-gray-800 rounded-full shadow-xl border border-gray-200 dark:border-gray-600 p-1.5 flex gap-1">
+                {REACTIONS.map((reaction) => (
+                  <button
+                    key={reaction.type}
+                    onClick={() => {
+                      handleReaction(reaction.type)
+                      setShowReactionPicker(false)
+                    }}
+                    className={`
+                      w-9 h-9 flex items-center justify-center rounded-full text-xl
+                      transition-all duration-200 hover:scale-125 hover:bg-gray-100 dark:hover:bg-gray-700
+                      ${isMyReaction(reaction.type) ? 'bg-blue-100 dark:bg-blue-900/50' : ''}
+                    `}
+                    title={reaction.label}
+                  >
+                    {reaction.emoji}
+                  </button>
+                ))}
+              </div>
+              <div className="absolute left-3 -bottom-1 w-2 h-2 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-600 transform rotate-45"></div>
+            </div>
+          )}
         </div>
-      </Card>
+      </div>
+
+      {/* 팝업 닫기용 오버레이 */}
+      {(showReactionPicker || showReactionUsers) && (
+        <div 
+          className="fixed inset-0 z-40" 
+          onClick={() => {
+            setShowReactionPicker(false)
+            setShowReactionUsers(null)
+          }}
+        />
+      )}
 
       {/* 댓글 섹션 */}
       <Card className="p-4">
