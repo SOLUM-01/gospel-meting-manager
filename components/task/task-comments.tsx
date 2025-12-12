@@ -505,40 +505,35 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                       
                       {/* 댓글 리액션 - 카카오톡 스타일 */}
                       <div className="flex items-center gap-1.5 mt-3 pt-2 border-t border-gray-100 dark:border-gray-700 flex-wrap">
-                        {/* 리액션이 있는 것만 표시 */}
+                        {/* 리액션이 있는 것만 표시 - 클릭하면 토글 */}
                         {REACTIONS.filter(r => commentCounts[r.type] > 0).map((reaction) => (
-                          <div key={reaction.type} className="relative">
+                          <div key={reaction.type} className="relative group/reaction">
                             <button
-                              onClick={() => setShowCommentReactionUsers(
-                                showCommentReactionUsers?.commentId === comment.id && showCommentReactionUsers?.type === reaction.type 
-                                  ? null 
-                                  : { commentId: comment.id, type: reaction.type }
-                              )}
-                              className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs transition-all ${
+                              onClick={() => handleCommentReaction(comment.id, reaction.type)}
+                              className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs transition-all hover:scale-110 ${
                                 isMyCommentReaction(comment.id, reaction.type)
                                   ? 'bg-blue-100 dark:bg-blue-900/50 border border-blue-400'
                                   : 'bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600'
                               }`}
+                              title={isMyCommentReaction(comment.id, reaction.type) ? '클릭하면 취소' : '클릭하면 추가'}
                             >
                               <span className="text-sm">{reaction.emoji}</span>
                               <span className="font-medium text-xs">{commentCounts[reaction.type]}</span>
                             </button>
                             
-                            {/* 누가 눌렀는지 팝업 */}
-                            {showCommentReactionUsers?.commentId === comment.id && showCommentReactionUsers?.type === reaction.type && (
-                              <div className="absolute bottom-full left-0 mb-1 z-50 min-w-[80px]">
-                                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-1.5">
-                                  <p className="text-xs font-semibold text-gray-500 mb-0.5 px-1">
-                                    {reaction.emoji} {reaction.label}
-                                  </p>
-                                  <div className="max-h-20 overflow-y-auto">
-                                    {getCommentReactionUsers(comment.id, reaction.type).map((name, idx) => (
-                                      <p key={idx} className="text-xs py-0.5 px-1">{name}</p>
-                                    ))}
-                                  </div>
+                            {/* 누가 눌렀는지 팝업 - hover시 표시 */}
+                            <div className="absolute bottom-full left-0 mb-1 z-50 min-w-[80px] opacity-0 group-hover/reaction:opacity-100 pointer-events-none transition-opacity">
+                              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-1.5">
+                                <p className="text-xs font-semibold text-gray-500 mb-0.5 px-1">
+                                  {reaction.emoji} {reaction.label}
+                                </p>
+                                <div className="max-h-20 overflow-y-auto">
+                                  {getCommentReactionUsers(comment.id, reaction.type).map((name, idx) => (
+                                    <p key={idx} className="text-xs py-0.5 px-1">{name}</p>
+                                  ))}
                                 </div>
                               </div>
-                            )}
+                            </div>
                           </div>
                         ))}
                         
