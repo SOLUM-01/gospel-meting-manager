@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { WelcomeMusicModal } from "@/components/shared/welcome-music-modal"
+import { PWAInstallPrompt } from "@/components/shared/pwa-install-prompt"
 
 export const metadata: Metadata = {
   title: "2025 雲林城市耶誕慶典 歡迎光臨",
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body className="antialiased">
         {children}
         <WelcomeMusicModal />
+        <PWAInstallPrompt />
         <Toaster />
       </body>
     </html>
