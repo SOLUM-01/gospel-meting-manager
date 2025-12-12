@@ -158,3 +158,116 @@ export async function getReactionCounts(taskId: string): Promise<Record<string, 
 
   return counts
 }
+
+// ============= 댓글 리액션 관련 =============
+
+export interface CommentReaction {
+  id: string
+  comment_id: string
+  user_name: string
+  reaction_type: 'like' | 'heart' | 'clap' | 'pray' | 'fire' | 'smile'
+  created_at: string
+}
+
+// 댓글 리액션 가져오기
+export async function getCommentReactions(commentId: string): Promise<CommentReaction[]> {
+  const { data, error } = await supabase
+    .from('comment_reactions' as any)
+    .select('*')
+    .eq('comment_id', commentId)
+
+  if (error) {
+    console.error('Error fetching comment reactions:', error)
+    return []
+  }
+
+  return (data as CommentReaction[]) || []
+}
+
+// 여러 댓글의 리액션 한번에 가져오기
+export async function getCommentsReactions(commentIds: string[]): Promise<Record<string, CommentReaction[]>> {
+  if (commentIds.length === 0) return {}
+  
+  const { data, error } = await supabase
+    .from('comment_reactions' as any)
+    .select('*')
+    .in('comment_id', commentIds)
+
+  if (error) {
+    console.error('Error fetching comments reactions:', error)
+    return {}
+  }
+
+  const result: Record<string, CommentReaction[]> = {}
+  ;(data as CommentReaction[])?.forEach(reaction => {
+    if (!result[reaction.comment_id]) {
+      result[reaction.comment_id] = []
+    }
+    result[reaction.comment_id].push(reaction)
+  })
+
+  return result
+}
+
+// 댓글 리액션 토글
+export async function toggleCommentReaction(
+  commentId: string,
+  userName: string,
+  reactionType: CommentReaction['reaction_type']
+): Promise<{ added: boolean; reaction?: CommentReaction }> {
+  // 기존 리액션 확인
+  const { data: existing } = await supabase
+    .from('comment_reactions' as any)
+    .select('*')
+    .eq('comment_id', commentId)
+    .eq('user_name', userName)
+    .eq('reaction_type', reactionType)
+    .single()
+
+  if (existing) {
+    // 기존 리액션 삭제
+    await supabase
+      .from('comment_reactions' as any)
+      .delete()
+      .eq('id', (existing as any).id)
+    return { added: false }
+  } else {
+    // 새 리액션 추가
+    const { data, error } = await supabase
+      .from('comment_reactions' as any)
+      .insert({
+        comment_id: commentId,
+        user_name: userName,
+        reaction_type: reactionType
+      } as any)
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error adding comment reaction:', error)
+      return { added: false }
+    }
+
+    return { added: true, reaction: data as CommentReaction }
+  }
+}
+
+// 댓글 리액션 통계 가져오기
+export async function getCommentReactionCounts(commentId: string): Promise<Record<string, number>> {
+  const { data, error } = await supabase
+    .from('comment_reactions' as any)
+    .select('reaction_type')
+    .eq('comment_id', commentId)
+
+  if (error) {
+    console.error('Error fetching comment reaction counts:', error)
+    return {}
+  }
+
+  const counts: Record<string, number> = {}
+  ;(data as any[])?.forEach(reaction => {
+    counts[reaction.reaction_type] = (counts[reaction.reaction_type] || 0) + 1
+  })
+
+  return counts
+}

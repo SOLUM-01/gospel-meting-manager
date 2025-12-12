@@ -19,8 +19,11 @@ import {
   getTaskReactions,
   toggleTaskReaction,
   getReactionCounts,
+  getCommentsReactions,
+  toggleCommentReaction,
   type TaskComment,
-  type TaskReaction
+  type TaskReaction,
+  type CommentReaction
 } from '@/lib/database/api/comments'
 
 interface TaskCommentsProps {
@@ -49,12 +52,40 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [showReactionPicker, setShowReactionPicker] = useState(false)
   const [showReactionUsers, setShowReactionUsers] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  
+  // 댓글 리액션 관련 상태
+  const [commentReactions, setCommentReactions] = useState<Record<string, CommentReaction[]>>({})
+  const [showCommentReactionPicker, setShowCommentReactionPicker] = useState<string | null>(null)
+  const [showCommentReactionUsers, setShowCommentReactionUsers] = useState<{ commentId: string; type: string } | null>(null)
 
   // 특정 리액션을 누른 사용자 목록 가져오기
   const getReactionUsers = (reactionType: string) => {
     return reactions
       .filter(r => r.reaction_type === reactionType)
       .map(r => r.user_name)
+  }
+
+  // 댓글 리액션을 누른 사용자 목록 가져오기
+  const getCommentReactionUsers = (commentId: string, reactionType: string) => {
+    return (commentReactions[commentId] || [])
+      .filter(r => r.reaction_type === reactionType)
+      .map(r => r.user_name)
+  }
+
+  // 댓글 리액션 카운트 가져오기
+  const getCommentReactionCounts = (commentId: string): Record<string, number> => {
+    const counts: Record<string, number> = {}
+    ;(commentReactions[commentId] || []).forEach(r => {
+      counts[r.reaction_type] = (counts[r.reaction_type] || 0) + 1
+    })
+    return counts
+  }
+
+  // 내가 누른 댓글 리액션인지 확인
+  const isMyCommentReaction = (commentId: string, reactionType: string) => {
+    return (commentReactions[commentId] || []).some(
+      r => r.user_name === userName && r.reaction_type === reactionType
+    )
   }
 
   // 저장된 사용자 이름 불러오기
@@ -74,6 +105,13 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const loadComments = async () => {
     const data = await getTaskComments(taskId)
     setComments(data)
+    
+    // 댓글 리액션도 함께 불러오기
+    if (data.length > 0) {
+      const commentIds = data.map(c => c.id)
+      const reactionsData = await getCommentsReactions(commentIds)
+      setCommentReactions(reactionsData)
+    }
   }
 
   const loadReactions = async () => {
@@ -150,6 +188,21 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   // 내가 누른 리액션인지 확인
   const isMyReaction = (reactionType: string) => {
     return reactions.some(r => r.user_name === userName && r.reaction_type === reactionType)
+  }
+
+  // 댓글 리액션 토글
+  const handleCommentReaction = async (commentId: string, reactionType: CommentReaction['reaction_type']) => {
+    if (!userName.trim()) {
+      alert('이름을 먼저 입력해주세요.')
+      return
+    }
+
+    await toggleCommentReaction(commentId, userName, reactionType)
+    
+    // 해당 댓글의 리액션만 다시 불러오기
+    const commentIds = comments.map(c => c.id)
+    const reactionsData = await getCommentsReactions(commentIds)
+    setCommentReactions(reactionsData)
   }
 
   // 시간 포맷
@@ -270,12 +323,14 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
       </div>
 
       {/* 팝업 닫기용 오버레이 */}
-      {(showReactionPicker || showReactionUsers) && (
+      {(showReactionPicker || showReactionUsers || showCommentReactionPicker || showCommentReactionUsers) && (
         <div 
           className="fixed inset-0 z-40" 
           onClick={() => {
             setShowReactionPicker(false)
             setShowReactionUsers(null)
+            setShowCommentReactionPicker(null)
+            setShowCommentReactionUsers(null)
           }}
         />
       )}
@@ -400,53 +455,131 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                   아직 댓글이 없습니다. 첫 댓글을 남겨보세요! 💬
                 </p>
               ) : (
-                comments.map((comment) => (
-                  <div
-                    key={comment.id}
-                    className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                          {comment.user_name.charAt(0)}
+                comments.map((comment) => {
+                  const commentCounts = getCommentReactionCounts(comment.id)
+                  return (
+                    <div
+                      key={comment.id}
+                      className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                            {comment.user_name.charAt(0)}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sm">{comment.user_name}</p>
+                            <p className="text-xs text-gray-500">{formatTime(comment.created_at)}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold text-sm">{comment.user_name}</p>
-                          <p className="text-xs text-gray-500">{formatTime(comment.created_at)}</p>
-                        </div>
+                        {comment.user_name === userName && (
+                          <button
+                            onClick={() => handleDeleteComment(comment.id)}
+                            className="text-gray-400 hover:text-red-500 transition-colors"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        )}
                       </div>
-                      {comment.user_name === userName && (
-                        <button
-                          onClick={() => handleDeleteComment(comment.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                      <p className="mt-2 text-sm whitespace-pre-wrap">{comment.content}</p>
+                      {comment.image_url && (
+                        <div className="mt-2 relative inline-block group">
+                          <Image
+                            src={comment.image_url}
+                            alt="Comment image"
+                            width={200}
+                            height={200}
+                            className="rounded-lg object-cover"
+                          />
+                          {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
+                          <button
+                            onClick={() => handleDownload(comment.image_url!, comment.user_name)}
+                            className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
+                              transition-all shadow-lg opacity-0 group-hover:opacity-100 md:opacity-0"
+                            title="다운로드"
+                          >
+                            <Download className="h-4 w-4" />
+                          </button>
+                        </div>
                       )}
-                    </div>
-                    <p className="mt-2 text-sm whitespace-pre-wrap">{comment.content}</p>
-                    {comment.image_url && (
-                      <div className="mt-2 relative inline-block group">
-                        <Image
-                          src={comment.image_url}
-                          alt="Comment image"
-                          width={200}
-                          height={200}
-                          className="rounded-lg object-cover"
-                        />
-                        {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
-                        <button
-                          onClick={() => handleDownload(comment.image_url!, comment.user_name)}
-                          className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
-                            transition-all shadow-lg opacity-0 group-hover:opacity-100 md:opacity-0"
-                          title="다운로드"
-                        >
-                          <Download className="h-4 w-4" />
-                        </button>
+                      
+                      {/* 댓글 리액션 - 카카오톡 스타일 */}
+                      <div className="flex items-center gap-1.5 mt-3 pt-2 border-t border-gray-100 dark:border-gray-700 flex-wrap">
+                        {/* 리액션이 있는 것만 표시 */}
+                        {REACTIONS.filter(r => commentCounts[r.type] > 0).map((reaction) => (
+                          <div key={reaction.type} className="relative">
+                            <button
+                              onClick={() => setShowCommentReactionUsers(
+                                showCommentReactionUsers?.commentId === comment.id && showCommentReactionUsers?.type === reaction.type 
+                                  ? null 
+                                  : { commentId: comment.id, type: reaction.type }
+                              )}
+                              className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs transition-all ${
+                                isMyCommentReaction(comment.id, reaction.type)
+                                  ? 'bg-blue-100 dark:bg-blue-900/50 border border-blue-400'
+                                  : 'bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600'
+                              }`}
+                            >
+                              <span className="text-sm">{reaction.emoji}</span>
+                              <span className="font-medium text-xs">{commentCounts[reaction.type]}</span>
+                            </button>
+                            
+                            {/* 누가 눌렀는지 팝업 */}
+                            {showCommentReactionUsers?.commentId === comment.id && showCommentReactionUsers?.type === reaction.type && (
+                              <div className="absolute bottom-full left-0 mb-1 z-50 min-w-[80px]">
+                                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-1.5">
+                                  <p className="text-xs font-semibold text-gray-500 mb-0.5 px-1">
+                                    {reaction.emoji} {reaction.label}
+                                  </p>
+                                  <div className="max-h-20 overflow-y-auto">
+                                    {getCommentReactionUsers(comment.id, reaction.type).map((name, idx) => (
+                                      <p key={idx} className="text-xs py-0.5 px-1">{name}</p>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                        
+                        {/* 리액션 추가 버튼 */}
+                        <div className="relative">
+                          <button
+                            onClick={() => setShowCommentReactionPicker(
+                              showCommentReactionPicker === comment.id ? null : comment.id
+                            )}
+                            className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+                          >
+                            <span className="text-xs text-gray-500">😊</span>
+                          </button>
+                          
+                          {/* 리액션 선택 팝업 */}
+                          {showCommentReactionPicker === comment.id && (
+                            <div className="absolute bottom-full left-0 mb-1 z-50">
+                              <div className="bg-white dark:bg-gray-800 rounded-full shadow-xl border border-gray-200 dark:border-gray-600 p-1 flex gap-0.5">
+                                {REACTIONS.map((reaction) => (
+                                  <button
+                                    key={reaction.type}
+                                    onClick={() => {
+                                      handleCommentReaction(comment.id, reaction.type)
+                                      setShowCommentReactionPicker(null)
+                                    }}
+                                    className={`w-7 h-7 flex items-center justify-center rounded-full text-base transition-all hover:scale-125 hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                                      isMyCommentReaction(comment.id, reaction.type) ? 'bg-blue-100 dark:bg-blue-900/50' : ''
+                                    }`}
+                                    title={reaction.label}
+                                  >
+                                    {reaction.emoji}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    )}
-                  </div>
-                ))
+                    </div>
+                  )
+                })
               )}
             </div>
           </div>
