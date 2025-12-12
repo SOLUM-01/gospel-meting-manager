@@ -245,43 +245,42 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     <div className="mt-8 space-y-6">
       {/* 리액션 섹션 - 카카오톡 스타일 */}
       <div className="flex items-center gap-2 flex-wrap">
-        {/* 리액션이 있는 것만 표시 */}
+        {/* 리액션이 있는 것만 표시 - 클릭하면 토글 */}
         {REACTIONS.filter(r => reactionCounts[r.type] > 0).map((reaction) => (
-          <div key={reaction.type} className="relative">
+          <div key={reaction.type} className="relative group/taskreaction">
             <button
-              onClick={() => setShowReactionUsers(showReactionUsers === reaction.type ? null : reaction.type)}
+              onClick={() => handleReaction(reaction.type)}
               className={`
                 flex items-center gap-1 px-2.5 py-1 rounded-full text-sm
-                transition-all duration-200 
+                transition-all duration-200 hover:scale-105
                 ${isMyReaction(reaction.type)
                   ? 'bg-blue-100 dark:bg-blue-900/50 border-2 border-blue-400'
                   : 'bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-600'
                 }
                 hover:shadow-md
               `}
+              title={isMyReaction(reaction.type) ? '클릭하면 취소' : '클릭하면 추가'}
             >
               <span>{reaction.emoji}</span>
               <span className="font-medium text-gray-700 dark:text-gray-300">{reactionCounts[reaction.type]}</span>
             </button>
             
-            {/* 누가 눌렀는지 팝업 */}
-            {showReactionUsers === reaction.type && (
-              <div className="absolute bottom-full left-0 mb-2 z-50 min-w-[120px] max-w-[200px]">
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-2">
-                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1 px-1">
-                    {reaction.emoji} {reaction.label}
-                  </p>
-                  <div className="max-h-32 overflow-y-auto">
-                    {getReactionUsers(reaction.type).map((name, idx) => (
-                      <p key={idx} className="text-sm py-0.5 px-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
-                        {name}
-                      </p>
-                    ))}
-                  </div>
+            {/* 누가 눌렀는지 팝업 - hover시 표시 */}
+            <div className="absolute bottom-full left-0 mb-2 z-50 min-w-[120px] max-w-[200px] opacity-0 group-hover/taskreaction:opacity-100 pointer-events-none transition-opacity">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-2">
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1 px-1">
+                  {reaction.emoji} {reaction.label}
+                </p>
+                <div className="max-h-32 overflow-y-auto">
+                  {getReactionUsers(reaction.type).map((name, idx) => (
+                    <p key={idx} className="text-sm py-0.5 px-1">
+                      {name}
+                    </p>
+                  ))}
                 </div>
-                <div className="absolute left-3 -bottom-1 w-2 h-2 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-600 transform rotate-45"></div>
               </div>
-            )}
+              <div className="absolute left-3 -bottom-1 w-2 h-2 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-600 transform rotate-45"></div>
+            </div>
           </div>
         ))}
         

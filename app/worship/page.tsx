@@ -603,7 +603,7 @@ export default function WorshipPage() {
                           
                           {/* 리액션 버튼들 - 카카오톡 스타일 */}
                           <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-gray-200">
-                            {/* 리액션이 있는 것만 표시 */}
+                            {/* 리액션이 있는 것만 표시 - 클릭하면 토글 */}
                             {PRAYER_REACTIONS.filter(r => (prayerReactionCounts[prayer.id] || {})[r.type] > 0).map((reaction) => {
                               const count = (prayerReactionCounts[prayer.id] || {})[reaction.type] || 0
                               const myReactions = prayerReactions[prayer.id] || []
@@ -611,38 +611,45 @@ export default function WorshipPage() {
                                 r => r.user_name === commentUserName && r.reaction_type === reaction.type
                               )
                               return (
-                                <div key={reaction.type} className="relative">
+                                <div key={reaction.type} className="relative group/prayerreaction">
                                   <button
-                                    onClick={() => setShowReactionUsers(
-                                      showReactionUsers?.prayerId === prayer.id && showReactionUsers?.type === reaction.type 
-                                        ? null 
-                                        : { prayerId: prayer.id, type: reaction.type }
-                                    )}
-                                    className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-all ${
+                                    onClick={async () => {
+                                      if (!commentUserName) {
+                                        alert('이름을 먼저 입력해주세요.')
+                                        return
+                                      }
+                                      await togglePrayerReaction(prayer.id, commentUserName, reaction.type)
+                                      const [reactions, reactionCounts] = await Promise.all([
+                                        getPrayerReactions(prayer.id),
+                                        getPrayerReactionCounts(prayer.id)
+                                      ])
+                                      setPrayerReactions(prev => ({ ...prev, [prayer.id]: reactions }))
+                                      setPrayerReactionCounts(prev => ({ ...prev, [prayer.id]: reactionCounts }))
+                                    }}
+                                    className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-all hover:scale-105 ${
                                       isMyReaction
                                         ? 'bg-blue-100 border-2 border-blue-400'
                                         : 'bg-gray-100 border border-gray-200 hover:bg-gray-200'
                                     }`}
+                                    title={isMyReaction ? '클릭하면 취소' : '클릭하면 추가'}
                                   >
                                     <span>{reaction.emoji}</span>
                                     <span className="font-medium">{count}</span>
                                   </button>
                                   
-                                  {/* 누가 눌렀는지 팝업 */}
-                                  {showReactionUsers?.prayerId === prayer.id && showReactionUsers?.type === reaction.type && (
-                                    <div className="absolute bottom-full left-0 mb-2 z-50 min-w-[100px]">
-                                      <div className="bg-white rounded-lg shadow-xl border border-gray-200 p-2">
-                                        <p className="text-xs font-semibold text-gray-500 mb-1 px-1">
-                                          {reaction.emoji} {reaction.label}
-                                        </p>
-                                        <div className="max-h-24 overflow-y-auto">
-                                          {getReactionUsers(prayer.id, reaction.type).map((name, idx) => (
-                                            <p key={idx} className="text-xs py-0.5 px-1">{name}</p>
-                                          ))}
-                                        </div>
+                                  {/* 누가 눌렀는지 팝업 - hover시 표시 */}
+                                  <div className="absolute bottom-full left-0 mb-2 z-50 min-w-[100px] opacity-0 group-hover/prayerreaction:opacity-100 pointer-events-none transition-opacity">
+                                    <div className="bg-white rounded-lg shadow-xl border border-gray-200 p-2">
+                                      <p className="text-xs font-semibold text-gray-500 mb-1 px-1">
+                                        {reaction.emoji} {reaction.label}
+                                      </p>
+                                      <div className="max-h-24 overflow-y-auto">
+                                        {getReactionUsers(prayer.id, reaction.type).map((name, idx) => (
+                                          <p key={idx} className="text-xs py-0.5 px-1">{name}</p>
+                                        ))}
                                       </div>
                                     </div>
-                                  )}
+                                  </div>
                                 </div>
                               )
                             })}
