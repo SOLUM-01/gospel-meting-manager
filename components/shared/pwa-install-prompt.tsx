@@ -102,10 +102,10 @@ export function PWAInstallPrompt() {
       <div className="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-4 shadow-2xl border border-violet-400/30">
         <button
           onClick={handleDismiss}
-          className="absolute top-2 right-2 p-1 rounded-full hover:bg-white/20 transition-colors"
+          className="absolute -top-2 -right-2 p-2 bg-white/30 rounded-full hover:bg-white/50 transition-colors shadow-lg"
           aria-label="닫기"
         >
-          <X className="w-5 h-5 text-white/80" />
+          <X className="w-6 h-6 text-white" strokeWidth={3} />
         </button>
 
         <div className="flex items-start gap-3">
