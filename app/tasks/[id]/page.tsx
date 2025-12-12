@@ -521,19 +521,6 @@ export default function TaskDetailPage() {
                                     <Download className="h-5 w-5" />
                                   </button>
                                 </div>
-                                {/* 모바일용 다운로드 버튼 (항상 표시) */}
-                                <div className="absolute bottom-2 right-2 md:hidden">
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation()
-                                      handleDownload(imageUrl, `${task.title}_사진_${index + 1}.jpg`)
-                                    }}
-                                    className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1 shadow-lg"
-                                  >
-                                    <Download className="h-3 w-3" />
-                                    저장
-                                  </button>
-                                </div>
                               </div>
                             )}
                           </div>
