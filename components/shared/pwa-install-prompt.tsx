@@ -134,24 +134,27 @@ export function PWAInstallPrompt() {
             ) : isAndroid ? (
               // Android 안내
               <div className="text-white/90 text-sm space-y-2">
-                <p>홈 화면에서 빠르게 접근하세요!</p>
                 {deferredPrompt ? (
-                  <Button
-                    onClick={handleInstall}
-                    className="w-full bg-white text-violet-600 hover:bg-white/90 font-bold"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    지금 설치하기
-                  </Button>
+                  <>
+                    <p>홈 화면에서 빠르게 접근하세요!</p>
+                    <Button
+                      onClick={handleInstall}
+                      className="w-full bg-white text-violet-600 hover:bg-white/90 font-bold"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      지금 설치하기
+                    </Button>
+                  </>
                 ) : (
                   <>
+                    <p className="text-yellow-200 font-semibold">⚠️ Chrome 브라우저에서 열어주세요!</p>
                     <div className="flex items-center gap-2 bg-white/10 rounded-lg p-2 text-xs">
                       <span className="text-lg font-bold">⋮</span>
-                      <span>우측 상단 <strong>메뉴(⋮)</strong> 탭</span>
+                      <span>메뉴(⋮) → <strong>&quot;다른 브라우저로 열기&quot;</strong></span>
                     </div>
                     <div className="flex items-center gap-2 bg-white/10 rounded-lg p-2 text-xs">
                       <Download className="w-4 h-4 flex-shrink-0" />
-                      <span><strong>&quot;앱 설치&quot;</strong> 또는 <strong>&quot;홈 화면에 추가&quot;</strong></span>
+                      <span>Chrome에서 메뉴 → <strong>&quot;앱 설치&quot;</strong></span>
                     </div>
                   </>
                 )}
