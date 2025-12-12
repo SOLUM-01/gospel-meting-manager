@@ -295,28 +295,46 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
 
         {showComments && (
           <div className="space-y-4">
-            {/* 댓글 입력 폼 */}
+            {/* 댓글 입력 폼 - 카카오톡 스타일 */}
             <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              {/* 이름 입력 */}
-              <input
-                type="text"
-                value={userName}
-                onChange={(e) => handleNameChange(e.target.value)}
-                placeholder="이름을 입력하세요"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
-                  bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                maxLength={20}
-              />
+              {/* 이름이 있으면 표시, 없으면 입력란 */}
+              {userName ? (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold text-xs">
+                      {userName.charAt(0)}
+                    </div>
+                    <span className="text-sm font-medium">{userName}</span>
+                  </div>
+                  <button
+                    onClick={() => handleNameChange('')}
+                    className="text-xs text-gray-400 hover:text-gray-600"
+                  >
+                    이름 변경
+                  </button>
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  value={userName}
+                  onChange={(e) => handleNameChange(e.target.value)}
+                  placeholder="이름을 입력하세요"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                    bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  maxLength={20}
+                />
+              )}
 
               {/* 댓글 입력 */}
               <div className="relative">
                 <textarea
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="댓글을 입력하세요 (300자 이내)"
+                  placeholder={userName ? "댓글을 입력하세요" : "먼저 이름을 입력해주세요"}
+                  disabled={!userName}
                   className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
-                    bg-white dark:bg-gray-700 text-sm resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows={3}
+                    bg-white dark:bg-gray-700 text-sm resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+                  rows={2}
                   maxLength={300}
                 />
                 <span className={`absolute bottom-2 right-2 text-xs ${newComment.length > 280 ? 'text-red-500' : 'text-gray-400'}`}>
