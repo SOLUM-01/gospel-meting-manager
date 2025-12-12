@@ -159,6 +159,21 @@ export async function getReactionCounts(taskId: string): Promise<Record<string, 
   return counts
 }
 
+// 특정 task의 모든 리액션 삭제
+export async function deleteAllTaskReactions(taskId: string): Promise<boolean> {
+  const { error } = await supabase
+    .from('task_reactions' as any)
+    .delete()
+    .eq('task_id', taskId)
+
+  if (error) {
+    console.error('Error deleting all reactions:', error)
+    return false
+  }
+
+  return true
+}
+
 // ============= 댓글 리액션 관련 =============
 
 export interface CommentReaction {
