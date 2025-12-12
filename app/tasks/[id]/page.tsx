@@ -445,9 +445,6 @@ export default function TaskDetailPage() {
                                     동영상을 재생할 수 없습니다.
                                   </video>
                                 )}
-                                <div className="absolute bottom-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                  🎥 동영상
-                                </div>
                               </div>
                             ) : task.title === '찬양팀' ? (
                               // 찬양팀 악보: A4 비율 고정 + 제목 표시
