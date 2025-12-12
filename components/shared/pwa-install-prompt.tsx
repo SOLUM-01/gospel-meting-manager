@@ -98,14 +98,14 @@ export function PWAInstallPrompt() {
   if (!showPrompt || isInstalled || !isMobile) return null
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 animate-in slide-in-from-bottom-4 duration-300">
-      <div className="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-4 shadow-2xl border border-violet-400/30">
+    <div className="fixed bottom-4 left-4 right-4 z-[9999] animate-in slide-in-from-bottom-4 duration-300">
+      <div className="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-4 pr-12 shadow-2xl border border-violet-400/30 relative">
         <button
           onClick={handleDismiss}
-          className="absolute -top-2 -right-2 p-2 bg-white/30 rounded-full hover:bg-white/50 transition-colors shadow-lg"
+          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-500 rounded-full hover:bg-red-600 transition-colors shadow-lg"
           aria-label="닫기"
         >
-          <X className="w-6 h-6 text-white" strokeWidth={3} />
+          <X className="w-5 h-5 text-white" strokeWidth={3} />
         </button>
 
         <div className="flex items-start gap-3">
