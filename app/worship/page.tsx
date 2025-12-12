@@ -618,13 +618,36 @@ export default function WorshipPage() {
                                         alert('이름을 먼저 입력해주세요.')
                                         return
                                       }
+                                      // 먼저 UI 즉시 업데이트 (낙관적 업데이트)
+                                      const newCount = isMyReaction ? count - 1 : count + 1
+                                      setPrayerReactionCounts(prev => ({
+                                        ...prev,
+                                        [prayer.id]: {
+                                          ...(prev[prayer.id] || {}),
+                                          [reaction.type]: newCount
+                                        }
+                                      }))
+                                      if (isMyReaction) {
+                                        setPrayerReactions(prev => ({
+                                          ...prev,
+                                          [prayer.id]: (prev[prayer.id] || []).filter(
+                                            r => !(r.user_name === commentUserName && r.reaction_type === reaction.type)
+                                          )
+                                        }))
+                                      } else {
+                                        setPrayerReactions(prev => ({
+                                          ...prev,
+                                          [prayer.id]: [...(prev[prayer.id] || []), {
+                                            id: 'temp',
+                                            prayer_id: prayer.id,
+                                            user_name: commentUserName,
+                                            reaction_type: reaction.type,
+                                            created_at: new Date().toISOString()
+                                          }]
+                                        }))
+                                      }
+                                      // 서버에 요청
                                       await togglePrayerReaction(prayer.id, commentUserName, reaction.type)
-                                      const [reactions, reactionCounts] = await Promise.all([
-                                        getPrayerReactions(prayer.id),
-                                        getPrayerReactionCounts(prayer.id)
-                                      ])
-                                      setPrayerReactions(prev => ({ ...prev, [prayer.id]: reactions }))
-                                      setPrayerReactionCounts(prev => ({ ...prev, [prayer.id]: reactionCounts }))
                                     }}
                                     className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-all hover:scale-105 ${
                                       isMyReaction
@@ -680,14 +703,38 @@ export default function WorshipPage() {
                                               alert('이름을 먼저 입력해주세요.')
                                               return
                                             }
-                                            await togglePrayerReaction(prayer.id, commentUserName, reaction.type)
-                                            const [reactions, reactionCounts] = await Promise.all([
-                                              getPrayerReactions(prayer.id),
-                                              getPrayerReactionCounts(prayer.id)
-                                            ])
-                                            setPrayerReactions(prev => ({ ...prev, [prayer.id]: reactions }))
-                                            setPrayerReactionCounts(prev => ({ ...prev, [prayer.id]: reactionCounts }))
+                                            // 먼저 UI 즉시 업데이트 (낙관적 업데이트)
+                                            const currentCount = (prayerReactionCounts[prayer.id] || {})[reaction.type] || 0
+                                            const newCount = isMyReaction ? currentCount - 1 : currentCount + 1
+                                            setPrayerReactionCounts(prev => ({
+                                              ...prev,
+                                              [prayer.id]: {
+                                                ...(prev[prayer.id] || {}),
+                                                [reaction.type]: newCount
+                                              }
+                                            }))
+                                            if (isMyReaction) {
+                                              setPrayerReactions(prev => ({
+                                                ...prev,
+                                                [prayer.id]: (prev[prayer.id] || []).filter(
+                                                  r => !(r.user_name === commentUserName && r.reaction_type === reaction.type)
+                                                )
+                                              }))
+                                            } else {
+                                              setPrayerReactions(prev => ({
+                                                ...prev,
+                                                [prayer.id]: [...(prev[prayer.id] || []), {
+                                                  id: 'temp',
+                                                  prayer_id: prayer.id,
+                                                  user_name: commentUserName,
+                                                  reaction_type: reaction.type,
+                                                  created_at: new Date().toISOString()
+                                                }]
+                                              }))
+                                            }
                                             setShowReactionPicker(null)
+                                            // 서버에 요청
+                                            await togglePrayerReaction(prayer.id, commentUserName, reaction.type)
                                           }}
                                           className={`w-8 h-8 flex items-center justify-center rounded-full text-lg transition-all hover:scale-125 hover:bg-gray-100 ${
                                             isMyReaction ? 'bg-blue-100' : ''

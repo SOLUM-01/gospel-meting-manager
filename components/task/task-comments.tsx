@@ -174,15 +174,39 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     }
   }
 
-  // 리액션 토글
+  // 리액션 토글 (낙관적 업데이트)
   const handleReaction = async (reactionType: TaskReaction['reaction_type']) => {
     if (!userName.trim()) {
       alert('이름을 먼저 입력해주세요.')
       return
     }
 
-    const result = await toggleTaskReaction(taskId, userName, reactionType)
-    await loadReactions()
+    const myReaction = isMyReaction(reactionType)
+    const currentCount = reactionCounts[reactionType] || 0
+    const newCount = myReaction ? currentCount - 1 : currentCount + 1
+
+    // UI 즉시 업데이트
+    setReactionCounts(prev => ({
+      ...prev,
+      [reactionType]: newCount
+    }))
+
+    if (myReaction) {
+      setReactions(prev => prev.filter(
+        r => !(r.user_name === userName && r.reaction_type === reactionType)
+      ))
+    } else {
+      setReactions(prev => [...prev, {
+        id: 'temp',
+        task_id: taskId,
+        user_name: userName,
+        reaction_type: reactionType,
+        created_at: new Date().toISOString()
+      }])
+    }
+
+    // 서버에 요청
+    await toggleTaskReaction(taskId, userName, reactionType)
   }
 
   // 내가 누른 리액션인지 확인
@@ -190,19 +214,43 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     return reactions.some(r => r.user_name === userName && r.reaction_type === reactionType)
   }
 
-  // 댓글 리액션 토글
+  // 댓글 리액션 토글 (낙관적 업데이트)
   const handleCommentReaction = async (commentId: string, reactionType: CommentReaction['reaction_type']) => {
     if (!userName.trim()) {
       alert('이름을 먼저 입력해주세요.')
       return
     }
 
-    await toggleCommentReaction(commentId, userName, reactionType)
+    const myReaction = isMyCommentReaction(commentId, reactionType)
     
-    // 해당 댓글의 리액션만 다시 불러오기
-    const commentIds = comments.map(c => c.id)
-    const reactionsData = await getCommentsReactions(commentIds)
-    setCommentReactions(reactionsData)
+    // UI 즉시 업데이트
+    setCommentReactions(prev => {
+      const commentReactionsList = prev[commentId] || []
+      if (myReaction) {
+        // 삭제
+        return {
+          ...prev,
+          [commentId]: commentReactionsList.filter(
+            r => !(r.user_name === userName && r.reaction_type === reactionType)
+          )
+        }
+      } else {
+        // 추가
+        return {
+          ...prev,
+          [commentId]: [...commentReactionsList, {
+            id: 'temp',
+            comment_id: commentId,
+            user_name: userName,
+            reaction_type: reactionType,
+            created_at: new Date().toISOString()
+          }]
+        }
+      }
+    })
+
+    // 서버에 요청
+    await toggleCommentReaction(commentId, userName, reactionType)
   }
 
   // 시간 포맷
