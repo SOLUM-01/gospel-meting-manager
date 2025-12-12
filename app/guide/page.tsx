@@ -1416,34 +1416,36 @@ export default function GuidePage() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-black text-blue-700">1차량</h3>
-                      <p className="text-lg font-bold text-blue-600">第1車 | 차장: 김대현</p>
+                      <p className="text-lg font-bold text-blue-600">第1車 | 차장: 김진해 | 통역: 정웅규, 황철호</p>
                     </div>
                   </div>
                   
                   <div className="bg-white rounded-xl p-5 border-2 border-blue-200">
                     <div className="flex flex-wrap gap-2">
                       {[
-                        '김요성', '김동환', '이혜승', '황철호', '박세은', '최우현', '임종옥',
-                        '정회평', '윤숙영', '이승헌', '김대현', '정선은', '강서현',
-                        '제인량', '제인현', '김화숙', '이아셀', '김신하', '김덕희',
-                        '서희숙', '김민경', '김정', '이순옥', '송형숙', '이영민',
-                        '정재영', '문유선', '이서은', '박혜성', '우주연'
+                        '김진해', '정웅규', '황철호', '김동환', '박세은', '정회평', '윤숙영',
+                        '이승헌', '김대현', '정선은', '강서현', '제인량', '제인현',
+                        '이아셀', '김민경', '김정', '문유선', '이서은', '박혜성',
+                        '조하령', '김양신', '백승이', '최희주', '조영선', '이예진',
+                        '최세정', '윤효정', '오경자', '권옥희', '최미자', '곽미동'
                       ].map((name, index) => (
                         <span 
                           key={index} 
                           className={`px-3 py-1.5 rounded-lg font-bold border ${
-                            name === '김대현' 
+                            name === '김진해' 
                               ? 'bg-blue-500 text-white border-blue-600' 
-                              : 'bg-blue-100 text-blue-800 border-blue-300'
+                              : ['정웅규', '황철호'].includes(name)
+                                ? 'bg-blue-400 text-white border-blue-500'
+                                : 'bg-blue-100 text-blue-800 border-blue-300'
                           }`}
                         >
-                          {name}{name === '김대현' && ' ⭐'}
+                          {name}{name === '김진해' && ' ⭐'}{['정웅규', '황철호'].includes(name) && ' 🌐'}
                         </span>
                       ))}
                     </div>
                     <div className="mt-4 text-center">
                       <span className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold">
-                        총 30명
+                        총 31명
                       </span>
                     </div>
                   </div>
@@ -1457,28 +1459,30 @@ export default function GuidePage() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-black text-emerald-700">2차량</h3>
-                      <p className="text-lg font-bold text-emerald-600">第2車 | 차장: 김진해</p>
+                      <p className="text-lg font-bold text-emerald-600">第2車 | 차장: 윤정현 | 통역: 우주연</p>
                     </div>
                   </div>
                   
                   <div className="bg-white rounded-xl p-5 border-2 border-emerald-200">
                     <div className="flex flex-wrap gap-2">
                       {[
-                        '김진해', '조하령', '정정희', '양인숙', '유영단', '이정윤', '김양덕',
-                        '이미경', '김양신', '백승이', '백정희', '유은진', '최옥자',
-                        '이명대', '차승희', '김유하', '최희주', '이보라', '조영선',
-                        '이예진', '최세정', '윤효정', '오경자', '김영미', '권옥희',
-                        '박효양', '최미자', '곽미동', '신교순', '강성혜', '윤정현'
+                        '윤정현', '우주연', '김요성', '이영민', '정재영', '백정희', '유은진',
+                        '최옥자', '이명대', '차승희', '김화숙', '정정희', '양인숙',
+                        '유영단', '이정윤', '최우현', '임종옥', '서희숙', '이순옥',
+                        '송형숙', '김양덕', '이미경', '김유하', '이보라', '김영미',
+                        '박효양', '강성혜', '이혜승', '김신하', '신교순', '김덕희'
                       ].map((name, index) => (
                         <span 
                           key={index} 
                           className={`px-3 py-1.5 rounded-lg font-bold border ${
-                            name === '김진해' 
+                            name === '윤정현' 
                               ? 'bg-emerald-500 text-white border-emerald-600' 
-                              : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                              : name === '우주연'
+                                ? 'bg-emerald-400 text-white border-emerald-500'
+                                : 'bg-emerald-100 text-emerald-800 border-emerald-300'
                           }`}
                         >
-                          {name}{name === '김진해' && ' ⭐'}
+                          {name}{name === '윤정현' && ' ⭐'}{name === '우주연' && ' 🌐'}
                         </span>
                       ))}
                     </div>
@@ -1494,18 +1498,18 @@ export default function GuidePage() {
                 <div className="bg-gradient-to-r from-slate-600 to-gray-600 text-white p-6 rounded-xl shadow-lg">
                   <div className="text-center space-y-3">
                     <p className="text-2xl font-black">
-                      🚌 전체 탑승 인원: 61명 🚐
+                      🚌 전체 탑승 인원: 62명 🚐
                     </p>
                     <div className="flex justify-center gap-6 flex-wrap">
                       <div className="bg-white/20 px-4 py-2 rounded-lg">
-                        <span className="font-bold">1차량: 30명</span>
+                        <span className="font-bold">1차량: 31명</span>
                       </div>
                       <div className="bg-white/20 px-4 py-2 rounded-lg">
                         <span className="font-bold">2차량: 31명</span>
                       </div>
                     </div>
                     <p className="text-lg font-semibold mt-2">
-                      ⭐ 차장 표시 | 車長標示
+                      ⭐ 차장 표시 | 🌐 통역 표시
                     </p>
                   </div>
                 </div>
