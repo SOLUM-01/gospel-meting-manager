@@ -9,11 +9,6 @@ import {
   ImagePlus, 
   X, 
   Trash2,
-  Heart,
-  ThumbsUp,
-  Flame,
-  Smile,
-  HandMetal,
   Download
 } from 'lucide-react'
 import Image from 'next/image'
