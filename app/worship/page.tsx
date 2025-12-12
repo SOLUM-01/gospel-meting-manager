@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { BookOpen, Search, FileText, Youtube, ArrowLeft, ExternalLink, Send, Heart, MessageCircle, Trash2, User, ThumbsUp, ChevronDown, ChevronUp } from 'lucide-react'
+import { BookOpen, Search, FileText, Youtube, ArrowLeft, ExternalLink, Send, Heart, MessageCircle, Trash2, User } from 'lucide-react'
 import type { WorshipSong } from '@/types/worship'
 import type { Prayer } from '@/types/prayer'
 import { getPublicWorshipSongs } from '@/lib/database/api/worship-songs'
@@ -55,9 +55,17 @@ export default function WorshipPage() {
   const [prayerComments, setPrayerComments] = useState<Record<string, PrayerComment[]>>({})
   const [prayerReactions, setPrayerReactions] = useState<Record<string, PrayerReaction[]>>({})
   const [prayerReactionCounts, setPrayerReactionCounts] = useState<Record<string, Record<string, number>>>({})
-  const [expandedPrayer, setExpandedPrayer] = useState<string | null>(null)
   const [newCommentContent, setNewCommentContent] = useState<Record<string, string>>({})
   const [commentUserName, setCommentUserName] = useState('')
+  const [showReactionPicker, setShowReactionPicker] = useState<string | null>(null)
+  const [showReactionUsers, setShowReactionUsers] = useState<{ prayerId: string; type: string } | null>(null)
+
+  // 특정 리액션을 누른 사용자 목록 가져오기
+  const getReactionUsers = (prayerId: string, reactionType: string) => {
+    return (prayerReactions[prayerId] || [])
+      .filter(r => r.reaction_type === reactionType)
+      .map(r => r.user_name)
+  }
   
   // 로컬스토리지에서 사용자 이름 불러오기
   useEffect(() => {
@@ -111,13 +119,25 @@ export default function WorshipPage() {
     fetchWorshipSongs()
   }, [])
 
-  // 기도/말씀 목록 가져오기
+  // 기도/말씀 목록 가져오기 (댓글/리액션 포함)
   useEffect(() => {
     async function fetchPrayers() {
       try {
         setPrayersLoading(true)
         const data = await getPrayers()
         setPrayers(data)
+        
+        // 각 기도에 대해 댓글과 리액션 불러오기
+        for (const prayer of data) {
+          const [comments, reactions, reactionCounts] = await Promise.all([
+            getPrayerComments(prayer.id),
+            getPrayerReactions(prayer.id),
+            getPrayerReactionCounts(prayer.id)
+          ])
+          setPrayerComments(prev => ({ ...prev, [prayer.id]: comments }))
+          setPrayerReactions(prev => ({ ...prev, [prayer.id]: reactions }))
+          setPrayerReactionCounts(prev => ({ ...prev, [prayer.id]: reactionCounts }))
+        }
       } catch (err) {
         console.error('기도/말씀 목록 로딩 실패:', err)
       } finally {
@@ -537,6 +557,17 @@ export default function WorshipPage() {
             {/* 구분선 */}
             <div className="border-t border-gray-200 my-6"></div>
 
+            {/* 팝업 닫기용 오버레이 */}
+            {(showReactionPicker || showReactionUsers) && (
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => {
+                  setShowReactionPicker(null)
+                  setShowReactionUsers(null)
+                }}
+              />
+            )}
+
             {/* 기도/말씀 목록 */}
             {prayersLoading ? (
               <div className="text-center py-8">
@@ -570,75 +601,118 @@ export default function WorshipPage() {
                             {prayer.content}
                           </p>
                           
-                          {/* 리액션 버튼들 */}
-                          <div className="flex flex-wrap gap-1 mt-3 pt-3 border-t border-gray-200">
-                            {PRAYER_REACTIONS.map((reaction) => {
-                              const counts = prayerReactionCounts[prayer.id] || {}
-                              const count = counts[reaction.type] || 0
+                          {/* 리액션 버튼들 - 카카오톡 스타일 */}
+                          <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-gray-200">
+                            {/* 리액션이 있는 것만 표시 */}
+                            {PRAYER_REACTIONS.filter(r => (prayerReactionCounts[prayer.id] || {})[r.type] > 0).map((reaction) => {
+                              const count = (prayerReactionCounts[prayer.id] || {})[reaction.type] || 0
                               const myReactions = prayerReactions[prayer.id] || []
                               const isMyReaction = myReactions.some(
                                 r => r.user_name === commentUserName && r.reaction_type === reaction.type
                               )
                               return (
-                                <button
-                                  key={reaction.type}
-                                  onClick={async () => {
-                                    if (!commentUserName) {
-                                      alert('이름을 먼저 입력해주세요.')
-                                      return
-                                    }
-                                    await togglePrayerReaction(prayer.id, commentUserName, reaction.type)
-                                    // 리액션 다시 불러오기
-                                    const [reactions, reactionCounts] = await Promise.all([
-                                      getPrayerReactions(prayer.id),
-                                      getPrayerReactionCounts(prayer.id)
-                                    ])
-                                    setPrayerReactions(prev => ({ ...prev, [prayer.id]: reactions }))
-                                    setPrayerReactionCounts(prev => ({ ...prev, [prayer.id]: reactionCounts }))
-                                  }}
-                                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-all ${
-                                    isMyReaction
-                                      ? 'bg-blue-500 text-white'
-                                      : 'bg-white border border-gray-200 hover:bg-gray-50'
-                                  }`}
-                                >
-                                  <span>{reaction.emoji}</span>
-                                  {count > 0 && <span>{count}</span>}
-                                </button>
+                                <div key={reaction.type} className="relative">
+                                  <button
+                                    onClick={() => setShowReactionUsers(
+                                      showReactionUsers?.prayerId === prayer.id && showReactionUsers?.type === reaction.type 
+                                        ? null 
+                                        : { prayerId: prayer.id, type: reaction.type }
+                                    )}
+                                    className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-all ${
+                                      isMyReaction
+                                        ? 'bg-blue-100 border-2 border-blue-400'
+                                        : 'bg-gray-100 border border-gray-200 hover:bg-gray-200'
+                                    }`}
+                                  >
+                                    <span>{reaction.emoji}</span>
+                                    <span className="font-medium">{count}</span>
+                                  </button>
+                                  
+                                  {/* 누가 눌렀는지 팝업 */}
+                                  {showReactionUsers?.prayerId === prayer.id && showReactionUsers?.type === reaction.type && (
+                                    <div className="absolute bottom-full left-0 mb-2 z-50 min-w-[100px]">
+                                      <div className="bg-white rounded-lg shadow-xl border border-gray-200 p-2">
+                                        <p className="text-xs font-semibold text-gray-500 mb-1 px-1">
+                                          {reaction.emoji} {reaction.label}
+                                        </p>
+                                        <div className="max-h-24 overflow-y-auto">
+                                          {getReactionUsers(prayer.id, reaction.type).map((name, idx) => (
+                                            <p key={idx} className="text-xs py-0.5 px-1">{name}</p>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
                               )
                             })}
+                            
+                            {/* 리액션 추가 버튼 */}
+                            <div className="relative">
+                              <button
+                                onClick={() => setShowReactionPicker(showReactionPicker === prayer.id ? null : prayer.id)}
+                                className="flex items-center justify-center w-7 h-7 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 transition-all"
+                              >
+                                <span className="text-gray-500 text-sm">😊</span>
+                              </button>
+                              
+                              {/* 리액션 선택 팝업 */}
+                              {showReactionPicker === prayer.id && (
+                                <div className="absolute bottom-full left-0 mb-2 z-50">
+                                  <div className="bg-white rounded-full shadow-xl border border-gray-200 p-1 flex gap-0.5">
+                                    {PRAYER_REACTIONS.map((reaction) => {
+                                      const myReactions = prayerReactions[prayer.id] || []
+                                      const isMyReaction = myReactions.some(
+                                        r => r.user_name === commentUserName && r.reaction_type === reaction.type
+                                      )
+                                      return (
+                                        <button
+                                          key={reaction.type}
+                                          onClick={async () => {
+                                            if (!commentUserName) {
+                                              alert('이름을 먼저 입력해주세요.')
+                                              return
+                                            }
+                                            await togglePrayerReaction(prayer.id, commentUserName, reaction.type)
+                                            const [reactions, reactionCounts] = await Promise.all([
+                                              getPrayerReactions(prayer.id),
+                                              getPrayerReactionCounts(prayer.id)
+                                            ])
+                                            setPrayerReactions(prev => ({ ...prev, [prayer.id]: reactions }))
+                                            setPrayerReactionCounts(prev => ({ ...prev, [prayer.id]: reactionCounts }))
+                                            setShowReactionPicker(null)
+                                          }}
+                                          className={`w-8 h-8 flex items-center justify-center rounded-full text-lg transition-all hover:scale-125 hover:bg-gray-100 ${
+                                            isMyReaction ? 'bg-blue-100' : ''
+                                          }`}
+                                          title={reaction.label}
+                                        >
+                                          {reaction.emoji}
+                                        </button>
+                                      )
+                                    })}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                           </div>
                           
-                          {/* 댓글 토글 버튼 */}
-                          <button
-                            onClick={async () => {
-                              if (expandedPrayer === prayer.id) {
-                                setExpandedPrayer(null)
-                              } else {
-                                setExpandedPrayer(prayer.id)
-                                // 댓글과 리액션 로드
-                                const [comments, reactions, reactionCounts] = await Promise.all([
-                                  getPrayerComments(prayer.id),
-                                  getPrayerReactions(prayer.id),
-                                  getPrayerReactionCounts(prayer.id)
-                                ])
-                                setPrayerComments(prev => ({ ...prev, [prayer.id]: comments }))
-                                setPrayerReactions(prev => ({ ...prev, [prayer.id]: reactions }))
-                                setPrayerReactionCounts(prev => ({ ...prev, [prayer.id]: reactionCounts }))
-                              }
-                            }}
-                            className="flex items-center gap-1 mt-2 text-xs text-gray-500 hover:text-gray-700"
-                          >
-                            <MessageCircle className="h-4 w-4" />
-                            <span>댓글 {(prayerComments[prayer.id] || []).length > 0 ? `(${prayerComments[prayer.id].length})` : ''}</span>
-                            {expandedPrayer === prayer.id ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-                          </button>
-                          
-                          {/* 댓글 섹션 */}
-                          {expandedPrayer === prayer.id && (
-                            <div className="mt-3 pt-3 border-t border-gray-200 space-y-3">
-                              {/* 댓글 입력 */}
-                              <div className="flex gap-2">
+                          {/* 댓글 섹션 - 항상 펼쳐져 있음 */}
+                          <div className="mt-3 pt-3 border-t border-gray-200 space-y-3">
+                            <div className="flex items-center gap-1 text-xs text-gray-500">
+                              <MessageCircle className="h-4 w-4" />
+                              <span>댓글 ({(prayerComments[prayer.id] || []).length})</span>
+                            </div>
+                            
+                            {/* 댓글 입력 */}
+                            <div className="flex gap-2">
+                              {commentUserName ? (
+                                <div className="flex items-center gap-1">
+                                  <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold text-xs">
+                                    {commentUserName.charAt(0)}
+                                  </div>
+                                </div>
+                              ) : (
                                 <input
                                   type="text"
                                   placeholder="이름"
@@ -647,80 +721,82 @@ export default function WorshipPage() {
                                     setCommentUserName(e.target.value)
                                     localStorage.setItem('gospel_user_name', e.target.value)
                                   }}
-                                  className="w-20 px-2 py-1 text-xs border rounded"
+                                  className="w-16 px-2 py-1 text-xs border rounded"
                                 />
-                                <input
-                                  type="text"
-                                  placeholder="댓글을 입력하세요 (300자)"
-                                  value={newCommentContent[prayer.id] || ''}
-                                  onChange={(e) => setNewCommentContent(prev => ({ ...prev, [prayer.id]: e.target.value }))}
-                                  maxLength={300}
-                                  className="flex-1 px-2 py-1 text-xs border rounded"
-                                />
-                                <Button
-                                  size="sm"
-                                  onClick={async () => {
-                                    const content = newCommentContent[prayer.id]
-                                    if (!content?.trim() || !commentUserName.trim()) {
-                                      alert('이름과 댓글을 입력해주세요.')
-                                      return
-                                    }
-                                    const newComment = await addPrayerComment(prayer.id, commentUserName, content)
-                                    if (newComment) {
-                                      setPrayerComments(prev => ({
-                                        ...prev,
-                                        [prayer.id]: [...(prev[prayer.id] || []), newComment]
-                                      }))
-                                      setNewCommentContent(prev => ({ ...prev, [prayer.id]: '' }))
-                                    }
-                                  }}
-                                  className="h-7 px-2 text-xs"
-                                >
-                                  <Send className="h-3 w-3" />
-                                </Button>
-                              </div>
-                              
-                              {/* 댓글 목록 */}
-                              {(prayerComments[prayer.id] || []).length > 0 ? (
-                                <div className="space-y-2">
-                                  {(prayerComments[prayer.id] || []).map((comment) => (
-                                    <div key={comment.id} className="flex items-start gap-2 bg-white p-2 rounded text-xs">
-                                      <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">
-                                        {comment.user_name.charAt(0)}
-                                      </div>
-                                      <div className="flex-1">
-                                        <div className="flex items-center gap-1">
-                                          <span className="font-semibold">{comment.user_name}</span>
-                                          <span className="text-gray-400">
-                                            {new Date(comment.created_at).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                                          </span>
-                                        </div>
-                                        <p className="text-gray-700">{comment.content}</p>
-                                      </div>
-                                      {comment.user_name === commentUserName && (
-                                        <button
-                                          onClick={async () => {
-                                            if (confirm('댓글을 삭제하시겠습니까?')) {
-                                              await deletePrayerComment(comment.id)
-                                              setPrayerComments(prev => ({
-                                                ...prev,
-                                                [prayer.id]: prev[prayer.id].filter(c => c.id !== comment.id)
-                                              }))
-                                            }
-                                          }}
-                                          className="text-gray-400 hover:text-red-500"
-                                        >
-                                          <Trash2 className="h-3 w-3" />
-                                        </button>
-                                      )}
-                                    </div>
-                                  ))}
-                                </div>
-                              ) : (
-                                <p className="text-xs text-gray-400 text-center py-2">아직 댓글이 없습니다</p>
                               )}
+                              <input
+                                type="text"
+                                placeholder={commentUserName ? "댓글을 입력하세요" : "이름을 먼저 입력하세요"}
+                                value={newCommentContent[prayer.id] || ''}
+                                onChange={(e) => setNewCommentContent(prev => ({ ...prev, [prayer.id]: e.target.value }))}
+                                maxLength={300}
+                                disabled={!commentUserName}
+                                className="flex-1 px-2 py-1 text-xs border rounded disabled:opacity-50"
+                              />
+                              <Button
+                                size="sm"
+                                onClick={async () => {
+                                  const content = newCommentContent[prayer.id]
+                                  if (!content?.trim() || !commentUserName.trim()) {
+                                    alert('이름과 댓글을 입력해주세요.')
+                                    return
+                                  }
+                                  const newComment = await addPrayerComment(prayer.id, commentUserName, content)
+                                  if (newComment) {
+                                    setPrayerComments(prev => ({
+                                      ...prev,
+                                      [prayer.id]: [...(prev[prayer.id] || []), newComment]
+                                    }))
+                                    setNewCommentContent(prev => ({ ...prev, [prayer.id]: '' }))
+                                  }
+                                }}
+                                disabled={!commentUserName}
+                                className="h-7 px-2 text-xs"
+                              >
+                                <Send className="h-3 w-3" />
+                              </Button>
                             </div>
-                          )}
+                            
+                            {/* 댓글 목록 */}
+                            {(prayerComments[prayer.id] || []).length > 0 ? (
+                              <div className="space-y-2">
+                                {(prayerComments[prayer.id] || []).map((comment) => (
+                                  <div key={comment.id} className="flex items-start gap-2 bg-white p-2 rounded text-xs">
+                                    <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                      {comment.user_name.charAt(0)}
+                                    </div>
+                                    <div className="flex-1">
+                                      <div className="flex items-center gap-1">
+                                        <span className="font-semibold">{comment.user_name}</span>
+                                        <span className="text-gray-400">
+                                          {new Date(comment.created_at).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                        </span>
+                                      </div>
+                                      <p className="text-gray-700">{comment.content}</p>
+                                    </div>
+                                    {comment.user_name === commentUserName && (
+                                      <button
+                                        onClick={async () => {
+                                          if (confirm('댓글을 삭제하시겠습니까?')) {
+                                            await deletePrayerComment(comment.id)
+                                            setPrayerComments(prev => ({
+                                              ...prev,
+                                              [prayer.id]: prev[prayer.id].filter(c => c.id !== comment.id)
+                                            }))
+                                          }
+                                        }}
+                                        className="text-gray-400 hover:text-red-500"
+                                      >
+                                        <Trash2 className="h-3 w-3" />
+                                      </button>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-xs text-gray-400 text-center py-2">아직 댓글이 없습니다</p>
+                            )}
+                          </div>
                         </div>
                         {user && user.id === prayer.userId && (
                           <Button
