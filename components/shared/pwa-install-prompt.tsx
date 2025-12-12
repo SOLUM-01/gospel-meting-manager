@@ -18,6 +18,17 @@ export function PWAInstallPrompt() {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    // Service Worker 등록
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('Service Worker 등록 성공:', registration.scope)
+        })
+        .catch((error) => {
+          console.log('Service Worker 등록 실패:', error)
+        })
+    }
+
     // 모바일 기기 감지
     const userAgent = navigator.userAgent.toLowerCase()
     const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(userAgent)
