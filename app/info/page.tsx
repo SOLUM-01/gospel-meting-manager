@@ -7,7 +7,7 @@ import { Footer } from '@/components/shared/footer'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Users, BookOpen, ListTodo, ArrowRight, Home, LogIn, LogOut, UserPlus, Music, Info } from 'lucide-react'
-import { supabase } from '@/lib/database/supabase'
+import { supabase, isSupabaseReady } from '@/lib/database/supabase'
 import { useEffect, useState } from 'react'
 
 export default function InfoPage() {
@@ -16,6 +16,8 @@ export default function InfoPage() {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null)
 
   useEffect(() => {
+    if (!supabase || !isSupabaseReady) return
+
     // 현재 세션 확인
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
@@ -42,6 +44,7 @@ export default function InfoPage() {
   }, [])
 
   const handleLogout = async () => {
+    if (!supabase) return
     await supabase.auth.signOut()
     setUser(null)
     router.refresh()

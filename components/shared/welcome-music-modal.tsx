@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { Music, X, Volume2, VolumeX, Play, Pause, SkipForward } from 'lucide-react'
-import { supabase } from '@/lib/database/supabase'
+import { supabase, isSupabaseReady } from '@/lib/database/supabase'
 
 // 한국어/중국어 버전 정보 - 천사 찬송하기를 (Hark! The Herald Angels Sing)
 const versions = {
@@ -51,6 +51,8 @@ export function WelcomeMusicModal() {
   const startTimeRef = useRef<number>(Date.now())
 
   useEffect(() => {
+    if (!supabase || !isSupabaseReady) return
+
     // 현재 세션 확인
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {

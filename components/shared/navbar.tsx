@@ -6,7 +6,7 @@ import { LanguageSwitcher } from './language-switcher'
 import { useTranslation } from '@/lib/i18n/use-translation'
 import { Button } from '@/components/ui/button'
 import { Calendar, Home, ListTodo, Users, LogIn, UserPlus, LogOut } from 'lucide-react'
-import { supabase } from '@/lib/database/supabase'
+import { supabase, isSupabaseReady } from '@/lib/database/supabase'
 import { useEffect, useState } from 'react'
 
 export function Navbar() {
@@ -16,6 +16,8 @@ export function Navbar() {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null)
 
   useEffect(() => {
+    if (!supabase || !isSupabaseReady) return
+
     // 현재 세션 확인
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
@@ -42,6 +44,7 @@ export function Navbar() {
   }, [])
 
   const handleLogout = async () => {
+    if (!supabase) return
     await supabase.auth.signOut()
     setUser(null)
     router.push('/')

@@ -25,7 +25,7 @@ import {
   type PrayerComment,
   type PrayerReaction
 } from '@/lib/database/api/prayer-comments'
-import { supabase } from '@/lib/database/supabase'
+import { supabase, isSupabaseReady } from '@/lib/database/supabase'
 
 const PRAYER_REACTIONS = [
   { type: 'like' as const, emoji: '👍', label: '좋아요' },
@@ -79,6 +79,8 @@ export default function WorshipPage() {
 
   // 현재 사용자 정보 가져오기
   useEffect(() => {
+    if (!supabase || !isSupabaseReady) return
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setUser({
@@ -867,7 +869,7 @@ export default function WorshipPage() {
                                       </div>
                                     ))}
                                     
-                                    {/* 페이지네이션 UI */}
+                                    {/* 페이지네이션 UI - 2페이지 이상일 때만 표시 */}
                                     {totalPages > 1 && (
                                       <div className="flex items-center justify-center gap-1 mt-3 pt-2 border-t border-gray-200">
                                         {/* 이전 버튼 */}
@@ -907,13 +909,6 @@ export default function WorshipPage() {
                                           <ChevronRight className="w-4 h-4 text-gray-600" />
                                         </button>
                                       </div>
-                                    )}
-                                    
-                                    {/* 페이지 정보 */}
-                                    {totalPages > 1 && (
-                                      <p className="text-center text-[10px] text-gray-400 mt-1">
-                                        {allComments.length}개 중 {startIndex + 1}-{Math.min(endIndex, allComments.length)}
-                                      </p>
                                     )}
                                   </div>
                                 )

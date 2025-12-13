@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { UserPlus, LogIn, LogOut } from 'lucide-react'
-import { supabase } from '@/lib/database/supabase'
+import { supabase, isSupabaseReady } from '@/lib/database/supabase'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -15,6 +15,8 @@ export function HeroSection() {
   const [user, setUser] = useState<{ name: string } | null>(null)
 
   useEffect(() => {
+    if (!supabase || !isSupabaseReady) return
+
     // 현재 세션 확인
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
@@ -39,6 +41,7 @@ export function HeroSection() {
   }, [])
 
   const handleLogout = async () => {
+    if (!supabase) return
     await supabase.auth.signOut()
     setUser(null)
     router.refresh()

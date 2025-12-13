@@ -1,13 +1,29 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from './types/database'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+// Supabase URL이 유효한지 확인
+const isValidUrl = (url: string) => {
+  try {
+    return url.startsWith('http://') || url.startsWith('https://')
+  } catch {
+    return false
+  }
+}
+
+const isSupabaseConfigured = isValidUrl(supabaseUrl) && supabaseAnonKey.length > 0
 
 // 클라이언트 사이드용 Supabase 클라이언트
 // RLS 정책을 따름, 브라우저에서 안전하게 사용 가능
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
+export const supabase: SupabaseClient<Database> | null = isSupabaseConfigured 
+  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
+  : null
+
+// Supabase 설정 상태 확인
+export const isSupabaseReady = isSupabaseConfigured
 
 // 서버 컴포넌트용 Supabase 클라이언트 (anon key 사용)
 // RLS 정책을 따름

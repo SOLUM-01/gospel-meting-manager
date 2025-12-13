@@ -500,15 +500,9 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                   )
                 })}
                       
-                      {/* 페이지네이션 UI - 항상 표시 (디버그용) */}
-                      <div className="flex flex-col items-center gap-2 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                        {/* 디버그 정보 */}
-                        <p className="text-xs text-orange-500 font-bold">
-                          [디버그] 댓글 {comments.length}개 / 페이지당 {COMMENTS_PER_PAGE}개 / 총 {totalPages}페이지
-                        </p>
-                        
-                        {/* 페이지네이션 버튼들 */}
-                        <div className="flex items-center gap-1">
+                      {/* 페이지네이션 UI - 2페이지 이상일 때만 표시 */}
+                      {totalPages > 1 && (
+                        <div className="flex items-center justify-center gap-1 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
                           {/* 이전 버튼 */}
                           <button
                             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
@@ -546,12 +540,7 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                             <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                           </button>
                         </div>
-                        
-                        {/* 페이지 정보 */}
-                        <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-                          {comments.length}개 댓글 중 {startIndex + 1}-{Math.min(endIndex, comments.length)}번째 표시
-                        </p>
-                      </div>
+                      )}
                     </>
                   )
                 })()

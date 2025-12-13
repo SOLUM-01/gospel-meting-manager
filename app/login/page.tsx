@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { supabase } from '@/lib/database/supabase'
+import { supabase, isSupabaseReady } from '@/lib/database/supabase'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -23,6 +23,11 @@ export default function LoginPage() {
     // 간단한 검증
     if (!email || !password) {
       setError('이메일과 비밀번호를 입력해주세요.')
+      return
+    }
+
+    if (!supabase || !isSupabaseReady) {
+      setError('Supabase가 설정되지 않았습니다. 관리자에게 문의하세요.')
       return
     }
 
