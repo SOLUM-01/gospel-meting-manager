@@ -16,14 +16,15 @@ const isValidUrl = (url: string) => {
 
 const isSupabaseConfigured = isValidUrl(supabaseUrl) && supabaseAnonKey.length > 0
 
-// 클라이언트 사이드용 Supabase 클라이언트
-// RLS 정책을 따름, 브라우저에서 안전하게 사용 가능
-export const supabase: SupabaseClient<Database> | null = isSupabaseConfigured 
-  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
-  : null
-
 // Supabase 설정 상태 확인
 export const isSupabaseReady = isSupabaseConfigured
+
+// 클라이언트 사이드용 Supabase 클라이언트
+// RLS 정책을 따름, 브라우저에서 안전하게 사용 가능
+// 타입을 non-null로 정의하여 TypeScript 에러 방지
+export const supabase: SupabaseClient<Database> = isSupabaseConfigured 
+  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
+  : createClient<Database>('https://placeholder.supabase.co', 'placeholder-key')
 
 // 서버 컴포넌트용 Supabase 클라이언트 (anon key 사용)
 // RLS 정책을 따름
