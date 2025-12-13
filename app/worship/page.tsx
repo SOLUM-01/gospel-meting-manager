@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { BookOpen, Search, FileText, Youtube, ArrowLeft, ExternalLink, Send, Heart, MessageCircle, Trash2, User } from 'lucide-react'
+import { BookOpen, Search, FileText, Youtube, ArrowLeft, ExternalLink, Send, Heart, MessageCircle, Trash2, User, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { WorshipSong } from '@/types/worship'
 import type { Prayer } from '@/types/prayer'
 import { getPublicWorshipSongs } from '@/lib/database/api/worship-songs'
@@ -36,6 +36,9 @@ const PRAYER_REACTIONS = [
   { type: 'smile' as const, emoji: '😊', label: '감사해요' },
 ]
 
+const COMMENTS_PER_PAGE = 3  // 테스트: 3개씩 표시 (나중에 15로 변경)
+const MAX_PAGES = 100
+
 export default function WorshipPage() {
   const { t, language } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
@@ -59,6 +62,7 @@ export default function WorshipPage() {
   const [commentUserName, setCommentUserName] = useState('')
   const [showReactionPicker, setShowReactionPicker] = useState<string | null>(null)
   const [showReactionUsers, setShowReactionUsers] = useState<{ prayerId: string; type: string } | null>(null)
+  const [commentPages, setCommentPages] = useState<Record<string, number>>({}) // 각 prayer별 댓글 페이지
 
   // 특정 리액션을 누른 사용자 목록 가져오기
   const getReactionUsers = (prayerId: string, reactionType: string) => {
@@ -813,40 +817,107 @@ export default function WorshipPage() {
                             
                             {/* 댓글 목록 */}
                             {(prayerComments[prayer.id] || []).length > 0 ? (
-                              <div className="space-y-2">
-                                {(prayerComments[prayer.id] || []).map((comment) => (
-                                  <div key={comment.id} className="flex items-start gap-2 bg-white p-2 rounded text-xs">
-                                    <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                                      {comment.user_name.charAt(0)}
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-1">
-                                        <span className="font-semibold">{comment.user_name}</span>
-                                        <span className="text-gray-400">
-                                          {new Date(comment.created_at).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                                        </span>
+                              (() => {
+                                const allComments = prayerComments[prayer.id] || []
+                                const currentPage = commentPages[prayer.id] || 1
+                                const totalPages = Math.min(Math.ceil(allComments.length / COMMENTS_PER_PAGE), MAX_PAGES)
+                                const startIndex = (currentPage - 1) * COMMENTS_PER_PAGE
+                                const endIndex = startIndex + COMMENTS_PER_PAGE
+                                const currentComments = allComments.slice(startIndex, endIndex)
+                                
+                                // 페이지 범위 계산 (10개씩 표시)
+                                const pageGroupSize = 10
+                                const currentGroup = Math.ceil(currentPage / pageGroupSize)
+                                const startPage = (currentGroup - 1) * pageGroupSize + 1
+                                const endPage = Math.min(startPage + pageGroupSize - 1, totalPages)
+                                const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
+                                
+                                return (
+                                  <div className="space-y-2">
+                                    {currentComments.map((comment) => (
+                                      <div key={comment.id} className="flex items-start gap-2 bg-white p-2 rounded text-xs">
+                                        <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                          {comment.user_name.charAt(0)}
+                                        </div>
+                                        <div className="flex-1">
+                                          <div className="flex items-center gap-1">
+                                            <span className="font-semibold">{comment.user_name}</span>
+                                            <span className="text-gray-400">
+                                              {new Date(comment.created_at).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                            </span>
+                                          </div>
+                                          <p className="text-gray-700">{comment.content}</p>
+                                        </div>
+                                        {comment.user_name === commentUserName && (
+                                          <button
+                                            onClick={async () => {
+                                              if (confirm('댓글을 삭제하시겠습니까?')) {
+                                                await deletePrayerComment(comment.id)
+                                                setPrayerComments(prev => ({
+                                                  ...prev,
+                                                  [prayer.id]: prev[prayer.id].filter(c => c.id !== comment.id)
+                                                }))
+                                              }
+                                            }}
+                                            className="text-gray-400 hover:text-red-500"
+                                          >
+                                            <Trash2 className="h-3 w-3" />
+                                          </button>
+                                        )}
                                       </div>
-                                      <p className="text-gray-700">{comment.content}</p>
-                                    </div>
-                                    {comment.user_name === commentUserName && (
-                                      <button
-                                        onClick={async () => {
-                                          if (confirm('댓글을 삭제하시겠습니까?')) {
-                                            await deletePrayerComment(comment.id)
-                                            setPrayerComments(prev => ({
-                                              ...prev,
-                                              [prayer.id]: prev[prayer.id].filter(c => c.id !== comment.id)
-                                            }))
-                                          }
-                                        }}
-                                        className="text-gray-400 hover:text-red-500"
-                                      >
-                                        <Trash2 className="h-3 w-3" />
-                                      </button>
+                                    ))}
+                                    
+                                    {/* 페이지네이션 UI */}
+                                    {totalPages > 1 && (
+                                      <div className="flex items-center justify-center gap-1 mt-3 pt-2 border-t border-gray-200">
+                                        {/* 이전 버튼 */}
+                                        <button
+                                          onClick={() => setCommentPages(prev => ({ ...prev, [prayer.id]: Math.max((prev[prayer.id] || 1) - 1, 1) }))}
+                                          disabled={currentPage === 1}
+                                          className="p-1 rounded-full hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                          aria-label="이전 페이지"
+                                        >
+                                          <ChevronLeft className="w-4 h-4 text-gray-600" />
+                                        </button>
+                                        
+                                        {/* 페이지 번호들 */}
+                                        <div className="flex items-center gap-0.5">
+                                          {pageNumbers.map((pageNum) => (
+                                            <button
+                                              key={pageNum}
+                                              onClick={() => setCommentPages(prev => ({ ...prev, [prayer.id]: pageNum }))}
+                                              className={`w-6 h-6 rounded-full text-xs font-medium transition-all ${
+                                                currentPage === pageNum
+                                                  ? 'border-2 border-blue-500 text-blue-600 bg-blue-50'
+                                                  : 'text-gray-600 hover:bg-gray-100'
+                                              }`}
+                                            >
+                                              {pageNum}
+                                            </button>
+                                          ))}
+                                        </div>
+                                        
+                                        {/* 다음 버튼 */}
+                                        <button
+                                          onClick={() => setCommentPages(prev => ({ ...prev, [prayer.id]: Math.min((prev[prayer.id] || 1) + 1, totalPages) }))}
+                                          disabled={currentPage === totalPages}
+                                          className="p-1 rounded-full hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                          aria-label="다음 페이지"
+                                        >
+                                          <ChevronRight className="w-4 h-4 text-gray-600" />
+                                        </button>
+                                      </div>
+                                    )}
+                                    
+                                    {/* 페이지 정보 */}
+                                    {totalPages > 1 && (
+                                      <p className="text-center text-[10px] text-gray-400 mt-1">
+                                        {allComments.length}개 중 {startIndex + 1}-{Math.min(endIndex, allComments.length)}
+                                      </p>
                                     )}
                                   </div>
-                                ))}
-                              </div>
+                                )
+                              })()
                             ) : (
                               <p className="text-xs text-gray-400 text-center py-2">아직 댓글이 없습니다</p>
                             )}

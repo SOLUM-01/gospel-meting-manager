@@ -9,20 +9,18 @@ import {
   ImagePlus, 
   X, 
   Trash2,
-  Download
+  Download,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react'
 import Image from 'next/image'
 import { 
   getTaskComments, 
   addTaskComment, 
   deleteTaskComment,
-  getTaskReactions,
-  toggleTaskReaction,
-  getReactionCounts,
   getCommentsReactions,
   toggleCommentReaction,
   type TaskComment,
-  type TaskReaction,
   type CommentReaction
 } from '@/lib/database/api/comments'
 
@@ -40,30 +38,23 @@ const REACTIONS = [
   { type: 'smile' as const, emoji: '😊', label: '미소' },
 ]
 
+const COMMENTS_PER_PAGE = 3  // 테스트: 3개씩 표시 (나중에 15로 변경)
+const MAX_PAGES = 100
+
 export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [comments, setComments] = useState<TaskComment[]>([])
-  const [reactions, setReactions] = useState<TaskReaction[]>([])
-  const [reactionCounts, setReactionCounts] = useState<Record<string, number>>({})
   const [newComment, setNewComment] = useState('')
   const [userName, setUserName] = useState('')
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showComments, setShowComments] = useState(true)
-  const [showReactionPicker, setShowReactionPicker] = useState(false)
-  const [showReactionUsers, setShowReactionUsers] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
   const fileInputRef = useRef<HTMLInputElement>(null)
   
   // 댓글 리액션 관련 상태
   const [commentReactions, setCommentReactions] = useState<Record<string, CommentReaction[]>>({})
   const [showCommentReactionPicker, setShowCommentReactionPicker] = useState<string | null>(null)
   const [showCommentReactionUsers, setShowCommentReactionUsers] = useState<{ commentId: string; type: string } | null>(null)
-
-  // 특정 리액션을 누른 사용자 목록 가져오기
-  const getReactionUsers = (reactionType: string) => {
-    return reactions
-      .filter(r => r.reaction_type === reactionType)
-      .map(r => r.user_name)
-  }
 
   // 댓글 리액션을 누른 사용자 목록 가져오기
   const getCommentReactionUsers = (commentId: string, reactionType: string) => {
@@ -96,10 +87,9 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     }
   }, [])
 
-  // 댓글 및 리액션 불러오기
+  // 댓글 불러오기
   useEffect(() => {
     loadComments()
-    loadReactions()
   }, [taskId])
 
   const loadComments = async () => {
@@ -112,15 +102,6 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
       const reactionsData = await getCommentsReactions(commentIds)
       setCommentReactions(reactionsData)
     }
-  }
-
-  const loadReactions = async () => {
-    const [reactionsData, countsData] = await Promise.all([
-      getTaskReactions(taskId),
-      getReactionCounts(taskId)
-    ])
-    setReactions(reactionsData)
-    setReactionCounts(countsData)
   }
 
   // 사용자 이름 저장
@@ -172,46 +153,6 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     if (success) {
       setComments(comments.filter(c => c.id !== commentId))
     }
-  }
-
-  // 리액션 토글 (낙관적 업데이트)
-  const handleReaction = async (reactionType: TaskReaction['reaction_type']) => {
-    if (!userName.trim()) {
-      alert('이름을 먼저 입력해주세요.')
-      return
-    }
-
-    const myReaction = isMyReaction(reactionType)
-    const currentCount = reactionCounts[reactionType] || 0
-    const newCount = myReaction ? currentCount - 1 : currentCount + 1
-
-    // UI 즉시 업데이트
-    setReactionCounts(prev => ({
-      ...prev,
-      [reactionType]: newCount
-    }))
-
-    if (myReaction) {
-      setReactions(prev => prev.filter(
-        r => !(r.user_name === userName && r.reaction_type === reactionType)
-      ))
-    } else {
-      setReactions(prev => [...prev, {
-        id: 'temp',
-        task_id: taskId,
-        user_name: userName,
-        reaction_type: reactionType,
-        created_at: new Date().toISOString()
-      }])
-    }
-
-    // 서버에 요청
-    await toggleTaskReaction(taskId, userName, reactionType)
-  }
-
-  // 내가 누른 리액션인지 확인
-  const isMyReaction = (reactionType: string) => {
-    return reactions.some(r => r.user_name === userName && r.reaction_type === reactionType)
   }
 
   // 댓글 리액션 토글 (낙관적 업데이트)
@@ -291,84 +232,11 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
 
   return (
     <div className="mt-8 space-y-6">
-      {/* 리액션 섹션 - 카카오톡 스타일 (댓글과 동일) */}
-      <div className="flex items-center gap-1.5 flex-wrap">
-        {/* 리액션이 있는 것만 표시 - 클릭하면 토글 */}
-        {REACTIONS.filter(r => reactionCounts[r.type] > 0).map((reaction) => (
-          <div key={reaction.type} className="relative group/reaction">
-            <button
-              onClick={() => handleReaction(reaction.type)}
-              className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs transition-all hover:scale-110 ${
-                isMyReaction(reaction.type)
-                  ? 'bg-blue-100 dark:bg-blue-900/50 border border-blue-400'
-                  : 'bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600'
-              }`}
-              title={isMyReaction(reaction.type) ? '클릭하면 취소' : '클릭하면 추가'}
-            >
-              <span className="text-sm">{reaction.emoji}</span>
-              <span className="font-medium text-xs">{reactionCounts[reaction.type]}</span>
-            </button>
-            
-            {/* 누가 눌렀는지 팝업 - hover시 표시 */}
-            <div className="absolute bottom-full left-0 mb-1 z-50 min-w-[80px] opacity-0 group-hover/reaction:opacity-100 pointer-events-none transition-opacity">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-1.5">
-                <p className="text-xs font-semibold text-gray-500 mb-0.5 px-1">
-                  {reaction.emoji} {reaction.label}
-                </p>
-                <div className="max-h-20 overflow-y-auto">
-                  {getReactionUsers(reaction.type).map((name, idx) => (
-                    <p key={idx} className="text-xs py-0.5 px-1">{name}</p>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-        
-        {/* 리액션 추가 버튼 */}
-        <div className="relative">
-          <button
-            onClick={() => setShowReactionPicker(!showReactionPicker)}
-            className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
-          >
-            <span className="text-xs text-gray-500">😊</span>
-          </button>
-          
-          {/* 리액션 선택 팝업 */}
-          {showReactionPicker && (
-            <div className="absolute bottom-full left-0 mb-2 z-50">
-              <div className="bg-white dark:bg-gray-800 rounded-full shadow-xl border border-gray-200 dark:border-gray-600 p-1.5 flex gap-1">
-                {REACTIONS.map((reaction) => (
-                  <button
-                    key={reaction.type}
-                    onClick={() => {
-                      handleReaction(reaction.type)
-                      setShowReactionPicker(false)
-                    }}
-                    className={`
-                      w-9 h-9 flex items-center justify-center rounded-full text-xl
-                      transition-all duration-200 hover:scale-125 hover:bg-gray-100 dark:hover:bg-gray-700
-                      ${isMyReaction(reaction.type) ? 'bg-blue-100 dark:bg-blue-900/50' : ''}
-                    `}
-                    title={reaction.label}
-                  >
-                    {reaction.emoji}
-                  </button>
-                ))}
-              </div>
-              <div className="absolute left-3 -bottom-1 w-2 h-2 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-600 transform rotate-45"></div>
-            </div>
-          )}
-        </div>
-      </div>
-
       {/* 팝업 닫기용 오버레이 */}
-      {(showReactionPicker || showReactionUsers || showCommentReactionPicker || showCommentReactionUsers) && (
+      {(showCommentReactionPicker || showCommentReactionUsers) && (
         <div 
           className="fixed inset-0 z-40" 
           onClick={() => {
-            setShowReactionPicker(false)
-            setShowReactionUsers(null)
             setShowCommentReactionPicker(null)
             setShowCommentReactionUsers(null)
           }}
@@ -495,7 +363,23 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                   아직 댓글이 없습니다. 첫 댓글을 남겨보세요! 💬
                 </p>
               ) : (
-                comments.map((comment) => {
+                (() => {
+                  // 페이지네이션 계산
+                  const totalPages = Math.min(Math.ceil(comments.length / COMMENTS_PER_PAGE), MAX_PAGES)
+                  const startIndex = (currentPage - 1) * COMMENTS_PER_PAGE
+                  const endIndex = startIndex + COMMENTS_PER_PAGE
+                  const currentComments = comments.slice(startIndex, endIndex)
+                  
+                  // 페이지 범위 계산 (10개씩 표시)
+                  const pageGroupSize = 10
+                  const currentGroup = Math.ceil(currentPage / pageGroupSize)
+                  const startPage = (currentGroup - 1) * pageGroupSize + 1
+                  const endPage = Math.min(startPage + pageGroupSize - 1, totalPages)
+                  const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
+                  
+                  return (
+                    <>
+                      {currentComments.map((comment) => {
                   const commentCounts = getCommentReactionCounts(comment.id)
                   return (
                     <div
@@ -614,7 +498,59 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                       </div>
                     </div>
                   )
-                })
+                })}
+                      
+                      {/* 페이지네이션 UI */}
+                      {totalPages > 1 && (
+                        <div className="flex items-center justify-center gap-1 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                          {/* 이전 버튼 */}
+                          <button
+                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                            aria-label="이전 페이지"
+                          >
+                            <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                          </button>
+                          
+                          {/* 페이지 번호들 */}
+                          <div className="flex items-center gap-1">
+                            {pageNumbers.map((pageNum) => (
+                              <button
+                                key={pageNum}
+                                onClick={() => setCurrentPage(pageNum)}
+                                className={`w-8 h-8 rounded-full text-sm font-medium transition-all ${
+                                  currentPage === pageNum
+                                    ? 'border-2 border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30'
+                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                }`}
+                              >
+                                {pageNum}
+                              </button>
+                            ))}
+                          </div>
+                          
+                          {/* 다음 버튼 */}
+                          <button
+                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                            aria-label="다음 페이지"
+                          >
+                            <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                          </button>
+                        </div>
+                      )}
+                      
+                      {/* 페이지 정보 */}
+                      {totalPages > 1 && (
+                        <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2">
+                          {comments.length}개 댓글 중 {startIndex + 1}-{Math.min(endIndex, comments.length)}번째
+                        </p>
+                      )}
+                    </>
+                  )
+                })()
               )}
             </div>
           </div>
