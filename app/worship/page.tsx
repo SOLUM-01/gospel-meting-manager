@@ -36,8 +36,8 @@ const PRAYER_REACTIONS = [
   { type: 'smile' as const, emoji: '😊', label: '감사해요' },
 ]
 
-const COMMENTS_PER_PAGE = 3  // 테스트: 3개씩 표시 (나중에 15로 변경)
-const MAX_PAGES = 100
+const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
+const MAX_PAGES = 100  // 최대 100페이지
 
 export default function WorshipPage() {
   const { t, language } = useTranslation()

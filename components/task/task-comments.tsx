@@ -38,8 +38,8 @@ const REACTIONS = [
   { type: 'smile' as const, emoji: '😊', label: '미소' },
 ]
 
-const COMMENTS_PER_PAGE = 3  // 테스트: 3개씩 표시 (나중에 15로 변경)
-const MAX_PAGES = 100
+const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
+const MAX_PAGES = 100  // 최대 100페이지
 
 export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [comments, setComments] = useState<TaskComment[]>([])
