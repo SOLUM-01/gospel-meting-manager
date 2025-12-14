@@ -111,6 +111,16 @@ export default function GuidePage() {
                       <p className="text-3xl font-black text-red-600 mb-2">我是韓國來的。</p>
                       <p className="text-xl font-bold text-orange-600 mb-1">Wǒ shì Hán-guó lái de. | 워 쉬 한궈 라이 더</p>
                       <p className="text-lg text-gray-700 bg-blue-50 p-2 rounded">🇰🇷 저는 한국에서 왔습니다.</p>
+                      {/* 영상 1: 안녕하세요? 저는 한국에서 왔습니다. */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/MdmTsUuPxO0"
+                          title="안녕하세요? 저는 한국에서 왔습니다."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
 
                     {/* 인사 3 */}
@@ -125,6 +135,16 @@ export default function GuidePage() {
                       <p className="text-3xl font-black text-red-600 mb-2">我想和你分享一則好消息。</p>
                       <p className="text-xl font-bold text-orange-600 mb-1">Wǒ xiǎng hé nǐ fēnxiǎng yì zé hǎo xiāoxi. | 워 시앙 허 니 펀샹 이 쩌 하오 샤오시</p>
                       <p className="text-lg text-gray-700 bg-blue-50 p-2 rounded">✨ 저는 당신과 기쁜 소식을 나누고 싶습니다.</p>
+                      {/* 영상 2: 당신과 잠깐 이야기... 기쁜 소식 */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/uM-EgBTe2fs"
+                          title="당신과 잠깐 이야기를 나눌 수 있을까요? 저는 당신과 기쁜 소식을 나누고 싶습니다."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -149,6 +169,16 @@ export default function GuidePage() {
                       <p className="text-lg font-bold text-orange-600 mb-1">Zhè shì wǒ dài lái de xiǎo lǐwù, zhǔnbèi sòng gěi wǒ jiànmiàn de rén. Qǐng shōu xià.</p>
                       <p className="text-base text-orange-500 mb-2">쯔 스 워 따이 라이 더 샤오 리우, 쥰베이 송 게이 워 지엔미엔 더 런. 칭 쇼우 시아.</p>
                       <p className="text-lg text-gray-700 bg-pink-50 p-2 rounded">🎁 이것은 제가 만나는 사람들에게 주려고 가져온 작은 선물입니다. 받아주세요.</p>
+                      {/* 영상 3: 선택 1 */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/6QVflTssuuo"
+                          title="이것은 제가 만나는 사람들에게 주려고 가져온 작은 선물입니다. 받아주세요."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
 
                     {/* 선물 2 */}
@@ -158,23 +188,69 @@ export default function GuidePage() {
                       <p className="text-lg font-bold text-orange-600 mb-1">Zhè shì gěi nǐ de xiǎo lǐwù, xīwàng néng dài gěi nǐ zhùfú. Qǐng shōu xià.</p>
                       <p className="text-base text-orange-500 mb-2">쯔 스 게이 니 더 샤오 리우, 씨왕 능 따이 게이 니 주푸. 칭 쇼우 시아.</p>
                       <p className="text-lg text-gray-700 bg-pink-50 p-2 rounded">🎁 이것은 당신에게 드리는 작은 선물입니다. 당신께 축복이 되기를 바랍니다. 받아주세요.</p>
+                      {/* 영상 4: 선택 2 */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/qAf65lP1o3Y"
+                          title="이것은 당신에게 드리는 작은 선물입니다. 당신께 축복이 되기를 바랍니다. 받아주세요."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
 
                     {/* 영원한 선물 */}
-                    <div className="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl p-4 border-2 border-yellow-400 shadow-md">
-                      <p className="text-2xl font-black text-red-600 mb-2">這個禮物用完後就沒有了。</p>
-                      <p className="text-lg font-bold text-orange-600 mb-1">Zhè ge lǐwù yòng wán hòu jiù méi yǒu le. | 쩌 거 리우 용완 허우 지우 메이요우 러</p>
-                      <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded mb-3">📦 이 선물은 쓰고 나면 없어져버립니다.</p>
+                    <div className="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl p-4 border-2 border-yellow-400 shadow-md space-y-4">
+                      {/* 영상 5: 이 선물은 쓰고 나면 없어져버립니다 */}
+                      <div>
+                        <p className="text-2xl font-black text-red-600 mb-2">這個禮物用完後就沒有了。</p>
+                        <p className="text-lg font-bold text-orange-600 mb-1">Zhè ge lǐwù yòng wán hòu jiù méi yǒu le. | 쩌 거 리우 용완 허우 지우 메이요우 러</p>
+                        <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded mb-3">📦 이 선물은 쓰고 나면 없어져버립니다.</p>
+                        <div className="rounded-lg overflow-hidden aspect-video">
+                          <iframe 
+                            className="w-full h-full"
+                            src="https://www.youtube.com/embed/AEGs_NA4Fpc"
+                            title="이 선물은 쓰고 나면 없어져버립니다."
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                      </div>
                       
-                      <p className="text-2xl font-black text-red-600 mb-2">所以我把一份永不消失的禮物送給你。</p>
-                      <p className="text-lg font-bold text-orange-600 mb-1">Suǒyǐ wǒ bǎ yí fèn yǒng bù xiāoshī de lǐwù sòng gěi nǐ.</p>
-                      <p className="text-base text-orange-500 mb-2">쑤오이 워 바 이펀 용부 샤오스 더 리우 송 게이 니</p>
-                      <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded mb-3">✨ 그래서 영원히 없어지지 않는 선물을 드리려고 합니다.</p>
+                      {/* 영상 6: 그래서 영원히 없어지지 않는 선물을 드리려고 합니다 */}
+                      <div>
+                        <p className="text-2xl font-black text-red-600 mb-2">所以我把一份永不消失的禮物送給你。</p>
+                        <p className="text-lg font-bold text-orange-600 mb-1">Suǒyǐ wǒ bǎ yí fèn yǒng bù xiāoshī de lǐwù sòng gěi nǐ.</p>
+                        <p className="text-base text-orange-500 mb-2">쑤오이 워 바 이펀 용부 샤오스 더 리우 송 게이 니</p>
+                        <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded mb-3">✨ 그래서 영원히 없어지지 않는 선물을 드리려고 합니다.</p>
+                        <div className="rounded-lg overflow-hidden aspect-video">
+                          <iframe 
+                            className="w-full h-full"
+                            src="https://www.youtube.com/embed/zEBWhQLTS_o"
+                            title="그래서 영원히 없어지지 않는 선물을 드리려고 합니다."
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                      </div>
                       
-                      <p className="text-2xl font-black text-red-600 mb-2">你願意接受這份永生的禮物嗎？</p>
-                      <p className="text-lg font-bold text-orange-600 mb-1">Nǐ yuànyì jiēshòu zhè fèn yǒngshēng de lǐwù ma?</p>
-                      <p className="text-base text-orange-500 mb-2">니 위엔이 지에쇼우 쩌 펀 용성 더 리우 마?</p>
-                      <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded">🙏 당신은 이 영원한 선물을 받으시겠습니까?</p>
+                      {/* 영상 7: 당신은 이 영원한 선물을 받으시겠습니까? */}
+                      <div>
+                        <p className="text-2xl font-black text-red-600 mb-2">你願意接受這份永生的禮物嗎？</p>
+                        <p className="text-lg font-bold text-orange-600 mb-1">Nǐ yuànyì jiēshòu zhè fèn yǒngshēng de lǐwù ma?</p>
+                        <p className="text-base text-orange-500 mb-2">니 위엔이 지에쇼우 쩌 펀 용성 더 리우 마?</p>
+                        <p className="text-lg text-gray-700 bg-yellow-50 p-2 rounded mb-3">🙏 당신은 이 영원한 선물을 받으시겠습니까?</p>
+                        <div className="rounded-lg overflow-hidden aspect-video">
+                          <iframe 
+                            className="w-full h-full"
+                            src="https://www.youtube.com/embed/gFNuMcuVyy8"
+                            title="당신은 이 영원한 선물을 받으시겠습니까?"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -199,6 +275,16 @@ export default function GuidePage() {
                       <p className="text-lg font-bold text-orange-600 mb-1">Nǐ kěyǐ kàn yíxià zhèlǐ, qǐng yuèdú yíxià ba.</p>
                       <p className="text-base text-orange-500 mb-2">니 커이 칸 이샤 쩌리, 칭 위에두 이샤 바</p>
                       <p className="text-lg text-gray-700 bg-green-50 p-2 rounded">👀 여기를 보면서 읽어보시겠어요.</p>
+                      {/* 영상 8: 여기를 보면서 읽어보시겠어요? */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/pdn24o58BZ8"
+                          title="여기를 보면서 읽어보시겠어요?"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
 
                     {/* 복음 제시 순서 */}
@@ -258,6 +344,16 @@ export default function GuidePage() {
                       <p className="text-lg font-bold text-orange-600 mb-1">Qǐng nǐ huí dào jiā yǐhòu, yídìng yào dú yí dú zhè běn xiǎo cèzi.</p>
                       <p className="text-base text-orange-500 mb-2">칭 니 후이따오 지아 이호우, 이딩 야오 두 이두 쩌 번 샤오 쯔</p>
                       <p className="text-lg text-gray-700 bg-purple-50 p-2 rounded">📖 당신은 집에 돌아가서 이 작은 책자를 꼭 반드시 읽어보세요.</p>
+                      {/* 영상 9: 당신은 집에 돌아가서 이 작은 책자를 꼭 반드시 읽어보세요. */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/MFdRqFMnqgA"
+                          title="당신은 집에 돌아가서 이 작은 책자를 꼭 반드시 읽어보세요."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
 
                     {/* 마무리 2 */}
