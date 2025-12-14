@@ -55,26 +55,6 @@ export default function InfoPage() {
   ]
   const menuItems = [
     {
-      title: '참가자',
-      titleZh: '參加者',
-      description: '2025 블레싱 타이완 윈린3 아웃리치 참가자 명단',
-      descriptionZh: '2025 Blessing Taiwan 雲林3 外展參加者名單',
-      icon: Users,
-      href: '/participants',
-      color: 'from-purple-500 to-pink-500',
-      bgGradient: 'from-purple-50 to-pink-50',
-    },
-    {
-      title: '큐티 QT',
-      titleZh: '靈修 QT',
-      description: '매일 말씀 묵상과 기도',
-      descriptionZh: '每日靈修與禱告',
-      icon: BookOpen,
-      href: '/worship',
-      color: 'from-amber-500 to-orange-500',
-      bgGradient: 'from-amber-50 to-orange-50',
-    },
-    {
       title: '안내',
       titleZh: '指南',
       description: '이벤트 준비 및 참가 안내 사항',
@@ -93,6 +73,26 @@ export default function InfoPage() {
       href: '/tasks',
       color: 'from-blue-500 to-purple-500',
       bgGradient: 'from-blue-50 to-purple-50',
+    },
+    {
+      title: '큐티 QT',
+      titleZh: '靈修 QT',
+      description: '매일 말씀 묵상과 기도',
+      descriptionZh: '每日靈修與禱告',
+      icon: BookOpen,
+      href: '/worship',
+      color: 'from-amber-500 to-orange-500',
+      bgGradient: 'from-amber-50 to-orange-50',
+    },
+    {
+      title: '참가자',
+      titleZh: '參加者',
+      description: '2025 블레싱 타이완 윈린3 아웃리치 참가자 명단',
+      descriptionZh: '2025 Blessing Taiwan 雲林3 外展參加者名單',
+      icon: Users,
+      href: '/participants',
+      color: 'from-purple-500 to-pink-500',
+      bgGradient: 'from-purple-50 to-pink-50',
     },
   ]
 
