@@ -42,6 +42,50 @@ const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
 const MAX_IMAGES = 10 // 최대 이미지 첨부 개수
+const MAX_IMAGE_SIZE = 800 // 최대 이미지 크기 (픽셀)
+const IMAGE_QUALITY = 0.7 // 이미지 품질 (0-1)
+
+// 이미지 압축 함수
+const compressImage = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = document.createElement('img')
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        let { width, height } = img
+        
+        // 최대 크기 제한
+        if (width > MAX_IMAGE_SIZE || height > MAX_IMAGE_SIZE) {
+          if (width > height) {
+            height = (height / width) * MAX_IMAGE_SIZE
+            width = MAX_IMAGE_SIZE
+          } else {
+            width = (width / height) * MAX_IMAGE_SIZE
+            height = MAX_IMAGE_SIZE
+          }
+        }
+        
+        canvas.width = width
+        canvas.height = height
+        
+        const ctx = canvas.getContext('2d')
+        if (!ctx) {
+          reject(new Error('Canvas context not available'))
+          return
+        }
+        
+        ctx.drawImage(img, 0, 0, width, height)
+        const compressedBase64 = canvas.toDataURL('image/jpeg', IMAGE_QUALITY)
+        resolve(compressedBase64)
+      }
+      img.onerror = () => reject(new Error('Image load failed'))
+      img.src = e.target?.result as string
+    }
+    reader.onerror = () => reject(new Error('File read failed'))
+    reader.readAsDataURL(file)
+  })
+}
 
 export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [comments, setComments] = useState<TaskComment[]>([])
@@ -112,8 +156,8 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     localStorage.setItem('gospel_user_name', name)
   }
 
-  // 이미지 선택 (최대 10장)
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 이미지 선택 (최대 10장, 자동 압축)
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
 
@@ -125,16 +169,18 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
 
     const filesToProcess = Array.from(files).slice(0, remainingSlots)
     
-    filesToProcess.forEach(file => {
-      const reader = new FileReader()
-      reader.onloadend = () => {
+    // 이미지 압축 및 추가
+    for (const file of filesToProcess) {
+      try {
+        const compressedImage = await compressImage(file)
         setImagePreviews(prev => {
           if (prev.length >= MAX_IMAGES) return prev
-          return [...prev, reader.result as string]
+          return [...prev, compressedImage]
         })
+      } catch (error) {
+        console.error('이미지 압축 실패:', error)
       }
-      reader.readAsDataURL(file)
-    })
+    }
 
     // 선택한 파일이 남은 슬롯보다 많으면 알림
     if (files.length > remainingSlots) {
