@@ -435,7 +435,7 @@ export default function TaskDetailPage() {
                         </div>
                         <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
                           <iframe
-                            src="https://www.youtube.com/embed/Ae3ZjPE4UG8"
+                            src="https://www.youtube.com/embed/TjDrB7cM7Go"
                             className="absolute inset-0 w-full h-full rounded-lg"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
@@ -454,7 +454,7 @@ export default function TaskDetailPage() {
                         </div>
                         <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
                           <iframe
-                            src="https://www.youtube.com/embed/ZA64sU4f2FI"
+                            src="https://www.youtube.com/embed/Ae3ZjPE4UG8"
                             className="absolute inset-0 w-full h-full rounded-lg"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
@@ -473,7 +473,7 @@ export default function TaskDetailPage() {
                         </div>
                         <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
                           <iframe
-                            src="https://www.youtube.com/embed/-I6F-J3yOUI"
+                            src="https://www.youtube.com/embed/ZA64sU4f2FI"
                             className="absolute inset-0 w-full h-full rounded-lg"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
@@ -492,7 +492,7 @@ export default function TaskDetailPage() {
                         </div>
                         <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
                           <iframe
-                            src="https://www.youtube.com/embed/TjDrB7cM7Go"
+                            src="https://www.youtube.com/embed/-I6F-J3yOUI"
                             className="absolute inset-0 w-full h-full rounded-lg"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
