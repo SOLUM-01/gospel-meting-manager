@@ -2286,7 +2286,7 @@ export default function GuidePage() {
                         <span className="bg-yellow-500 text-white px-2 py-1 rounded text-xs font-bold">팀장,총무,회계 (3)</span>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        <span className="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg font-bold border border-yellow-300">정희평 (팀장)</span>
+                        <span className="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg font-bold border border-yellow-300">정회평 (팀장)</span>
                         <span className="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg font-bold border border-yellow-300">권옥희 (총무)</span>
                         <span className="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg font-bold border border-yellow-300">조영선 (회계)</span>
                       </div>
