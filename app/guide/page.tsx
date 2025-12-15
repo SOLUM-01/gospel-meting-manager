@@ -1686,7 +1686,7 @@ export default function GuidePage() {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="text-blue-600">👤</span>
-                          <span className="font-semibold">정희평</span>
+                          <span className="font-semibold">정회평</span>
                           <span className="text-gray-500 text-sm">鄭會平</span>
                           <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
                         </div>
