@@ -385,19 +385,154 @@ export default function TaskDetailPage() {
                   )}
                 </div>
 
-                {/* 악보/이미지/동영상 갤러리 섹션 */}
-                {task.images && task.images.length > 0 && (
+                {/* 어린이 사역팀 - 복음 팔찌 전도 가이드 특별 섹션 */}
+                {task.title === '어린이 사역팀' && (
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4 text-center">
+                      「福音手環 (복음팔찌) 푸인 쇼우환」
+                    </h2>
+                    
+                    {/* 메인 이미지 */}
+                    <div className="mb-6">
+                      <Image
+                        src="/images/gospel-bracelet-chinese.png"
+                        alt="복음 팔찌 전도 가이드"
+                        width={800}
+                        height={600}
+                        className="w-full h-auto rounded-xl shadow-lg border-2 border-purple-200"
+                      />
+                    </div>
+
+                    {/* 색깔별 설명과 유튜브 영상 */}
+                    <div className="space-y-6">
+                      {/* 1. 파란색 - 팔찌 소개 */}
+                      <div className="bg-blue-50 rounded-xl p-4 border-2 border-blue-300">
+                        <div className="flex items-start gap-3 mb-3">
+                          <span className="text-3xl">💙</span>
+                          <div>
+                            <p className="font-bold text-blue-800 text-lg">쩌거 쇼우환 쓰 짜이 건 워먼 슈오 /상디 더 구쓰 /</p>
+                            <p className="text-blue-600 text-sm">這個手環是在跟我們說上帝的故事</p>
+                          </div>
+                        </div>
+                        <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/hUX5VKVj-t8"
+                            className="absolute inset-0 w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+
+                      {/* 2. 노란색 - 천국 */}
+                      <div className="bg-yellow-50 rounded-xl p-4 border-2 border-yellow-300">
+                        <div className="flex items-start gap-3 mb-3">
+                          <span className="text-3xl">💛</span>
+                          <div>
+                            <p className="font-bold text-yellow-800 text-lg">황써 가오쑤 워먼 /이허우 커이 짜이 티엔탕 (티엔궈) / 허 상디 용위엔 쭈 짜이 이치 /</p>
+                            <p className="text-yellow-600 text-sm">黃色告訴我們以後可以在天堂和上帝永遠住在一起</p>
+                          </div>
+                        </div>
+                        <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/Ae3ZjPE4UG8"
+                            className="absolute inset-0 w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+
+                      {/* 3. 검정색 - 죄 */}
+                      <div className="bg-gray-100 rounded-xl p-4 border-2 border-gray-400">
+                        <div className="flex items-start gap-3 mb-3">
+                          <span className="text-3xl">🖤</span>
+                          <div>
+                            <p className="font-bold text-gray-800 text-lg">헤이써 따이비아오 /인웨이 쭈어취 스 /워먼 리 상디 헌 위앤 /</p>
+                            <p className="text-gray-600 text-sm">黑色表示因為做錯事我們離上帝很遠</p>
+                          </div>
+                        </div>
+                        <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/ZA64sU4f2FI"
+                            className="absolute inset-0 w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+
+                      {/* 4. 빨간색 - 예수님의 사랑 */}
+                      <div className="bg-red-50 rounded-xl p-4 border-2 border-red-300">
+                        <div className="flex items-start gap-3 mb-3">
+                          <span className="text-3xl">❤️</span>
+                          <div>
+                            <p className="font-bold text-red-800 text-lg">홍써 따이비아오 /예수 아이 워먼 /웨이러 워먼 얼 쓰 /</p>
+                            <p className="text-red-600 text-sm">紅色表示耶穌愛我們為了我們而死</p>
+                          </div>
+                        </div>
+                        <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/-I6F-J3yOUI"
+                            className="absolute inset-0 w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+
+                      {/* 5. 흰색 - 깨끗함 */}
+                      <div className="bg-purple-50 rounded-xl p-4 border-2 border-purple-300">
+                        <div className="flex items-start gap-3 mb-3">
+                          <span className="text-3xl">💜</span>
+                          <div>
+                            <p className="font-bold text-purple-800 text-lg">땅 워먼 시앙신 예수 /신 지우 후이 시앙 바이써 이양 / 비엔 더 깐깐 찡찡</p>
+                            <p className="text-purple-600 text-sm">當我們信耶穌心就會像白色一樣變得乾乾淨淨</p>
+                          </div>
+                        </div>
+                        <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/TjDrB7cM7Go"
+                            className="absolute inset-0 w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+
+                      {/* 6. 초록색 - 성장 */}
+                      <div className="bg-green-50 rounded-xl p-4 border-2 border-green-300">
+                        <div className="flex items-start gap-3 mb-3">
+                          <span className="text-3xl">💚</span>
+                          <div>
+                            <p className="font-bold text-green-800 text-lg">뤼써 따이비아오 /워먼 메이티엔 건 /상디 이치 만만 장다</p>
+                            <p className="text-green-600 text-sm">綠色表示我們每天跟上帝一起慢慢長大</p>
+                          </div>
+                        </div>
+                        <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/fpBRDbQK7KQ"
+                            className="absolute inset-0 w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 악보/이미지/동영상 갤러리 섹션 (어린이 사역팀 제외) */}
+                {task.title !== '어린이 사역팀' && task.images && task.images.length > 0 && (
                   <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-3">
                       {task.title === '찬양팀' 
                         ? '🎵 찬양 악보' 
                         : task.title === '전폭특강'
                           ? '🎥 온누리교회 전도폭발 40기'
-                          : task.title === '어린이 사역팀'
-                            ? '🎨 복음 팔찌 전도 가이드'
-                            : task.images.every((url: string) => url.includes('youtube.com/embed/') || url.match(/\.(mp4|webm|mov|avi|m4v)$/i))
-                              ? '🎥 동영상'
-                              : '📸 사진 갤러리'}
+                          : task.images.every((url: string) => url.includes('youtube.com/embed/') || url.match(/\.(mp4|webm|mov|avi|m4v)$/i))
+                            ? '🎥 동영상'
+                            : '📸 사진 갤러리'}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {task.images.map((imageUrl: string, index: number) => {
