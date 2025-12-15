@@ -41,11 +41,13 @@ const REACTIONS = [
 const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
+const MAX_IMAGES = 10 // 최대 이미지 첨부 개수
+
 export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [comments, setComments] = useState<TaskComment[]>([])
   const [newComment, setNewComment] = useState('')
   const [userName, setUserName] = useState('')
-  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showComments, setShowComments] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
@@ -110,16 +112,37 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     localStorage.setItem('gospel_user_name', name)
   }
 
-  // 이미지 선택
+  // 이미지 선택 (최대 10장)
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
+    const files = e.target.files
+    if (!files) return
+
+    const remainingSlots = MAX_IMAGES - imagePreviews.length
+    if (remainingSlots <= 0) {
+      alert(`최대 ${MAX_IMAGES}장까지만 첨부할 수 있습니다.`)
+      return
+    }
+
+    const filesToProcess = Array.from(files).slice(0, remainingSlots)
+    
+    filesToProcess.forEach(file => {
       const reader = new FileReader()
       reader.onloadend = () => {
-        setImagePreview(reader.result as string)
+        setImagePreviews(prev => {
+          if (prev.length >= MAX_IMAGES) return prev
+          return [...prev, reader.result as string]
+        })
       }
       reader.readAsDataURL(file)
+    })
+
+    // 선택한 파일이 남은 슬롯보다 많으면 알림
+    if (files.length > remainingSlots) {
+      alert(`최대 ${MAX_IMAGES}장까지만 첨부할 수 있습니다. ${remainingSlots}장만 추가되었습니다.`)
     }
+
+    // input 초기화 (같은 파일 다시 선택 가능하도록)
+    e.target.value = ''
   }
 
   // 댓글 제출
@@ -132,11 +155,13 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
 
     setIsSubmitting(true)
     try {
-      const comment = await addTaskComment(taskId, userName, newComment, imagePreview || undefined)
+      // 여러 이미지를 | 구분자로 연결
+      const imageUrl = imagePreviews.length > 0 ? imagePreviews.join('|') : undefined
+      const comment = await addTaskComment(taskId, userName, newComment, imageUrl)
       if (comment) {
         setComments([comment, ...comments])
         setNewComment('')
-        setImagePreview(null)
+        setImagePreviews([])
       }
     } catch (error) {
       console.error('Failed to add comment:', error)
@@ -305,22 +330,29 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                 </span>
               </div>
 
-              {/* 이미지 미리보기 */}
-              {imagePreview && (
-                <div className="relative inline-block">
-                  <Image
-                    src={imagePreview}
-                    alt="Preview"
-                    width={100}
-                    height={100}
-                    className="rounded-lg object-cover"
-                  />
-                  <button
-                    onClick={() => setImagePreview(null)}
-                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
+              {/* 이미지 미리보기 (최대 10장) */}
+              {imagePreviews.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {imagePreviews.map((preview, index) => (
+                    <div key={index} className="relative inline-block">
+                      <Image
+                        src={preview}
+                        alt={`Preview ${index + 1}`}
+                        width={80}
+                        height={80}
+                        className="rounded-lg object-cover w-20 h-20"
+                      />
+                      <button
+                        onClick={() => setImagePreviews(prev => prev.filter((_, i) => i !== index))}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+                  <div className="text-xs text-gray-500 self-end">
+                    {imagePreviews.length}/{MAX_IMAGES}장
+                  </div>
                 </div>
               )}
 
@@ -331,6 +363,7 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                     type="file"
                     ref={fileInputRef}
                     accept="image/*"
+                    multiple
                     onChange={handleImageSelect}
                     className="hidden"
                   />
@@ -339,9 +372,10 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                     variant="outline"
                     size="sm"
                     onClick={() => fileInputRef.current?.click()}
+                    disabled={imagePreviews.length >= MAX_IMAGES}
                   >
                     <ImagePlus className="w-4 h-4 mr-1" />
-                    사진
+                    사진 {imagePreviews.length > 0 ? `(${imagePreviews.length}/${MAX_IMAGES})` : ''}
                   </Button>
                 </div>
                 <Button
@@ -407,23 +441,27 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                       </div>
                       <p className="mt-2 text-sm whitespace-pre-wrap">{comment.content}</p>
                       {comment.image_url && (
-                        <div className="mt-2 relative inline-block group">
-                          <Image
-                            src={comment.image_url}
-                            alt="Comment image"
-                            width={200}
-                            height={200}
-                            className="rounded-lg object-cover"
-                          />
-                          {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
-                          <button
-                            onClick={() => handleDownload(comment.image_url!, comment.user_name)}
-                            className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
-                              transition-all shadow-lg opacity-0 group-hover:opacity-100 md:opacity-0"
-                            title="다운로드"
-                          >
-                            <Download className="h-4 w-4" />
-                          </button>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {comment.image_url.split('|').map((imgUrl, imgIndex) => (
+                            <div key={imgIndex} className="relative inline-block group">
+                              <Image
+                                src={imgUrl}
+                                alt={`Comment image ${imgIndex + 1}`}
+                                width={150}
+                                height={150}
+                                className="rounded-lg object-cover"
+                              />
+                              {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
+                              <button
+                                onClick={() => handleDownload(imgUrl, comment.user_name)}
+                                className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
+                                  transition-all shadow-lg opacity-0 group-hover:opacity-100 md:opacity-0"
+                                title="다운로드"
+                              >
+                                <Download className="h-4 w-4" />
+                              </button>
+                            </div>
+                          ))}
                         </div>
                       )}
                       
