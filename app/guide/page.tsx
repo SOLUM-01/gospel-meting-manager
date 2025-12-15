@@ -2264,12 +2264,8 @@ export default function GuidePage() {
                   </div>
                   
                   <div className="bg-white rounded-xl p-5 border-2 border-blue-200 space-y-4">
-                    {/* 차장, 목사님, 선교사님 */}
+                    {/* 목사님, 선교사님, 차장 */}
                     <div className="flex flex-wrap gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">차장</span>
-                        <span className="bg-red-100 text-red-800 px-3 py-1.5 rounded-lg font-bold border border-red-300">김진해 ⭐</span>
-                      </div>
                       <div className="flex items-center gap-2">
                         <span className="bg-purple-500 text-white px-2 py-1 rounded text-xs font-bold">목사님</span>
                         <span className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded-lg font-bold border border-purple-300">제인량</span>
@@ -2277,6 +2273,10 @@ export default function GuidePage() {
                       <div className="flex items-center gap-2">
                         <span className="bg-indigo-500 text-white px-2 py-1 rounded text-xs font-bold">선교사님</span>
                         <span className="bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg font-bold border border-indigo-300">정웅규 🌐</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">차장</span>
+                        <span className="bg-red-100 text-red-800 px-3 py-1.5 rounded-lg font-bold border border-red-300">김진해 ⭐</span>
                       </div>
                     </div>
 
@@ -2368,20 +2368,20 @@ export default function GuidePage() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-black text-emerald-700">2호차</h3>
-                      <p className="text-lg font-bold text-emerald-600">第2車 | 차장: 윤정헌 | 통역: 우주연</p>
+                      <p className="text-lg font-bold text-emerald-600">第2車 | 차장: 윤정현 | 통역: 우주연</p>
                     </div>
                   </div>
                   
                   <div className="bg-white rounded-xl p-5 border-2 border-emerald-200 space-y-4">
-                    {/* 차장, 목사님 */}
+                    {/* 목사님, 차장 */}
                     <div className="flex flex-wrap gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">차장</span>
-                        <span className="bg-red-100 text-red-800 px-3 py-1.5 rounded-lg font-bold border border-red-300">윤정헌 ⭐</span>
-                      </div>
                       <div className="flex items-center gap-2">
                         <span className="bg-purple-500 text-white px-2 py-1 rounded text-xs font-bold">목사님</span>
                         <span className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded-lg font-bold border border-purple-300">김요성</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">차장</span>
+                        <span className="bg-red-100 text-red-800 px-3 py-1.5 rounded-lg font-bold border border-red-300">윤정현 ⭐</span>
                       </div>
                     </div>
 
