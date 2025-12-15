@@ -1831,15 +1831,6 @@ export default function GuidePage() {
                           <span className="text-gray-500 text-sm">金玟吳</span>
                           <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
                         </div>
-                      </div>
-                    </div>
-
-                    {/* Room 14 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-fuchsia-300 shadow">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="bg-fuchsia-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 14</span>
-                      </div>
-                      <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="text-pink-600">👤</span>
                           <span className="font-semibold">김정</span>
@@ -1849,10 +1840,10 @@ export default function GuidePage() {
                       </div>
                     </div>
 
-                    {/* Room 15 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-blue-300 shadow">
+                    {/* Room 14 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-fuchsia-300 shadow">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 15</span>
+                        <span className="bg-fuchsia-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 14</span>
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -1870,10 +1861,10 @@ export default function GuidePage() {
                       </div>
                     </div>
 
-                    {/* Room 16 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-green-300 shadow">
+                    {/* Room 15 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-300 shadow">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="bg-green-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 16</span>
+                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 15</span>
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -1891,10 +1882,10 @@ export default function GuidePage() {
                       </div>
                     </div>
 
-                    {/* Room 17 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-300 shadow">
+                    {/* Room 16 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-300 shadow">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="bg-yellow-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 17</span>
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 16</span>
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -1912,10 +1903,10 @@ export default function GuidePage() {
                       </div>
                     </div>
 
-                    {/* Room 18 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-orange-300 shadow">
+                    {/* Room 17 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-300 shadow">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 18</span>
+                        <span className="bg-yellow-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 17</span>
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -1933,10 +1924,10 @@ export default function GuidePage() {
                       </div>
                     </div>
 
-                    {/* Room 19 */}
-                    <div className="bg-white rounded-xl p-4 border-2 border-teal-300 shadow">
+                    {/* Room 18 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-300 shadow">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="bg-teal-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 19</span>
+                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 18</span>
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -1951,10 +1942,25 @@ export default function GuidePage() {
                           <span className="text-gray-500 text-sm">梁仁淑</span>
                           <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
                         </div>
+                      </div>
+                    </div>
+
+                    {/* Room 19 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-teal-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-teal-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 19</span>
+                      </div>
+                      <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="text-pink-600">👤</span>
                           <span className="font-semibold">유영단</span>
                           <span className="text-gray-500 text-sm">劉英丹</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이정윤</span>
+                          <span className="text-gray-500 text-sm">李延允</span>
                           <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
                         </div>
                       </div>
