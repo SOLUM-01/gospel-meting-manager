@@ -1566,6 +1566,685 @@ export default function GuidePage() {
               {/* 본문 내용 */}
               {expandedCard === 'vehicle' && (
               <div className="p-8 space-y-6">
+                {/* 룸 배정 섹션 */}
+                <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-4 border-purple-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                      🏨
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-purple-700">룸 배정</h3>
+                      <p className="text-lg font-bold text-purple-600">房間分配 | Room Assignment</p>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {/* Room 1 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 1</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">김요성</span>
+                          <span className="text-gray-500 text-sm">金堯聖</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 2 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 2</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">김동환</span>
+                          <span className="text-gray-500 text-sm">金東煥</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이혜승</span>
+                          <span className="text-gray-500 text-sm">李慧承</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 3 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-yellow-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 3</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">황철호</span>
+                          <span className="text-gray-500 text-sm">黃哲昊</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">박세은</span>
+                          <span className="text-gray-500 text-sm">朴世銀</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 4 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 4</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">최우현</span>
+                          <span className="text-gray-500 text-sm">崔禹炫</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">임종옥</span>
+                          <span className="text-gray-500 text-sm">林鍾玉</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 5 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-teal-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-teal-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 5</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">김진해</span>
+                          <span className="text-gray-500 text-sm">金鎮海</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">조하령</span>
+                          <span className="text-gray-500 text-sm">趙夏翎</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 6 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-indigo-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-indigo-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 6</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">정희평</span>
+                          <span className="text-gray-500 text-sm">鄭會平</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">윤숙영</span>
+                          <span className="text-gray-500 text-sm">尹淑英</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 7 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-cyan-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 7</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">이승헌</span>
+                          <span className="text-gray-500 text-sm">李承憲</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">김대현</span>
+                          <span className="text-gray-500 text-sm">金笭炫</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 8 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-rose-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-rose-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 8</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">정선은</span>
+                          <span className="text-gray-500 text-sm">鄭旋恩</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">강서현</span>
+                          <span className="text-gray-500 text-sm">姜舒縇</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 9 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-violet-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-violet-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 9</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">제인량</span>
+                          <span className="text-gray-500 text-sm">諸仁亮</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">제인현</span>
+                          <span className="text-gray-500 text-sm">諸仁炫</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 10 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-amber-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-amber-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 10</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김화숙</span>
+                          <span className="text-gray-500 text-sm">金和淑</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이아셀</span>
+                          <span className="text-gray-500 text-sm">李亞셀</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 11 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-lime-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-lime-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 11</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김신하</span>
+                          <span className="text-gray-500 text-sm">金信河</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김덕희</span>
+                          <span className="text-gray-500 text-sm">金德喜</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 12 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-emerald-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-emerald-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 12</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">서희숙</span>
+                          <span className="text-gray-500 text-sm">徐喜淑</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 13 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-sky-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-sky-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 13</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김민경</span>
+                          <span className="text-gray-500 text-sm">金玟吳</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 14 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-fuchsia-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-fuchsia-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 14</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김정</span>
+                          <span className="text-gray-500 text-sm">金靜</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 15 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 15</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이순옥</span>
+                          <span className="text-gray-500 text-sm">李順玉</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">송형숙</span>
+                          <span className="text-gray-500 text-sm">宋亨叔</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 16 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 16</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이영민</span>
+                          <span className="text-gray-500 text-sm">李寧敏</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">정재영</span>
+                          <span className="text-gray-500 text-sm">鄭才瑛</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 17 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-yellow-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 17</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">문유선</span>
+                          <span className="text-gray-500 text-sm">文瑜善</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이서은</span>
+                          <span className="text-gray-500 text-sm">李抒恩</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 18 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 18</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">박혜성</span>
+                          <span className="text-gray-500 text-sm">朴惠晟</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">우주연</span>
+                          <span className="text-gray-500 text-sm">禹周延</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 19 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-teal-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-teal-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 19</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">정정희</span>
+                          <span className="text-gray-500 text-sm">丁正姬</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">양인숙</span>
+                          <span className="text-gray-500 text-sm">梁仁淑</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">유영단</span>
+                          <span className="text-gray-500 text-sm">劉英丹</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 20 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-indigo-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-indigo-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 20</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김양덕</span>
+                          <span className="text-gray-500 text-sm">金良德</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이미경</span>
+                          <span className="text-gray-500 text-sm">李美敬</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 21 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-cyan-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-cyan-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 21</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김양신</span>
+                          <span className="text-gray-500 text-sm">金良信</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">백승이</span>
+                          <span className="text-gray-500 text-sm">白承伊</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 22 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-rose-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-rose-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 22</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">백정희</span>
+                          <span className="text-gray-500 text-sm">白貞喜</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">유은진</span>
+                          <span className="text-gray-500 text-sm">柳恩珍</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 23 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-violet-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-violet-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 23</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">최옥자</span>
+                          <span className="text-gray-500 text-sm">崔玉子</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이명대</span>
+                          <span className="text-gray-500 text-sm">李明大</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 24 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-amber-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-amber-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 24</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">차승희</span>
+                          <span className="text-gray-500 text-sm">車承喜</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김유하</span>
+                          <span className="text-gray-500 text-sm">金有夏</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 25 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-lime-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-lime-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 25</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">최희주</span>
+                          <span className="text-gray-500 text-sm">崔希州</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이보라</span>
+                          <span className="text-gray-500 text-sm">李保羅</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 26 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-emerald-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-emerald-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 26</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">조영선</span>
+                          <span className="text-gray-500 text-sm">趙英善</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">이예진</span>
+                          <span className="text-gray-500 text-sm">李芮珍</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 27 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-sky-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-sky-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 27</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">최세정</span>
+                          <span className="text-gray-500 text-sm">崔世貞</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">윤효정</span>
+                          <span className="text-gray-500 text-sm">尹孝情</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 28 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-fuchsia-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-fuchsia-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 28</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">오경자</span>
+                          <span className="text-gray-500 text-sm">吳慶子</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">김영미</span>
+                          <span className="text-gray-500 text-sm">金英微</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 29 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-blue-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 29</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">권옥희</span>
+                          <span className="text-gray-500 text-sm">權玉姬</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">박효양</span>
+                          <span className="text-gray-500 text-sm">朴孝陽</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 30 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-green-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 30</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">최미자</span>
+                          <span className="text-gray-500 text-sm">崔美子</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">곽미동</span>
+                          <span className="text-gray-500 text-sm">郭美東</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 31 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-yellow-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-yellow-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 31</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">신교순</span>
+                          <span className="text-gray-500 text-sm">辛敎順</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-pink-600">👤</span>
+                          <span className="font-semibold">강성혜</span>
+                          <span className="text-gray-500 text-sm">姜聖惠</span>
+                          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">F</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Room 32 */}
+                    <div className="bg-white rounded-xl p-4 border-2 border-orange-300 shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full font-bold text-sm">Room 32</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-600">👤</span>
+                          <span className="font-semibold">윤정헌</span>
+                          <span className="text-gray-500 text-sm">尹正賢</span>
+                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">M</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 총 룸 수 요약 */}
+                  <div className="mt-6 text-center">
+                    <span className="bg-purple-600 text-white px-6 py-3 rounded-full font-bold text-lg">
+                      🏨 총 32개 룸 배정 완료
+                    </span>
+                  </div>
+                </div>
+
+                {/* 차량 탑승 현황 구분선 */}
+                <div className="flex items-center gap-4 my-8">
+                  <div className="flex-1 h-1 bg-gradient-to-r from-transparent via-slate-400 to-slate-400 rounded"></div>
+                  <span className="text-2xl font-black text-slate-600 flex items-center gap-2">
+                    🚌 차량 탑승 현황 🚐
+                  </span>
+                  <div className="flex-1 h-1 bg-gradient-to-r from-slate-400 via-slate-400 to-transparent rounded"></div>
+                </div>
+
                 {/* 1차량 */}
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
