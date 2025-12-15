@@ -393,9 +393,11 @@ export default function TaskDetailPage() {
                         ? '🎵 찬양 악보' 
                         : task.title === '전폭특강'
                           ? '🎥 온누리교회 전도폭발 40기'
-                          : task.images.every((url: string) => url.includes('youtube.com/embed/') || url.match(/\.(mp4|webm|mov|avi|m4v)$/i))
-                            ? '🎥 동영상'
-                            : '📸 사진 갤러리'}
+                          : task.title === '어린이 사역팀'
+                            ? '🎨 복음 팔찌 전도 가이드'
+                            : task.images.every((url: string) => url.includes('youtube.com/embed/') || url.match(/\.(mp4|webm|mov|avi|m4v)$/i))
+                              ? '🎥 동영상'
+                              : '📸 사진 갤러리'}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {task.images.map((imageUrl: string, index: number) => {
