@@ -2251,87 +2251,203 @@ export default function GuidePage() {
                   <div className="flex-1 h-1 bg-gradient-to-r from-slate-400 via-slate-400 to-transparent rounded"></div>
                 </div>
 
-                {/* 1차량 */}
+                {/* 1호차 */}
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
                       1
                     </div>
                     <div>
-                      <h3 className="text-2xl font-black text-blue-700">1차량</h3>
+                      <h3 className="text-2xl font-black text-blue-700">1호차</h3>
                       <p className="text-lg font-bold text-blue-600">第1車 | 차장: 김진해 | 통역: 정웅규, 황철호</p>
                     </div>
                   </div>
                   
-                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200">
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        '김진해', '정웅규', '황철호', '제인량', '김동환', '박세은', '정회평',
-                        '윤숙영', '이승헌', '김대현', '정선은', '강서현', '제인현',
-                        '이아셀', '김민경', '김정', '문유선', '이서은', '박혜성',
-                        '조하령', '김양신', '백승이', '최희주', '조영선', '이예진',
-                        '최세정', '윤효정', '오경자', '권옥희', '최미자', '곽미동'
-                      ].map((name, index) => (
-                        <span 
-                          key={index} 
-                          className={`px-3 py-1.5 rounded-lg font-bold border ${
-                            name === '김진해' 
-                              ? 'bg-blue-500 text-white border-blue-600' 
-                              : ['정웅규', '황철호'].includes(name)
-                                ? 'bg-blue-400 text-white border-blue-500'
-                                : 'bg-blue-100 text-blue-800 border-blue-300'
-                          }`}
-                        >
-                          {name}{name === '김진해' && ' ⭐'}{['정웅규', '황철호'].includes(name) && ' 🌐'}
-                        </span>
-                      ))}
+                  <div className="bg-white rounded-xl p-5 border-2 border-blue-200 space-y-4">
+                    {/* 차장, 목사님, 선교사님 */}
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">차장</span>
+                        <span className="bg-red-100 text-red-800 px-3 py-1.5 rounded-lg font-bold border border-red-300">김진해 ⭐</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="bg-purple-500 text-white px-2 py-1 rounded text-xs font-bold">목사님</span>
+                        <span className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded-lg font-bold border border-purple-300">제인량</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="bg-indigo-500 text-white px-2 py-1 rounded text-xs font-bold">선교사님</span>
+                        <span className="bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg font-bold border border-indigo-300">정웅규 🌐</span>
+                      </div>
                     </div>
+
+                    {/* 팀장, 총무, 회계 (3) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-yellow-500 text-white px-2 py-1 rounded text-xs font-bold">팀장,총무,회계 (3)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg font-bold border border-yellow-300">정희평 (팀장)</span>
+                        <span className="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg font-bold border border-yellow-300">권옥희 (총무)</span>
+                        <span className="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg font-bold border border-yellow-300">조영선 (회계)</span>
+                      </div>
+                    </div>
+
+                    {/* 워십팀 (5) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-pink-500 text-white px-2 py-1 rounded text-xs font-bold">워십팀 (5)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['김화숙', '정정희', '양인숙', '유영단', '이정윤'].map((name, i) => (
+                          <span key={i} className="bg-pink-100 text-pink-800 px-3 py-1.5 rounded-lg font-bold border border-pink-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 중보팀 (6) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-cyan-500 text-white px-2 py-1 rounded text-xs font-bold">중보팀 (6)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['박혜성', '백승이', '윤효정', '최미자', '윤숙영', '김정'].map((name, i) => (
+                          <span key={i} className="bg-cyan-100 text-cyan-800 px-3 py-1.5 rounded-lg font-bold border border-cyan-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 찬양팀 (9) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-violet-500 text-white px-2 py-1 rounded text-xs font-bold">찬양팀 (9)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['이아셀', '박세은', '황철호 🌐', '오경자', '최희주', '정선은', '강서현', '최세정', '조하령'].map((name, i) => (
+                          <span key={i} className="bg-violet-100 text-violet-800 px-3 py-1.5 rounded-lg font-bold border border-violet-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 전도팀 (4) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold">전도팀 (4)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['김양신', '김민경', '이예진', '곽미동'].map((name, i) => (
+                          <span key={i} className="bg-orange-100 text-orange-800 px-3 py-1.5 rounded-lg font-bold border border-orange-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 한복 (2) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-rose-500 text-white px-2 py-1 rounded text-xs font-bold">한복 (2)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['문유선', '이서은'].map((name, i) => (
+                          <span key={i} className="bg-rose-100 text-rose-800 px-3 py-1.5 rounded-lg font-bold border border-rose-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
                     <div className="mt-4 text-center">
                       <span className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold">
-                        총 31명
+                        총 32명
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* 2차량 */}
+                {/* 2호차 */}
                 <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 border-4 border-emerald-400 shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="bg-emerald-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-black shadow-lg">
                       2
                     </div>
                     <div>
-                      <h3 className="text-2xl font-black text-emerald-700">2차량</h3>
-                      <p className="text-lg font-bold text-emerald-600">第2車 | 차장: 윤정현 | 통역: 우주연</p>
+                      <h3 className="text-2xl font-black text-emerald-700">2호차</h3>
+                      <p className="text-lg font-bold text-emerald-600">第2車 | 차장: 윤정헌 | 통역: 우주연</p>
                     </div>
                   </div>
                   
-                  <div className="bg-white rounded-xl p-5 border-2 border-emerald-200">
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        '윤정현', '우주연', '김요성', '이영민', '정재영', '백정희', '유은진',
-                        '최옥자', '이명대', '차승희', '김화숙', '정정희', '양인숙',
-                        '유영단', '이정윤', '최우현', '임종옥', '서희숙', '이순옥',
-                        '송형숙', '김양덕', '이미경', '김유하', '이보라', '김영미',
-                        '박효양', '강성혜', '이혜승', '김신하', '신교순', '김덕희'
-                      ].map((name, index) => (
-                        <span 
-                          key={index} 
-                          className={`px-3 py-1.5 rounded-lg font-bold border ${
-                            name === '윤정현' 
-                              ? 'bg-emerald-500 text-white border-emerald-600' 
-                              : name === '우주연'
-                                ? 'bg-emerald-400 text-white border-emerald-500'
-                                : 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                          }`}
-                        >
-                          {name}{name === '윤정현' && ' ⭐'}{name === '우주연' && ' 🌐'}
-                        </span>
-                      ))}
+                  <div className="bg-white rounded-xl p-5 border-2 border-emerald-200 space-y-4">
+                    {/* 차장, 목사님 */}
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">차장</span>
+                        <span className="bg-red-100 text-red-800 px-3 py-1.5 rounded-lg font-bold border border-red-300">윤정헌 ⭐</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="bg-purple-500 text-white px-2 py-1 rounded text-xs font-bold">목사님</span>
+                        <span className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded-lg font-bold border border-purple-300">김요성</span>
+                      </div>
                     </div>
+
+                    {/* 미용팀 (3) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-fuchsia-500 text-white px-2 py-1 rounded text-xs font-bold">미용팀 (3)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['김신하', '신교순', '김덕희'].map((name, i) => (
+                          <span key={i} className="bg-fuchsia-100 text-fuchsia-800 px-3 py-1.5 rounded-lg font-bold border border-fuchsia-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 부채춤팀 (7) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-amber-500 text-white px-2 py-1 rounded text-xs font-bold">부채춤팀 (7)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['이영민', '정재영', '백정희', '차승희', '이명대', '유은진', '최옥자'].map((name, i) => (
+                          <span key={i} className="bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg font-bold border border-amber-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 어린이사역팀 (5) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-lime-500 text-white px-2 py-1 rounded text-xs font-bold">어린이사역팀 (5)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['김동환', '김대현', '이승헌', '이혜승', '제인현'].map((name, i) => (
+                          <span key={i} className="bg-lime-100 text-lime-800 px-3 py-1.5 rounded-lg font-bold border border-lime-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 푸드팀 (9) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-sky-500 text-white px-2 py-1 rounded text-xs font-bold">푸드팀 (9)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['이미경', '김양덕', '임종옥', '김유하', '박효양', '이순옥', '송형숙', '서희숙', '강성혜'].map((name, i) => (
+                          <span key={i} className="bg-sky-100 text-sky-800 px-3 py-1.5 rounded-lg font-bold border border-sky-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 선물팀 (4) */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-teal-500 text-white px-2 py-1 rounded text-xs font-bold">선물팀 (4)</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['우주연 🌐', '김영미', '이보라', '최우현'].map((name, i) => (
+                          <span key={i} className="bg-teal-100 text-teal-800 px-3 py-1.5 rounded-lg font-bold border border-teal-300">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+
                     <div className="mt-4 text-center">
                       <span className="bg-emerald-600 text-white px-4 py-2 rounded-full font-bold">
-                        총 31명
+                        총 30명
                       </span>
                     </div>
                   </div>
@@ -2345,10 +2461,10 @@ export default function GuidePage() {
                     </p>
                     <div className="flex justify-center gap-6 flex-wrap">
                       <div className="bg-white/20 px-4 py-2 rounded-lg">
-                        <span className="font-bold">1차량: 31명</span>
+                        <span className="font-bold">1호차: 32명</span>
                       </div>
                       <div className="bg-white/20 px-4 py-2 rounded-lg">
-                        <span className="font-bold">2차량: 31명</span>
+                        <span className="font-bold">2호차: 30명</span>
                       </div>
                     </div>
                     <p className="text-lg font-semibold mt-2">
