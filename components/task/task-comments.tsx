@@ -42,8 +42,8 @@ const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
 const MAX_IMAGES = 10 // 최대 이미지 첨부 개수
-const MAX_IMAGE_SIZE = 800 // 최대 이미지 크기 (픽셀)
-const IMAGE_QUALITY = 0.7 // 이미지 품질 (0-1)
+const MAX_IMAGE_SIZE = 400 // 최대 이미지 크기 (픽셀) - 더 작게
+const IMAGE_QUALITY = 0.5 // 이미지 품질 (0-1) - 더 압축
 
 // 이미지 압축 함수
 const compressImage = (file: File): Promise<string> => {
@@ -203,14 +203,25 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     try {
       // 여러 이미지를 | 구분자로 연결
       const imageUrl = imagePreviews.length > 0 ? imagePreviews.join('|') : undefined
+      
+      // 데이터 크기 체크 (약 1MB 제한)
+      if (imageUrl && imageUrl.length > 1000000) {
+        alert('이미지 용량이 너무 큽니다. 더 적은 수의 사진을 첨부하거나 작은 사진을 선택해주세요.')
+        setIsSubmitting(false)
+        return
+      }
+      
       const comment = await addTaskComment(taskId, userName, newComment, imageUrl)
       if (comment) {
         setComments([comment, ...comments])
         setNewComment('')
         setImagePreviews([])
+      } else {
+        alert('댓글 등록에 실패했습니다. 사진 수를 줄여서 다시 시도해주세요.')
       }
     } catch (error) {
       console.error('Failed to add comment:', error)
+      alert('댓글 등록 중 오류가 발생했습니다. 다시 시도해주세요.')
     } finally {
       setIsSubmitting(false)
     }
