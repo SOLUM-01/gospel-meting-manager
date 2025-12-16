@@ -1528,7 +1528,7 @@ export default function GuidePage() {
               </div>
               )}
             </Card>
-            {/* 룸 배정 & 차량 탑승 현황 */}
+            {/* 항공사별 탑승 & 항공사별 탑승 & 룸 배정 & 차량 탑승 현황 */}
             <Card 
               className="bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 border-4 border-slate-500 shadow-2xl overflow-hidden cursor-pointer hover:shadow-3xl transition-all"
               onClick={() => toggleCard('vehicle')}
@@ -1546,7 +1546,7 @@ export default function GuidePage() {
                         <div className="text-5xl animate-bounce delay-200">✈️</div>
                       </div>
                       <h2 className="text-3xl md:text-4xl font-black text-center mb-2 tracking-tight">
-                        룸 배정 & 차량 탑승 현황
+                        항공사별 탑승 & 룸 배정 & 차량 탑승 현황
                       </h2>
                       <p className="text-xl text-center font-bold text-slate-200">
                         房間分配 & 車輛乘車現況
