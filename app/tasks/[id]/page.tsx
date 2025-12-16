@@ -674,11 +674,68 @@ export default function TaskDetailPage() {
                           </button>
                         </div>
 
+                        {/* 개별 물품 배분 현황 */}
+                        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-4 border-2 border-emerald-400 shadow-md">
+                          <div className="flex justify-between items-center mb-4">
+                            <span className="text-lg font-black text-emerald-700">📦 개별 물품 배분 현황</span>
+                            <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold">6명</span>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="bg-white rounded-lg p-3 flex justify-between items-center border border-emerald-200">
+                              <div>
+                                <span className="font-bold text-emerald-800">🎪 현수막</span>
+                                <span className="text-sm text-emerald-600 ml-2">대1개, 소1개</span>
+                              </div>
+                              <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-bold">김대현 형제님</span>
+                            </div>
+                            <div className="bg-white rounded-lg p-3 flex justify-between items-center border border-emerald-200">
+                              <div>
+                                <span className="font-bold text-emerald-800">📄 특강프린트</span>
+                                <span className="text-sm text-emerald-600 ml-2">130장</span>
+                              </div>
+                              <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-bold">김양신 권사님</span>
+                            </div>
+                            <div className="bg-white rounded-lg p-3 flex justify-between items-center border border-emerald-200">
+                              <div>
+                                <span className="font-bold text-emerald-800">📚 팝업북</span>
+                                <span className="text-sm text-emerald-600 ml-2">15개</span>
+                              </div>
+                              <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-bold">윤숙영 권사님</span>
+                            </div>
+                            <div className="bg-white rounded-lg p-3 flex justify-between items-center border border-emerald-200">
+                              <div>
+                                <span className="font-bold text-emerald-800">🍪 약과</span>
+                                <span className="text-sm text-emerald-600 ml-2">40개</span>
+                              </div>
+                              <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-bold">박혜성 팀장님</span>
+                            </div>
+                            <div className="bg-white rounded-lg p-3 flex justify-between items-center border border-emerald-200">
+                              <div>
+                                <span className="font-bold text-emerald-800">📖 전도메뉴얼</span>
+                                <span className="text-sm text-emerald-600 ml-2">61개</span>
+                              </div>
+                              <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-bold">정회평 팀장님</span>
+                            </div>
+                            <div className="bg-white rounded-lg p-3 border border-emerald-200">
+                              <div className="flex justify-between items-start mb-2">
+                                <span className="font-bold text-emerald-800">🎁 VIP 선물 세트</span>
+                                <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-bold">제인량 목사님</span>
+                              </div>
+                              <div className="text-sm text-emerald-600 space-y-1 pl-2">
+                                <div>• 시장님/현장님/부현장님 선물 <span className="font-bold">3박스</span></div>
+                                <div>• 관료 복주머니 <span className="font-bold">150개</span></div>
+                                <div>• 카드 <span className="font-bold">150개</span></div>
+                                <div>• 약과 <span className="font-bold">80개</span></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                         {/* 합계 */}
                         <div className="bg-slate-200 rounded-xl p-4 border-2 border-slate-400">
                           <div className="flex justify-between items-center">
                             <span className="text-xl font-black text-slate-700">📊 총 첨부파일</span>
-                            <span className="bg-red-500 text-white px-4 py-2 rounded-full font-black text-xl">6개</span>
+                            <span className="bg-red-500 text-white px-4 py-2 rounded-full font-black text-xl">7개</span>
                           </div>
                         </div>
                       </div>
@@ -849,10 +906,91 @@ export default function TaskDetailPage() {
                           </div>
                         </div>
 
+                        {/* 개별 물품 배분 현황 - PC 버전 */}
+                        <div className="mt-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border-3 border-emerald-400 shadow-lg overflow-hidden">
+                          <div className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-6 py-4">
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <span className="text-2xl font-black">📦 개별 물품 배분 현황</span>
+                                <p className="text-sm text-emerald-100 mt-1">Individual Supply Distribution</p>
+                              </div>
+                              <span className="bg-white/20 px-4 py-2 rounded-full text-lg font-bold">6명 담당</span>
+                            </div>
+                          </div>
+                          <div className="p-6">
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-2xl">🎪</span>
+                                  <span className="font-black text-emerald-800">현수막</span>
+                                </div>
+                                <div className="text-emerald-600 font-bold mb-2">대1개, 소1개</div>
+                                <div className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold text-center">
+                                  김대현 형제님
+                                </div>
+                              </div>
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-2xl">📄</span>
+                                  <span className="font-black text-emerald-800">특강프린트</span>
+                                </div>
+                                <div className="text-emerald-600 font-bold mb-2">130장</div>
+                                <div className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold text-center">
+                                  김양신 권사님
+                                </div>
+                              </div>
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-2xl">📚</span>
+                                  <span className="font-black text-emerald-800">팝업북</span>
+                                </div>
+                                <div className="text-emerald-600 font-bold mb-2">15개</div>
+                                <div className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold text-center">
+                                  윤숙영 권사님
+                                </div>
+                              </div>
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-2xl">🍪</span>
+                                  <span className="font-black text-emerald-800">약과</span>
+                                </div>
+                                <div className="text-emerald-600 font-bold mb-2">40개</div>
+                                <div className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold text-center">
+                                  박혜성 팀장님
+                                </div>
+                              </div>
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-2xl">📖</span>
+                                  <span className="font-black text-emerald-800">전도메뉴얼</span>
+                                </div>
+                                <div className="text-emerald-600 font-bold mb-2">61개</div>
+                                <div className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold text-center">
+                                  정회평 팀장님
+                                </div>
+                              </div>
+                              <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-2xl">🎁</span>
+                                  <span className="font-black text-emerald-800">VIP 선물 세트</span>
+                                </div>
+                                <div className="text-emerald-600 text-sm mb-2 space-y-1">
+                                  <div>• 시장님/현장님/부현장님 선물 <b>3박스</b></div>
+                                  <div>• 복주머니 <b>150개</b> / 카드 <b>150개</b></div>
+                                  <div>• 약과 <b>80개</b></div>
+                                </div>
+                                <div className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold text-center">
+                                  제인량 목사님
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                         {/* 합계 */}
                         <div className="mt-6 bg-slate-200 rounded-xl p-4 border-2 border-slate-400 flex justify-between items-center">
                           <span className="text-xl font-black text-slate-700">📊 총 첨부파일</span>
-                          <span className="bg-red-500 text-white px-6 py-2 rounded-full font-black text-xl">6개</span>
+                          <span className="bg-red-500 text-white px-6 py-2 rounded-full font-black text-xl">7개</span>
                         </div>
                       </div>
                     </div>
