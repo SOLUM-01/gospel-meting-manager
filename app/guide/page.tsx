@@ -1566,6 +1566,807 @@ export default function GuidePage() {
               {/* 본문 내용 */}
               {expandedCard === 'vehicle' && (
               <div className="p-8 space-y-6">
+                {/* 항공사별 시간표 섹션 */}
+                <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-2xl p-6 border-4 border-sky-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-sky-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                      ✈️
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-sky-700">항공사별 시간표</h3>
+                      <p className="text-lg font-bold text-sky-600">航空公司時間表 | Flight Schedule</p>
+                    </div>
+                  </div>
+                  
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="bg-sky-100">
+                          <th className="border-2 border-sky-300 px-4 py-2 text-left font-bold text-sky-700">항공사</th>
+                          <th className="border-2 border-sky-300 px-4 py-2 text-center font-bold text-sky-700">인원</th>
+                          <th className="border-2 border-sky-300 px-4 py-2 text-center font-bold text-sky-700">출발 (12/18)</th>
+                          <th className="border-2 border-sky-300 px-4 py-2 text-center font-bold text-sky-700">귀국 (12/22)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="bg-orange-50">
+                          <td className="border-2 border-sky-300 px-4 py-2 font-bold text-orange-700">🧡 티웨이</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center font-bold">5명</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">14:25~16:40</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">17:40~</td>
+                        </tr>
+                        <tr className="bg-blue-50">
+                          <td className="border-2 border-sky-300 px-4 py-2 font-bold text-blue-700">💙 대한항공</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center font-bold">39명</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">14:15~16:25</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">17:50~</td>
+                        </tr>
+                        <tr className="bg-blue-100">
+                          <td className="border-2 border-sky-300 px-4 py-2 font-bold text-blue-700">💙 대한항공</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center font-bold">2명</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">12:30~14:20</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">19:20~</td>
+                        </tr>
+                        <tr className="bg-green-50">
+                          <td className="border-2 border-sky-300 px-4 py-2 font-bold text-green-700">💚 진에어</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center font-bold">12명</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">15:40~17:50</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">18:30~</td>
+                        </tr>
+                        <tr className="bg-green-100">
+                          <td className="border-2 border-sky-300 px-4 py-2 font-bold text-green-700">💚 진에어</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center font-bold">2명</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">15:40~17:50</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center text-red-600 font-bold">12/21 11:00~</td>
+                        </tr>
+                        <tr className="bg-green-200">
+                          <td className="border-2 border-sky-300 px-4 py-2 font-bold text-green-700">💚 진에어</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center font-bold">1명</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center text-red-600 font-bold">07:50~10:00</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center">18:30~</td>
+                        </tr>
+                        <tr className="bg-slate-200 font-bold">
+                          <td className="border-2 border-sky-300 px-4 py-2 font-black text-slate-700">합계</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center font-black text-2xl text-red-600">61명</td>
+                          <td className="border-2 border-sky-300 px-4 py-2 text-center" colSpan={2}></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* 티웨이 5명 섹션 */}
+                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                      🧡
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-orange-700">티웨이 5명</h3>
+                      <p className="text-lg font-bold text-orange-600">조장: 이승헌</p>
+                    </div>
+                  </div>
+                  
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse text-sm">
+                      <thead>
+                        <tr className="bg-orange-100">
+                          <th className="border-2 border-orange-300 px-2 py-2 text-center font-bold">NO</th>
+                          <th className="border-2 border-orange-300 px-2 py-2 text-left font-bold">이름</th>
+                          <th className="border-2 border-orange-300 px-2 py-2 text-left font-bold">한자</th>
+                          <th className="border-2 border-orange-300 px-2 py-2 text-center font-bold">성별</th>
+                          <th className="border-2 border-orange-300 px-2 py-2 text-left font-bold">영문</th>
+                          <th className="border-2 border-orange-300 px-2 py-2 text-center font-bold">소속</th>
+                          <th className="border-2 border-orange-300 px-2 py-2 text-left font-bold">직임</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="bg-yellow-100">
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center font-bold">1</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 font-bold text-orange-700">조장 이승헌</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">李承憲</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center bg-blue-100">M</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">LEE</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center">저녁반</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">차량/물품/찬양</td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center font-bold">2</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 font-semibold">제인량</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">薛仁亮</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">JE</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center">목사</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">교육목사</td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center font-bold">3</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 font-semibold">제인현</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">薛仁炫</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">JE</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">전도/중보/찬양</td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center font-bold">4</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 font-semibold">김대현</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">金岱炫</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center bg-blue-100">M</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">KIM</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center">저녁반</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">차량/물품/찬양</td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center font-bold">5</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 font-semibold">이예진</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">李芮珍</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">LEE</td>
+                          <td className="border-2 border-orange-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-orange-300 px-2 py-2">찬양/팝업북/전도</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* 대한항공 41명 섹션 (광주 9 + 서울 32) */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                      💙
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-blue-700">대한항공 41명</h3>
+                      <p className="text-lg font-bold text-blue-600">광주 9명 + 서울 32명</p>
+                    </div>
+                  </div>
+
+                  {/* 광주 9명 */}
+                  <div className="mb-8">
+                    <div className="bg-blue-200 rounded-lg p-3 mb-4">
+                      <h4 className="text-xl font-black text-blue-800">🌸 광주 9명 (조장: 윤정현)</h4>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse text-sm">
+                        <thead>
+                          <tr className="bg-blue-100">
+                            <th className="border-2 border-blue-300 px-2 py-2 text-center font-bold">NO</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">이름</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">한자</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-center font-bold">성별</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">영문</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-center font-bold">소속</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">직임</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">비고</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="bg-yellow-100">
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">1</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-bold text-blue-700">광주조장 윤정현</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">尹正鉉</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-blue-100">M</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">Yoon</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">1차량/미용/영상</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">2</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">김화숙</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">金和淑</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">워십</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">아셀과 같은방</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">3</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">이아셀</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">李아셀</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LEE</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">김화숙딸</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">4</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">정정희</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">丁正姬</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">JUNG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">워십</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">5</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">양인숙</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">梁仁淑</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">YANG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">워십</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">6</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">유영단</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">劉英丹</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">YU</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">워십</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">7</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">이미경</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">李美敬</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LEE</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">중보기도/푸드</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">8</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">김양덕</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">金良德</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">중보기도/푸드/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">9</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">이정윤</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">李旌允</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LEE</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">광주</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">워십팀장/찬양</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* 서울 32명 */}
+                  <div>
+                    <div className="bg-blue-200 rounded-lg p-3 mb-4">
+                      <h4 className="text-xl font-black text-blue-800">🏙️ 서울 32명 (조장: 박혜성)</h4>
+                      <p className="text-sm text-blue-700 mt-1">양재수요 박혜성 / 양재주일 김양신 / 서빙고주간 백정희 오경자 김영미 / 서빙고저녁 김진해 곽미동</p>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse text-sm">
+                        <thead>
+                          <tr className="bg-blue-100">
+                            <th className="border-2 border-blue-300 px-2 py-2 text-center font-bold">NO</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">이름</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">한자</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-center font-bold">성별</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">영문</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-center font-bold">소속</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">직임</th>
+                            <th className="border-2 border-blue-300 px-2 py-2 text-left font-bold">비고</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="bg-yellow-100">
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">1</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-bold text-blue-700">서울조장 박혜성</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">朴惠晟</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">PARK</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재수요</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">중보기도팀장/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">2</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">이영민</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">李寧敏</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LEE</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재수요</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">부채춤</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">3</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">문유선</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">文瑀善</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">MOON</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재수요</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">한복팀장/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">4</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">정재영</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">鄭才璟</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">JUNG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재수요</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">부채춤</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">5</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">이서은</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">李抒恩</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LEE</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재수요</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">6</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">김양신</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">金良信</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재주일</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">전도팀장</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">7</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">박세은</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">朴世銀</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">PARK</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재주일</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">영상/찬양/팝업북/통역/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">황철호아내</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">8</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">황철호</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">黃哲昊</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-blue-100">M</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">HWANG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재주일</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/통역</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">박세은남편</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">9</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">백승이</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">白承伊</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">BAEK</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재주일</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/중보</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">10</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">우주연</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">禹周延</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">WOO</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">양재주일</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/푸드/통역/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">11</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">백정희</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">白貞喜</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">BAEK</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">부채춤</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">12</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">오경자</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">吳慶子</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">OH</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양팀장/팝업북/통역/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">13</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">김영미</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">金英薇</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">푸드/찬양/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">14</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">윤효정</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">尹孝情</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">YOON</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/중보</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">15</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">임종옥</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">林鍾玉</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">푸드팀장</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">최우현아내</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">16</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">최우현</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">崔禹炫</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-blue-100">M</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">CHOI</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">푸드/찬양</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">임종옥남편</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">17</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">이명대</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">李明大</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LEE</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">부채춤</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">18</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">정선은</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">鄭旋恩</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">JUNG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/팝업북</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">강서헌엄마</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">19</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">강서헌</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">姜舒憲</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-blue-100">M</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KANG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">정선은아들</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">20</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">유은진</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">柳恩珍</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">RYU</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">부채춤팀장</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">21</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">최옥자</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">崔玉子</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">CHOI</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">부채춤</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">22</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">최세정</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">崔世貞</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">CHOI</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">주간반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/팝업북</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">23</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">김신하</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">金信河</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">미용</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">신교순모친</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">24</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">김진해</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">金鎭海</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-blue-100">M</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">차량/물품팀장/찬양</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">조하령남편</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">25</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">신교순</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">辛敎順</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">SHIN</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">미용팀장</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">김신하딸</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">26</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">이순옥</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">李順玉</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">LEE</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">전도/중보/푸드</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">27</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">송형숙</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">宋亨淑</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">SONG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">전도/중보/푸드</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">28</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">조하령</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">趙夏聆</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">CHO</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/팝업북</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">김진해아내</td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">29</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">곽미동</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">郭美棟</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KWAK</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">찬양/팝업북/전도</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                          </tr>
+                          <tr>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">30</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">김덕희</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">金德喜</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">KIM</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">무소속</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">미용/찬양</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs">저녁반1단계</td>
+                          </tr>
+                          <tr className="bg-red-50">
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">31</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">정회평</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">鄭喜平</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-blue-100">M</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">JEONG</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">총괄팀장/찬양</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs text-red-600 font-bold">12:30~14:20 / 19:20~</td>
+                          </tr>
+                          <tr className="bg-red-50">
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center font-bold">32</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 font-semibold">윤숙영</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">尹淑英</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center bg-pink-100">F</td>
+                            <td className="border-2 border-blue-300 px-2 py-2">YOON</td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-center">저녁반</td>
+                            <td className="border-2 border-blue-300 px-2 py-2"></td>
+                            <td className="border-2 border-blue-300 px-2 py-2 text-xs text-red-600 font-bold">정회평아내 / 12:30~14:20 / 19:20~</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 진에어 15명 섹션 */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                      💚
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-green-700">진에어 15명</h3>
+                      <p className="text-lg font-bold text-green-600">조장: 권옥희 / 조영선 이보라 김정</p>
+                    </div>
+                  </div>
+                  
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse text-sm">
+                      <thead>
+                        <tr className="bg-green-100">
+                          <th className="border-2 border-green-300 px-2 py-2 text-center font-bold">NO</th>
+                          <th className="border-2 border-green-300 px-2 py-2 text-left font-bold">이름</th>
+                          <th className="border-2 border-green-300 px-2 py-2 text-left font-bold">한자</th>
+                          <th className="border-2 border-green-300 px-2 py-2 text-center font-bold">성별</th>
+                          <th className="border-2 border-green-300 px-2 py-2 text-left font-bold">영문</th>
+                          <th className="border-2 border-green-300 px-2 py-2 text-center font-bold">소속</th>
+                          <th className="border-2 border-green-300 px-2 py-2 text-left font-bold">직임</th>
+                          <th className="border-2 border-green-300 px-2 py-2 text-left font-bold">비고</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="bg-yellow-100">
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">1</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-bold text-green-700">조장 권옥희</td>
+                          <td className="border-2 border-green-300 px-2 py-2">權玉姬</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KWON</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">총무서기/찬양/통역/전도</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">2</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">김요성</td>
+                          <td className="border-2 border-green-300 px-2 py-2">金義聖</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-blue-100">M</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KIM</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">목사</td>
+                          <td className="border-2 border-green-300 px-2 py-2">총괄목사</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr className="bg-red-50">
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">3</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">김동환</td>
+                          <td className="border-2 border-green-300 px-2 py-2">金東煥</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-blue-100">M</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KIM</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">장로</td>
+                          <td className="border-2 border-green-300 px-2 py-2">장로/찬양</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-xs text-red-600 font-bold">12/21 11:00 귀국</td>
+                        </tr>
+                        <tr className="bg-red-50">
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">4</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">이혜승</td>
+                          <td className="border-2 border-green-300 px-2 py-2">李墨承</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KIM</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">저녁반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">푸드/중보</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-xs text-red-600 font-bold">12/21 11:00 귀국</td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">5</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">차승희</td>
+                          <td className="border-2 border-green-300 px-2 py-2">車承喜</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">CHA</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">부채춤</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">6</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">조영선</td>
+                          <td className="border-2 border-green-300 px-2 py-2">趙英善</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">CHO</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">회계/찬양/전도</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">7</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">최희주</td>
+                          <td className="border-2 border-green-300 px-2 py-2">崔希州</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">CHOI</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">반주/찬양</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">8</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">이보라</td>
+                          <td className="border-2 border-green-300 px-2 py-2">李保羅</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">LEE</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">찬양/푸드/전도</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">9</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">김유하</td>
+                          <td className="border-2 border-green-300 px-2 py-2">金有夏</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KIM</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">찬양/푸드/전도</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">10</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">박효양</td>
+                          <td className="border-2 border-green-300 px-2 py-2">朴孝陽</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">PARK</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">푸드/중보</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr className="bg-red-50">
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">11</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">강성혜</td>
+                          <td className="border-2 border-green-300 px-2 py-2">姜聖惠</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KANG</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">주간반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">푸드/중보/찬양</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-xs text-red-600 font-bold">07:50~10:00 출발</td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">12</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">김정</td>
+                          <td className="border-2 border-green-300 px-2 py-2">金靜</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KIM</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">무소속</td>
+                          <td className="border-2 border-green-300 px-2 py-2">찬양/중보</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">13</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">서희숙</td>
+                          <td className="border-2 border-green-300 px-2 py-2">徐喜淑</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">SEO</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">무소속</td>
+                          <td className="border-2 border-green-300 px-2 py-2">푸드/찬양</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-xs">김정모친</td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">14</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">김민경</td>
+                          <td className="border-2 border-green-300 px-2 py-2">金玟炅</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">KIM</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">양재주일</td>
+                          <td className="border-2 border-green-300 px-2 py-2">찬양/전도</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                        <tr>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center font-bold">15</td>
+                          <td className="border-2 border-green-300 px-2 py-2 font-semibold">최미자</td>
+                          <td className="border-2 border-green-300 px-2 py-2">崔美子</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center bg-pink-100">F</td>
+                          <td className="border-2 border-green-300 px-2 py-2">CHOI</td>
+                          <td className="border-2 border-green-300 px-2 py-2 text-center">저녁반</td>
+                          <td className="border-2 border-green-300 px-2 py-2">찬양/중보/전도</td>
+                          <td className="border-2 border-green-300 px-2 py-2"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
                 {/* 룸 배정 섹션 */}
                 <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-4 border-purple-400 shadow-lg">
                   <div className="flex items-center gap-3 mb-6">
