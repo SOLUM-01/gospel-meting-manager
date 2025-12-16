@@ -531,7 +531,7 @@ export default function TaskDetailPage() {
                       <div className="flex items-center gap-3">
                         <span className="text-3xl md:text-4xl">📦</span>
                         <div>
-                          <h2 className="text-xl md:text-2xl font-black text-amber-900">물품 배분 현황(25.12.8)</h2>
+                          <h2 className="text-xl md:text-2xl font-black text-amber-900">물품 배분 현황(25.12.15)</h2>
                           <p className="text-sm text-amber-800 font-medium">物品分配現況 | Supply Distribution</p>
                         </div>
                       </div>
