@@ -706,103 +706,129 @@ export default function TaskDetailPage() {
                         </div>
                       </div>
 
-                      {/* PC 테이블 뷰 */}
-                      <div className="hidden md:block overflow-x-auto">
-                        <table className="w-full border-collapse">
-                          <thead>
-                            <tr className="bg-slate-200">
-                              <th className="border-2 border-slate-400 px-4 py-3 text-center font-black text-slate-700 w-16">NO</th>
-                              <th className="border-2 border-slate-400 px-4 py-3 text-left font-black text-slate-700">문서명</th>
-                              <th className="border-2 border-slate-400 px-4 py-3 text-left font-black text-slate-700">설명</th>
-                              <th className="border-2 border-slate-400 px-4 py-3 text-center font-black text-slate-700 w-48">미리보기</th>
-                              <th className="border-2 border-slate-400 px-4 py-3 text-center font-black text-slate-700 w-32">다운로드</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="bg-cyan-50 hover:bg-cyan-100 transition-colors">
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center font-bold">1</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 font-bold text-cyan-700">📦 특강용주머니물품대장</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-sm text-gray-600">(전도팀) - 약과, 사탕묶음, 팝업북 등</td>
-                              <td className="border-2 border-slate-300 px-2 py-2">
-                                <Image src="/images/supplies-evangelism-team.png" alt="특강용주머니물품대장" width={160} height={120} className="w-full h-auto rounded" />
-                              </td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center">
-                                <button onClick={() => handleDownload('/images/supplies-evangelism-team.png', '특강용주머니물품대장_전도팀.png')} className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-1 mx-auto">
-                                  <Download className="h-4 w-4" /> 받기
-                                </button>
-                              </td>
-                            </tr>
-                            <tr className="bg-yellow-50 hover:bg-yellow-100 transition-colors">
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center font-bold">2</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 font-bold text-yellow-700">🎁 행정관료130명 선물용품대장</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-sm text-gray-600">(박스1북주머니1약과1전도지1엽서1)</td>
-                              <td className="border-2 border-slate-300 px-2 py-2">
-                                <Image src="/images/supplies-admin-130.png" alt="행정관료130명" width={160} height={120} className="w-full h-auto rounded" />
-                              </td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center">
-                                <button onClick={() => handleDownload('/images/supplies-admin-130.png', '행정관료130명_선물용품대장.png')} className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-1 mx-auto">
-                                  <Download className="h-4 w-4" /> 받기
-                                </button>
-                              </td>
-                            </tr>
-                            <tr className="bg-blue-50 hover:bg-blue-100 transition-colors">
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center font-bold">3</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 font-bold text-blue-700">📊 전도물품 배분현황</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-sm text-gray-600">배분일자: 2025년12월15일 (31명)</td>
-                              <td className="border-2 border-slate-300 px-2 py-2">
-                                <Image src="/images/supplies-distribution.png" alt="전도물품 배분현황" width={160} height={120} className="w-full h-auto rounded" />
-                              </td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center">
-                                <button onClick={() => handleDownload('/images/supplies-distribution.png', '전도물품_배분현황.png')} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-1 mx-auto">
-                                  <Download className="h-4 w-4" /> 받기
-                                </button>
-                              </td>
-                            </tr>
-                            <tr className="bg-purple-50 hover:bg-purple-100 transition-colors">
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center font-bold">4</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 font-bold text-purple-700">🎀 특별 선물 목록</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-sm text-gray-600">정선교사님부부/중목사님/원로목사님/7개기도처</td>
-                              <td className="border-2 border-slate-300 px-2 py-2">
-                                <Image src="/images/supplies-special-gift.png" alt="특별 선물 목록" width={160} height={120} className="w-full h-auto rounded" />
-                              </td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center">
-                                <button onClick={() => handleDownload('/images/supplies-special-gift.png', '특별선물_목록.png')} className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-1 mx-auto">
-                                  <Download className="h-4 w-4" /> 받기
-                                </button>
-                              </td>
-                            </tr>
-                            <tr className="bg-pink-50 hover:bg-pink-100 transition-colors">
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center font-bold">5</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 font-bold text-pink-700">👥 청년리더쉽14명 전물용품대장</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-sm text-gray-600">남성 리더쉽7명 / 여성 리더쉽7명</td>
-                              <td className="border-2 border-slate-300 px-2 py-2">
-                                <Image src="/images/supplies-youth-leadership.png" alt="청년리더쉽14명" width={160} height={120} className="w-full h-auto rounded" />
-                              </td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center">
-                                <button onClick={() => handleDownload('/images/supplies-youth-leadership.png', '청년리더쉽14명_전물용품대장.png')} className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-1 mx-auto">
-                                  <Download className="h-4 w-4" /> 받기
-                                </button>
-                              </td>
-                            </tr>
-                            <tr className="bg-orange-50 hover:bg-orange-100 transition-colors">
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center font-bold">6</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 font-bold text-orange-700">🍜 푸드팀 떡볶이 소스 물품대장</td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-sm text-gray-600">고추장소스(실온보관) / 짜장소스(냉장보관)</td>
-                              <td className="border-2 border-slate-300 px-2 py-2">
-                                <Image src="/images/supplies-food-team-sauce.png" alt="푸드팀 떡볶이 소스" width={160} height={120} className="w-full h-auto rounded" />
-                              </td>
-                              <td className="border-2 border-slate-300 px-4 py-3 text-center">
-                                <button onClick={() => handleDownload('/images/supplies-food-team-sauce.png', '푸드팀_떡볶이소스_물품대장.png')} className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-1 mx-auto">
-                                  <Download className="h-4 w-4" /> 받기
-                                </button>
-                              </td>
-                            </tr>
-                            <tr className="bg-slate-200 font-bold">
-                              <td className="border-2 border-slate-400 px-4 py-3 text-center font-black text-slate-700" colSpan={2}>합계</td>
-                              <td className="border-2 border-slate-400 px-4 py-3 text-center font-black text-2xl text-red-600" colSpan={3}>총 6개 문서</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      {/* PC 카드 뷰 */}
+                      <div className="hidden md:block">
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+                          {/* 특강용주머니물품대장(전도팀) */}
+                          <div className="bg-cyan-50 rounded-2xl border-3 border-cyan-400 shadow-lg hover:shadow-xl transition-all overflow-hidden group">
+                            <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-3">
+                              <div className="flex justify-between items-center">
+                                <span className="text-lg font-black">📦 특강용주머니물품대장</span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-bold">전도팀</span>
+                              </div>
+                              <p className="text-xs text-cyan-100 mt-1">약과, 사탕묶음, 팝업북 등</p>
+                            </div>
+                            <div className="p-4">
+                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
+                                <Image src="/images/supplies-evangelism-team.png" alt="특강용주머니물품대장(전도팀)" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              </div>
+                              <button onClick={() => handleDownload('/images/supplies-evangelism-team.png', '특강용주머니물품대장_전도팀.png')} className="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
+                                <Download className="h-5 w-5" /> 다운로드
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* 행정관료130명 선물용품대장 */}
+                          <div className="bg-yellow-50 rounded-2xl border-3 border-yellow-400 shadow-lg hover:shadow-xl transition-all overflow-hidden group">
+                            <div className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white px-4 py-3">
+                              <div className="flex justify-between items-center">
+                                <span className="text-lg font-black">🎁 행정관료130명</span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-bold">선물용품</span>
+                              </div>
+                              <p className="text-xs text-yellow-100 mt-1">(박스1북주머니1약과1전도지1엽서1)</p>
+                            </div>
+                            <div className="p-4">
+                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
+                                <Image src="/images/supplies-admin-130.png" alt="행정관료130명 선물용품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              </div>
+                              <button onClick={() => handleDownload('/images/supplies-admin-130.png', '행정관료130명_선물용품대장.png')} className="w-full flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
+                                <Download className="h-5 w-5" /> 다운로드
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* 전도물품 배분현황 */}
+                          <div className="bg-blue-50 rounded-2xl border-3 border-blue-400 shadow-lg hover:shadow-xl transition-all overflow-hidden group">
+                            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3">
+                              <div className="flex justify-between items-center">
+                                <span className="text-lg font-black">📊 전도물품 배분현황</span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-bold">31명</span>
+                              </div>
+                              <p className="text-xs text-blue-100 mt-1">배분일자: 2025년12월15일</p>
+                            </div>
+                            <div className="p-4">
+                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
+                                <Image src="/images/supplies-distribution.png" alt="전도물품 배분현황" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              </div>
+                              <button onClick={() => handleDownload('/images/supplies-distribution.png', '전도물품_배분현황.png')} className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
+                                <Download className="h-5 w-5" /> 다운로드
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* 특별 선물 목록 */}
+                          <div className="bg-purple-50 rounded-2xl border-3 border-purple-400 shadow-lg hover:shadow-xl transition-all overflow-hidden group">
+                            <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-3">
+                              <div className="flex justify-between items-center">
+                                <span className="text-lg font-black">🎀 특별 선물 목록</span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-bold">VIP</span>
+                              </div>
+                              <p className="text-xs text-purple-100 mt-1">정선교사님부부/중목사님/원로목사님/7개기도처</p>
+                            </div>
+                            <div className="p-4">
+                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
+                                <Image src="/images/supplies-special-gift.png" alt="특별 선물 목록" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              </div>
+                              <button onClick={() => handleDownload('/images/supplies-special-gift.png', '특별선물_목록.png')} className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
+                                <Download className="h-5 w-5" /> 다운로드
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* 청년리더쉽14명 */}
+                          <div className="bg-pink-50 rounded-2xl border-3 border-pink-400 shadow-lg hover:shadow-xl transition-all overflow-hidden group">
+                            <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-3">
+                              <div className="flex justify-between items-center">
+                                <span className="text-lg font-black">👥 청년리더쉽14명</span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-bold">14명</span>
+                              </div>
+                              <p className="text-xs text-pink-100 mt-1">남성 리더쉽7명 / 여성 리더쉽7명</p>
+                            </div>
+                            <div className="p-4">
+                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
+                                <Image src="/images/supplies-youth-leadership.png" alt="청년리더쉽14명 전물용품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              </div>
+                              <button onClick={() => handleDownload('/images/supplies-youth-leadership.png', '청년리더쉽14명_전물용품대장.png')} className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
+                                <Download className="h-5 w-5" /> 다운로드
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* 푸드팀 떡볶이 소스 */}
+                          <div className="bg-orange-50 rounded-2xl border-3 border-orange-400 shadow-lg hover:shadow-xl transition-all overflow-hidden group">
+                            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-3">
+                              <div className="flex justify-between items-center">
+                                <span className="text-lg font-black">🍜 푸드팀 떡볶이 소스</span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-bold">푸드팀</span>
+                              </div>
+                              <p className="text-xs text-orange-100 mt-1">고추장소스(실온보관) / 짜장소스(냉장보관)</p>
+                            </div>
+                            <div className="p-4">
+                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
+                                <Image src="/images/supplies-food-team-sauce.png" alt="푸드팀 떡볶이 소스 물품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              </div>
+                              <button onClick={() => handleDownload('/images/supplies-food-team-sauce.png', '푸드팀_떡볶이소스_물품대장.png')} className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
+                                <Download className="h-5 w-5" /> 다운로드
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 합계 */}
+                        <div className="mt-6 bg-slate-200 rounded-xl p-4 border-2 border-slate-400 flex justify-between items-center">
+                          <span className="text-xl font-black text-slate-700">📊 총 첨부파일</span>
+                          <span className="bg-red-500 text-white px-6 py-2 rounded-full font-black text-xl">6개</span>
+                        </div>
                       </div>
                     </div>
                   </div>
