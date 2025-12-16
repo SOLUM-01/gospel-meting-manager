@@ -1567,18 +1567,125 @@ export default function GuidePage() {
               {expandedCard === 'vehicle' && (
               <div className="p-8 space-y-6">
                 {/* 항공사별 시간표 섹션 */}
-                <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-2xl p-6 border-4 border-sky-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-sky-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-2xl p-4 md:p-6 border-4 border-sky-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4 md:mb-6">
+                    <div className="bg-sky-500 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center text-2xl md:text-3xl font-black shadow-lg">
                       ✈️
                     </div>
                     <div>
-                      <h3 className="text-2xl font-black text-sky-700">항공사별 시간표</h3>
-                      <p className="text-lg font-bold text-sky-600">航空公司時間表 | Flight Schedule</p>
+                      <h3 className="text-xl md:text-2xl font-black text-sky-700">항공사별 시간표</h3>
+                      <p className="text-sm md:text-lg font-bold text-sky-600">航空公司時間表 | Flight Schedule</p>
                     </div>
                   </div>
                   
-                  <div className="overflow-x-auto">
+                  {/* 모바일 카드 뷰 */}
+                  <div className="md:hidden space-y-3">
+                    <div className="bg-orange-100 rounded-xl p-4 border-2 border-orange-300">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-lg font-black text-orange-700">🧡 티웨이</span>
+                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full font-bold">5명</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">출발 12/18</div>
+                          <div className="font-bold">14:25~16:40</div>
+                        </div>
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">귀국 12/22</div>
+                          <div className="font-bold">17:40~</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-blue-100 rounded-xl p-4 border-2 border-blue-300">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-lg font-black text-blue-700">💙 대한항공</span>
+                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-bold">39명</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">출발 12/18</div>
+                          <div className="font-bold">14:15~16:25</div>
+                        </div>
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">귀국 12/22</div>
+                          <div className="font-bold">17:50~</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-blue-200 rounded-xl p-4 border-2 border-blue-400">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-lg font-black text-blue-700">💙 대한항공</span>
+                        <span className="bg-blue-600 text-white px-3 py-1 rounded-full font-bold">2명</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">출발 12/18</div>
+                          <div className="font-bold">12:30~14:20</div>
+                        </div>
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">귀국 12/22</div>
+                          <div className="font-bold">19:20~</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-green-100 rounded-xl p-4 border-2 border-green-300">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-lg font-black text-green-700">💚 진에어</span>
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full font-bold">12명</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">출발 12/18</div>
+                          <div className="font-bold">15:40~17:50</div>
+                        </div>
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">귀국 12/22</div>
+                          <div className="font-bold">18:30~</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-green-200 rounded-xl p-4 border-2 border-green-400">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-lg font-black text-green-700">💚 진에어</span>
+                        <span className="bg-green-600 text-white px-3 py-1 rounded-full font-bold">2명</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">출발 12/18</div>
+                          <div className="font-bold">15:40~17:50</div>
+                        </div>
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">귀국</div>
+                          <div className="font-bold text-red-600">12/21 11:00~</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-green-300 rounded-xl p-4 border-2 border-green-500">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-lg font-black text-green-700">💚 진에어</span>
+                        <span className="bg-green-700 text-white px-3 py-1 rounded-full font-bold">1명</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">출발 12/18</div>
+                          <div className="font-bold text-red-600">07:50~10:00</div>
+                        </div>
+                        <div className="bg-white rounded-lg p-2">
+                          <div className="text-gray-500 text-xs">귀국 12/22</div>
+                          <div className="font-bold">18:30~</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-slate-300 rounded-xl p-4 border-2 border-slate-500">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xl font-black text-slate-700">📊 총 인원</span>
+                        <span className="bg-red-500 text-white px-4 py-2 rounded-full font-black text-2xl">61명</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 데스크탑 테이블 뷰 */}
+                  <div className="hidden md:block overflow-x-auto">
                     <table className="w-full border-collapse">
                       <thead>
                         <tr className="bg-sky-100">
@@ -1636,18 +1743,88 @@ export default function GuidePage() {
                 </div>
 
                 {/* 티웨이 5명 섹션 */}
-                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 border-4 border-orange-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-4 md:p-6 border-4 border-orange-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4 md:mb-6">
+                    <div className="bg-orange-500 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center text-2xl md:text-3xl font-black shadow-lg">
                       🧡
                     </div>
                     <div>
-                      <h3 className="text-2xl font-black text-orange-700">티웨이 5명</h3>
-                      <p className="text-lg font-bold text-orange-600">조장: 이승헌</p>
+                      <h3 className="text-xl md:text-2xl font-black text-orange-700">티웨이 5명</h3>
+                      <p className="text-sm md:text-lg font-bold text-orange-600">조장: 이승헌</p>
                     </div>
                   </div>
                   
-                  <div className="overflow-x-auto">
+                  {/* 모바일 카드 뷰 */}
+                  <div className="md:hidden space-y-3">
+                    <div className="bg-yellow-100 rounded-xl p-3 border-2 border-orange-300">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-orange-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                          <span className="font-black text-orange-700">조장 이승헌</span>
+                          <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded">M</span>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600 ml-9">
+                        <div>李承憲 (LEE) · 저녁반</div>
+                        <div className="font-semibold text-orange-600">차량/물품/찬양</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-orange-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-orange-400 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                          <span className="font-bold">제인량</span>
+                          <span className="bg-pink-500 text-white text-xs px-2 py-0.5 rounded">F</span>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600 ml-9">
+                        <div>薛仁亮 (JE) · 목사</div>
+                        <div className="font-semibold text-orange-600">교육목사</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-orange-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-orange-400 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                          <span className="font-bold">제인현</span>
+                          <span className="bg-pink-500 text-white text-xs px-2 py-0.5 rounded">F</span>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600 ml-9">
+                        <div>薛仁炫 (JE) · 주간반</div>
+                        <div className="font-semibold text-orange-600">전도/중보/찬양</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-orange-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-orange-400 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                          <span className="font-bold">김대현</span>
+                          <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded">M</span>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600 ml-9">
+                        <div>金岱炫 (KIM) · 저녁반</div>
+                        <div className="font-semibold text-orange-600">차량/물품/찬양</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-orange-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-orange-400 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+                          <span className="font-bold">이예진</span>
+                          <span className="bg-pink-500 text-white text-xs px-2 py-0.5 rounded">F</span>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600 ml-9">
+                        <div>李芮珍 (LEE) · 주간반</div>
+                        <div className="font-semibold text-orange-600">찬양/팝업북/전도</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* 데스크탑 테이블 뷰 */}
+                  <div className="hidden md:block overflow-x-auto">
                     <table className="w-full border-collapse text-sm">
                       <thead>
                         <tr className="bg-orange-100">
@@ -1712,23 +1889,130 @@ export default function GuidePage() {
                 </div>
 
                 {/* 대한항공 41명 섹션 (광주 9 + 서울 32) */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 md:p-6 border-4 border-blue-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4 md:mb-6">
+                    <div className="bg-blue-500 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center text-2xl md:text-3xl font-black shadow-lg">
                       💙
                     </div>
                     <div>
-                      <h3 className="text-2xl font-black text-blue-700">대한항공 41명</h3>
-                      <p className="text-lg font-bold text-blue-600">광주 9명 + 서울 32명</p>
+                      <h3 className="text-xl md:text-2xl font-black text-blue-700">대한항공 41명</h3>
+                      <p className="text-sm md:text-lg font-bold text-blue-600">광주 9명 + 서울 32명</p>
                     </div>
                   </div>
 
                   {/* 광주 9명 */}
-                  <div className="mb-8">
-                    <div className="bg-blue-200 rounded-lg p-3 mb-4">
-                      <h4 className="text-xl font-black text-blue-800">🌸 광주 9명 (조장: 윤정현)</h4>
+                  <div className="mb-6 md:mb-8">
+                    <div className="bg-blue-200 rounded-lg p-2 md:p-3 mb-3 md:mb-4">
+                      <h4 className="text-lg md:text-xl font-black text-blue-800">🌸 광주 9명 (조장: 윤정현)</h4>
                     </div>
-                    <div className="overflow-x-auto">
+                    
+                    {/* 광주 모바일 카드 뷰 */}
+                    <div className="md:hidden space-y-2">
+                      <div className="bg-yellow-100 rounded-xl p-3 border-2 border-blue-300">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                          <span className="font-black text-blue-700 text-sm">광주조장 윤정현</span>
+                          <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>尹正鉉 (Yoon) · 광주</div>
+                          <div className="font-semibold text-blue-600">1차량/미용/영상</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                          <span className="font-bold text-sm">김화숙</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>金和淑 (KIM) · 광주</div>
+                          <div className="font-semibold text-blue-600">워십</div>
+                          <div className="text-orange-600 text-xs">아셀과 같은방</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                          <span className="font-bold text-sm">이아셀</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>李아셀 (LEE) · 광주</div>
+                          <div className="font-semibold text-blue-600">찬양</div>
+                          <div className="text-orange-600 text-xs">김화숙딸</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                          <span className="font-bold text-sm">정정희</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>丁正姬 (JUNG) · 광주</div>
+                          <div className="font-semibold text-blue-600">워십</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                          <span className="font-bold text-sm">양인숙</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>梁仁淑 (YANG) · 광주</div>
+                          <div className="font-semibold text-blue-600">워십</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">6</span>
+                          <span className="font-bold text-sm">유영단</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>劉英丹 (YU) · 광주</div>
+                          <div className="font-semibold text-blue-600">워십</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">7</span>
+                          <span className="font-bold text-sm">이미경</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>李美敬 (LEE) · 광주</div>
+                          <div className="font-semibold text-blue-600">중보기도/푸드</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">8</span>
+                          <span className="font-bold text-sm">김양덕</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>金良德 (KIM) · 광주</div>
+                          <div className="font-semibold text-blue-600">중보기도/푸드/전도</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">9</span>
+                          <span className="font-bold text-sm">이정윤</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>李旌允 (LEE) · 광주</div>
+                          <div className="font-semibold text-blue-600">워십팀장/찬양</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 광주 데스크탑 테이블 뷰 */}
+                    <div className="hidden md:block overflow-x-auto">
                       <table className="w-full border-collapse text-sm">
                         <thead>
                           <tr className="bg-blue-100">
@@ -1840,11 +2124,381 @@ export default function GuidePage() {
 
                   {/* 서울 32명 */}
                   <div>
-                    <div className="bg-blue-200 rounded-lg p-3 mb-4">
-                      <h4 className="text-xl font-black text-blue-800">🏙️ 서울 32명 (조장: 박혜성)</h4>
-                      <p className="text-sm text-blue-700 mt-1">양재수요 박혜성 / 양재주일 김양신 / 서빙고주간 백정희 오경자 김영미 / 서빙고저녁 김진해 곽미동</p>
+                    <div className="bg-blue-200 rounded-lg p-2 md:p-3 mb-3 md:mb-4">
+                      <h4 className="text-lg md:text-xl font-black text-blue-800">🏙️ 서울 32명 (조장: 박혜성)</h4>
+                      <p className="text-xs md:text-sm text-blue-700 mt-1">양재수요 박혜성 / 양재주일 김양신 / 서빙고주간 백정희 오경자 김영미 / 서빙고저녁 김진해 곽미동</p>
                     </div>
-                    <div className="overflow-x-auto">
+                    
+                    {/* 서울 모바일 카드 뷰 */}
+                    <div className="md:hidden space-y-2">
+                      <div className="bg-yellow-100 rounded-xl p-3 border-2 border-blue-300">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                          <span className="font-black text-blue-700 text-sm">서울조장 박혜성</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>朴惠晟 (PARK) · 양재수요</div>
+                          <div className="font-semibold text-blue-600">중보기도팀장/전도</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                          <span className="font-bold text-sm">이영민</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>李寧敏 (LEE) · 양재수요</div>
+                          <div className="font-semibold text-blue-600">부채춤</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                          <span className="font-bold text-sm">문유선</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>文瑀善 (MOON) · 양재수요</div>
+                          <div className="font-semibold text-blue-600">한복팀장/전도</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                          <span className="font-bold text-sm">정재영</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>鄭才璟 (JUNG) · 양재수요</div>
+                          <div className="font-semibold text-blue-600">부채춤</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                          <span className="font-bold text-sm">이서은</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>李抒恩 (LEE) · 양재수요</div>
+                          <div className="font-semibold text-blue-600">찬양</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">6</span>
+                          <span className="font-bold text-sm">김양신</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>金良信 (KIM) · 양재주일</div>
+                          <div className="font-semibold text-blue-600">전도팀장</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">7</span>
+                          <span className="font-bold text-sm">박세은</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>朴世銀 (PARK) · 양재주일</div>
+                          <div className="font-semibold text-blue-600">영상/찬양/팝업북/통역/전도</div>
+                          <div className="text-orange-600 text-xs">황철호아내</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">8</span>
+                          <span className="font-bold text-sm">황철호</span>
+                          <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>黃哲昊 (HWANG) · 양재주일</div>
+                          <div className="font-semibold text-blue-600">찬양/통역</div>
+                          <div className="text-orange-600 text-xs">박세은남편</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">9</span>
+                          <span className="font-bold text-sm">백승이</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>白承伊 (BAEK) · 양재주일</div>
+                          <div className="font-semibold text-blue-600">찬양/중보</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">10</span>
+                          <span className="font-bold text-sm">우주연</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>禹周延 (WOO) · 양재주일</div>
+                          <div className="font-semibold text-blue-600">찬양/푸드/통역/전도</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">11</span>
+                          <span className="font-bold text-sm">백정희</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>白貞喜 (BAEK) · 주간반</div>
+                          <div className="font-semibold text-blue-600">부채춤</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">12</span>
+                          <span className="font-bold text-sm">오경자</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>吳慶子 (OH) · 주간반</div>
+                          <div className="font-semibold text-blue-600">찬양팀장/팝업북/통역/전도</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">13</span>
+                          <span className="font-bold text-sm">김영미</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>金英薇 (KIM) · 주간반</div>
+                          <div className="font-semibold text-blue-600">푸드/찬양/전도</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">14</span>
+                          <span className="font-bold text-sm">윤효정</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>尹孝情 (YOON) · 주간반</div>
+                          <div className="font-semibold text-blue-600">찬양/중보</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">15</span>
+                          <span className="font-bold text-sm">임종옥</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>林鍾玉 (LIM) · 주간반</div>
+                          <div className="font-semibold text-blue-600">푸드팀장</div>
+                          <div className="text-orange-600 text-xs">최우현아내</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">16</span>
+                          <span className="font-bold text-sm">최우현</span>
+                          <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>崔禹炫 (CHOI) · 주간반</div>
+                          <div className="font-semibold text-blue-600">푸드/찬양</div>
+                          <div className="text-orange-600 text-xs">임종옥남편</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">17</span>
+                          <span className="font-bold text-sm">이명대</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>李明大 (LEE) · 주간반</div>
+                          <div className="font-semibold text-blue-600">부채춤</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">18</span>
+                          <span className="font-bold text-sm">정선은</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>鄭旋恩 (JUNG) · 주간반</div>
+                          <div className="font-semibold text-blue-600">찬양/팝업북</div>
+                          <div className="text-orange-600 text-xs">강서헌엄마</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">19</span>
+                          <span className="font-bold text-sm">강서헌</span>
+                          <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>姜舒憲 (KANG) · 주간반</div>
+                          <div className="text-orange-600 text-xs">정선은아들</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">20</span>
+                          <span className="font-bold text-sm">유은진</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>柳恩珍 (RYU) · 주간반</div>
+                          <div className="font-semibold text-blue-600">부채춤팀장</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">21</span>
+                          <span className="font-bold text-sm">최옥자</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>崔玉子 (CHOI) · 주간반</div>
+                          <div className="font-semibold text-blue-600">부채춤</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">22</span>
+                          <span className="font-bold text-sm">최세정</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>崔世貞 (CHOI) · 주간반</div>
+                          <div className="font-semibold text-blue-600">찬양/팝업북</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">23</span>
+                          <span className="font-bold text-sm">김신하</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>金信河 (KIM) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">미용</div>
+                          <div className="text-orange-600 text-xs">신교순모친</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">24</span>
+                          <span className="font-bold text-sm">김진해</span>
+                          <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>金鎭海 (KIM) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">차량/물품팀장/찬양</div>
+                          <div className="text-orange-600 text-xs">조하령남편</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">25</span>
+                          <span className="font-bold text-sm">신교순</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>辛敎順 (SHIN) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">미용팀장</div>
+                          <div className="text-orange-600 text-xs">김신하딸</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">26</span>
+                          <span className="font-bold text-sm">이순옥</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>李順玉 (LEE) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">전도/중보/푸드</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">27</span>
+                          <span className="font-bold text-sm">송형숙</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>宋亨淑 (SONG) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">전도/중보/푸드</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">28</span>
+                          <span className="font-bold text-sm">조하령</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>趙夏聆 (CHO) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">찬양/팝업북</div>
+                          <div className="text-orange-600 text-xs">김진해아내</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">29</span>
+                          <span className="font-bold text-sm">곽미동</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>郭美棟 (KWAK) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">찬양/팝업북/전도</div>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border-2 border-blue-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-blue-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">30</span>
+                          <span className="font-bold text-sm">김덕희</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>金德喜 (KIM) · 무소속</div>
+                          <div className="font-semibold text-blue-600">미용/찬양</div>
+                          <div className="text-orange-600 text-xs">저녁반1단계</div>
+                        </div>
+                      </div>
+                      <div className="bg-red-50 rounded-xl p-3 border-2 border-red-300">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">31</span>
+                          <span className="font-bold text-sm">정회평</span>
+                          <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>鄭喜平 (JEONG) · 저녁반</div>
+                          <div className="font-semibold text-blue-600">총괄팀장/찬양</div>
+                          <div className="text-red-600 font-bold text-xs">⚠️ 12:30~14:20 / 19:20~</div>
+                        </div>
+                      </div>
+                      <div className="bg-red-50 rounded-xl p-3 border-2 border-red-300">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">32</span>
+                          <span className="font-bold text-sm">윤숙영</span>
+                          <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-8">
+                          <div>尹淑英 (YOON) · 저녁반</div>
+                          <div className="text-orange-600 text-xs">정회평아내</div>
+                          <div className="text-red-600 font-bold text-xs">⚠️ 12:30~14:20 / 19:20~</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 서울 데스크탑 테이블 뷰 */}
+                    <div className="hidden md:block overflow-x-auto">
                       <table className="w-full border-collapse text-sm">
                         <thead>
                           <tr className="bg-blue-100">
@@ -2186,18 +2840,192 @@ export default function GuidePage() {
                 </div>
 
                 {/* 진에어 15명 섹션 */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-4 border-green-400 shadow-lg">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-black shadow-lg">
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-4 md:p-6 border-4 border-green-400 shadow-lg">
+                  <div className="flex items-center gap-3 mb-4 md:mb-6">
+                    <div className="bg-green-500 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center text-2xl md:text-3xl font-black shadow-lg">
                       💚
                     </div>
                     <div>
-                      <h3 className="text-2xl font-black text-green-700">진에어 15명</h3>
-                      <p className="text-lg font-bold text-green-600">조장: 권옥희 / 조영선 이보라 김정</p>
+                      <h3 className="text-xl md:text-2xl font-black text-green-700">진에어 15명</h3>
+                      <p className="text-sm md:text-lg font-bold text-green-600">조장: 권옥희 / 조영선 이보라 김정</p>
                     </div>
                   </div>
                   
-                  <div className="overflow-x-auto">
+                  {/* 진에어 모바일 카드 뷰 */}
+                  <div className="md:hidden space-y-2">
+                    <div className="bg-yellow-100 rounded-xl p-3 border-2 border-green-300">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                        <span className="font-black text-green-700 text-sm">조장 권옥희</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>權玉姬 (KWON) · 주간반</div>
+                        <div className="font-semibold text-green-600">총무서기/찬양/통역/전도</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                        <span className="font-bold text-sm">김요성</span>
+                        <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>金義聖 (KIM) · 목사</div>
+                        <div className="font-semibold text-green-600">총괄목사</div>
+                      </div>
+                    </div>
+                    <div className="bg-red-50 rounded-xl p-3 border-2 border-red-300">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                        <span className="font-bold text-sm">김동환</span>
+                        <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">M</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>金東煥 (KIM) · 장로</div>
+                        <div className="font-semibold text-green-600">장로/찬양</div>
+                        <div className="text-red-600 font-bold text-xs">⚠️ 12/21 11:00 귀국</div>
+                      </div>
+                    </div>
+                    <div className="bg-red-50 rounded-xl p-3 border-2 border-red-300">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                        <span className="font-bold text-sm">이혜승</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>李墨承 (KIM) · 저녁반</div>
+                        <div className="font-semibold text-green-600">푸드/중보</div>
+                        <div className="text-red-600 font-bold text-xs">⚠️ 12/21 11:00 귀국</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                        <span className="font-bold text-sm">차승희</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>車承喜 (CHA) · 주간반</div>
+                        <div className="font-semibold text-green-600">부채춤</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">6</span>
+                        <span className="font-bold text-sm">조영선</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>趙英善 (CHO) · 주간반</div>
+                        <div className="font-semibold text-green-600">회계/찬양/전도</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">7</span>
+                        <span className="font-bold text-sm">최희주</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>崔希州 (CHOI) · 주간반</div>
+                        <div className="font-semibold text-green-600">반주/찬양</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">8</span>
+                        <span className="font-bold text-sm">이보라</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>李保羅 (LEE) · 주간반</div>
+                        <div className="font-semibold text-green-600">찬양/푸드/전도</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">9</span>
+                        <span className="font-bold text-sm">김유하</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>金有夏 (KIM) · 주간반</div>
+                        <div className="font-semibold text-green-600">찬양/푸드/전도</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">10</span>
+                        <span className="font-bold text-sm">박효양</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>朴孝陽 (PARK) · 주간반</div>
+                        <div className="font-semibold text-green-600">푸드/중보</div>
+                      </div>
+                    </div>
+                    <div className="bg-red-50 rounded-xl p-3 border-2 border-red-300">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">11</span>
+                        <span className="font-bold text-sm">강성혜</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>姜聖惠 (KANG) · 주간반</div>
+                        <div className="font-semibold text-green-600">푸드/중보/찬양</div>
+                        <div className="text-red-600 font-bold text-xs">⚠️ 07:50~10:00 출발</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">12</span>
+                        <span className="font-bold text-sm">김정</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>金靜 (KIM) · 무소속</div>
+                        <div className="font-semibold text-green-600">찬양/중보</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">13</span>
+                        <span className="font-bold text-sm">서희숙</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>徐喜淑 (SEO) · 무소속</div>
+                        <div className="font-semibold text-green-600">푸드/찬양</div>
+                        <div className="text-orange-600 text-xs">김정모친</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">14</span>
+                        <span className="font-bold text-sm">김민경</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>金玟炅 (KIM) · 양재주일</div>
+                        <div className="font-semibold text-green-600">찬양/전도</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-3 border-2 border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="bg-green-400 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">15</span>
+                        <span className="font-bold text-sm">최미자</span>
+                        <span className="bg-pink-500 text-white text-xs px-1.5 py-0.5 rounded">F</span>
+                      </div>
+                      <div className="text-xs text-gray-600 ml-8">
+                        <div>崔美子 (CHOI) · 저녁반</div>
+                        <div className="font-semibold text-green-600">찬양/중보/전도</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 진에어 데스크탑 테이블 뷰 */}
+                  <div className="hidden md:block overflow-x-auto">
                     <table className="w-full border-collapse text-sm">
                       <thead>
                         <tr className="bg-green-100">
