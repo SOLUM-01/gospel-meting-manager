@@ -522,6 +522,172 @@ export default function TaskDetailPage() {
                   </div>
                 )}
 
+                {/* 물품팀 첨부파일 섹션 */}
+                {(task.title === '물품팀' || task.title === '차량물품') && (
+                  <div className="mb-8">
+                    <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                      📋 물품 대장 첨부파일
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {/* 특강용주머니물품대장(전도팀) */}
+                      <div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-cyan-200 dark:border-cyan-700 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-2">
+                          <p className="font-bold text-sm">📦 특강용주머니물품대장</p>
+                          <p className="text-xs text-cyan-100">(전도팀)</p>
+                        </div>
+                        <div className="p-2">
+                          <Image
+                            src="/images/supplies-evangelism-team.png"
+                            alt="특강용주머니물품대장(전도팀)"
+                            width={400}
+                            height={300}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                        <div className="px-4 pb-3">
+                          <button
+                            onClick={() => handleDownload('/images/supplies-evangelism-team.png', '특강용주머니물품대장_전도팀.png')}
+                            className="w-full flex items-center justify-center gap-2 bg-cyan-100 hover:bg-cyan-200 dark:bg-cyan-900 dark:hover:bg-cyan-800 text-cyan-700 dark:text-cyan-300 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            <Download className="h-4 w-4" />
+                            다운로드
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* 행정관료130명 선물용품대장 */}
+                      <div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-yellow-200 dark:border-yellow-700 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2">
+                          <p className="font-bold text-sm">🎁 행정관료130명 선물용품대장</p>
+                          <p className="text-xs text-yellow-100">(박스1북주머니1약과1전도지1엽서1)</p>
+                        </div>
+                        <div className="p-2">
+                          <Image
+                            src="/images/supplies-admin-130.png"
+                            alt="행정관료130명 선물용품대장"
+                            width={400}
+                            height={300}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                        <div className="px-4 pb-3">
+                          <button
+                            onClick={() => handleDownload('/images/supplies-admin-130.png', '행정관료130명_선물용품대장.png')}
+                            className="w-full flex items-center justify-center gap-2 bg-yellow-100 hover:bg-yellow-200 dark:bg-yellow-900 dark:hover:bg-yellow-800 text-yellow-700 dark:text-yellow-300 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            <Download className="h-4 w-4" />
+                            다운로드
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* 전도물품 배분현황 */}
+                      <div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-blue-200 dark:border-blue-700 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2">
+                          <p className="font-bold text-sm">📊 전도물품 배분현황</p>
+                          <p className="text-xs text-blue-100">배분일자: 2025년12월15일</p>
+                        </div>
+                        <div className="p-2">
+                          <Image
+                            src="/images/supplies-distribution.png"
+                            alt="전도물품 배분현황"
+                            width={400}
+                            height={300}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                        <div className="px-4 pb-3">
+                          <button
+                            onClick={() => handleDownload('/images/supplies-distribution.png', '전도물품_배분현황.png')}
+                            className="w-full flex items-center justify-center gap-2 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 text-blue-700 dark:text-blue-300 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            <Download className="h-4 w-4" />
+                            다운로드
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* 정선교사님부부/중목사님/원로목사님/7개기도처 선물 */}
+                      <div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-purple-200 dark:border-purple-700 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2">
+                          <p className="font-bold text-sm">🎀 특별 선물 목록</p>
+                          <p className="text-xs text-purple-100">정선교사님부부/중목사님/원로목사님/7개기도처</p>
+                        </div>
+                        <div className="p-2">
+                          <Image
+                            src="/images/supplies-special-gift.png"
+                            alt="정선교사님부부/중목사님/원로목사님/7개기도처 선물"
+                            width={400}
+                            height={300}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                        <div className="px-4 pb-3">
+                          <button
+                            onClick={() => handleDownload('/images/supplies-special-gift.png', '특별선물_목록.png')}
+                            className="w-full flex items-center justify-center gap-2 bg-purple-100 hover:bg-purple-200 dark:bg-purple-900 dark:hover:bg-purple-800 text-purple-700 dark:text-purple-300 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            <Download className="h-4 w-4" />
+                            다운로드
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* 청년리더쉽14명 전물용품대장 */}
+                      <div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-pink-200 dark:border-pink-700 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2">
+                          <p className="font-bold text-sm">👥 청년리더쉽14명 전물용품대장</p>
+                          <p className="text-xs text-pink-100">남성 리더쉽7명 / 여성 리더쉽7명</p>
+                        </div>
+                        <div className="p-2">
+                          <Image
+                            src="/images/supplies-youth-leadership.png"
+                            alt="청년리더쉽14명 전물용품대장"
+                            width={400}
+                            height={300}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                        <div className="px-4 pb-3">
+                          <button
+                            onClick={() => handleDownload('/images/supplies-youth-leadership.png', '청년리더쉽14명_전물용품대장.png')}
+                            className="w-full flex items-center justify-center gap-2 bg-pink-100 hover:bg-pink-200 dark:bg-pink-900 dark:hover:bg-pink-800 text-pink-700 dark:text-pink-300 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            <Download className="h-4 w-4" />
+                            다운로드
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* 푸드팀 떡볶이 소스 물품대장 */}
+                      <div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-orange-200 dark:border-orange-700 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                          <p className="font-bold text-sm">🍜 푸드팀 떡볶이 소스 물품대장</p>
+                          <p className="text-xs text-orange-100">고추장소스(실온보관) / 짜장소스(냉장보관)</p>
+                        </div>
+                        <div className="p-2">
+                          <Image
+                            src="/images/supplies-food-team-sauce.png"
+                            alt="푸드팀 떡볶이 소스 물품대장"
+                            width={400}
+                            height={300}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                        <div className="px-4 pb-3">
+                          <button
+                            onClick={() => handleDownload('/images/supplies-food-team-sauce.png', '푸드팀_떡볶이소스_물품대장.png')}
+                            className="w-full flex items-center justify-center gap-2 bg-orange-100 hover:bg-orange-200 dark:bg-orange-900 dark:hover:bg-orange-800 text-orange-700 dark:text-orange-300 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            <Download className="h-4 w-4" />
+                            다운로드
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* 악보/이미지/동영상 갤러리 섹션 (어린이 사역팀 제외) */}
                 {task.title !== '어린이 사역팀' && task.images && task.images.length > 0 && (
                   <div className="mb-8">
