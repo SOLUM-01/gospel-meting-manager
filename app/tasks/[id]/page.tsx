@@ -8,7 +8,7 @@ import { useTranslation } from '@/lib/i18n/use-translation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowLeft, Calendar, Clock, Tag, Users, MapPin, Download } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock, Tag, Users, MapPin, Download, X, ZoomIn } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getTaskById } from '@/lib/database/api/tasks'
@@ -27,6 +27,7 @@ export default function TaskDetailPage() {
   const [teamMembers, setTeamMembers] = useState<Participant[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null)
 
   useEffect(() => {
     async function fetchTask() {
@@ -554,21 +555,17 @@ export default function TaskDetailPage() {
                             <span className="text-lg font-black text-cyan-700">📦 특강용주머니물품대장</span>
                             <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-xs font-bold">전도팀</span>
                           </div>
-                          <div className="bg-white rounded-lg p-2 mb-3">
-                            <Image
-                              src="/images/supplies-evangelism-team.png"
-                              alt="특강용주머니물품대장(전도팀)"
-                              width={400}
-                              height={300}
-                              className="w-full h-auto rounded-lg"
-                            />
-                          </div>
-                          <button
-                            onClick={() => handleDownload('/images/supplies-evangelism-team.png', '특강용주머니물품대장_전도팀.png')}
-                            className="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors"
+                          <div 
+                            className="bg-white rounded-lg p-2 mb-3 cursor-pointer active:scale-95 transition-transform relative"
+                            onClick={() => setSelectedImage({ src: '/images/supplies-evangelism-team.png', title: '📦 특강용주머니물품대장 (전도팀)' })}
                           >
-                            <Download className="h-4 w-4" />
-                            다운로드
+                            <Image src="/images/supplies-evangelism-team.png" alt="특강용주머니물품대장(전도팀)" width={400} height={300} className="w-full h-auto rounded-lg" />
+                            <div className="absolute bottom-4 right-4 bg-cyan-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                              <ZoomIn className="h-3 w-3" /> 크게보기
+                            </div>
+                          </div>
+                          <button onClick={() => handleDownload('/images/supplies-evangelism-team.png', '특강용주머니물품대장_전도팀.png')} className="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors">
+                            <Download className="h-4 w-4" /> 다운로드
                           </button>
                         </div>
 
@@ -579,21 +576,17 @@ export default function TaskDetailPage() {
                             <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold">선물용품</span>
                           </div>
                           <p className="text-xs text-yellow-600 mb-2">(박스1북주머니1약과1전도지1엽서1)</p>
-                          <div className="bg-white rounded-lg p-2 mb-3">
-                            <Image
-                              src="/images/supplies-admin-130.png"
-                              alt="행정관료130명 선물용품대장"
-                              width={400}
-                              height={300}
-                              className="w-full h-auto rounded-lg"
-                            />
-                          </div>
-                          <button
-                            onClick={() => handleDownload('/images/supplies-admin-130.png', '행정관료130명_선물용품대장.png')}
-                            className="w-full flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors"
+                          <div 
+                            className="bg-white rounded-lg p-2 mb-3 cursor-pointer active:scale-95 transition-transform relative"
+                            onClick={() => setSelectedImage({ src: '/images/supplies-admin-130.png', title: '🎁 행정관료130명 선물용품대장' })}
                           >
-                            <Download className="h-4 w-4" />
-                            다운로드
+                            <Image src="/images/supplies-admin-130.png" alt="행정관료130명 선물용품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                            <div className="absolute bottom-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                              <ZoomIn className="h-3 w-3" /> 크게보기
+                            </div>
+                          </div>
+                          <button onClick={() => handleDownload('/images/supplies-admin-130.png', '행정관료130명_선물용품대장.png')} className="w-full flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors">
+                            <Download className="h-4 w-4" /> 다운로드
                           </button>
                         </div>
 
@@ -604,21 +597,17 @@ export default function TaskDetailPage() {
                             <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold">31명</span>
                           </div>
                           <p className="text-xs text-blue-600 mb-2">배분일자: 2025년12월15일</p>
-                          <div className="bg-white rounded-lg p-2 mb-3">
-                            <Image
-                              src="/images/supplies-distribution.png"
-                              alt="전도물품 배분현황"
-                              width={400}
-                              height={300}
-                              className="w-full h-auto rounded-lg"
-                            />
-                          </div>
-                          <button
-                            onClick={() => handleDownload('/images/supplies-distribution.png', '전도물품_배분현황.png')}
-                            className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors"
+                          <div 
+                            className="bg-white rounded-lg p-2 mb-3 cursor-pointer active:scale-95 transition-transform relative"
+                            onClick={() => setSelectedImage({ src: '/images/supplies-distribution.png', title: '📊 전도물품 배분현황' })}
                           >
-                            <Download className="h-4 w-4" />
-                            다운로드
+                            <Image src="/images/supplies-distribution.png" alt="전도물품 배분현황" width={400} height={300} className="w-full h-auto rounded-lg" />
+                            <div className="absolute bottom-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                              <ZoomIn className="h-3 w-3" /> 크게보기
+                            </div>
+                          </div>
+                          <button onClick={() => handleDownload('/images/supplies-distribution.png', '전도물품_배분현황.png')} className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors">
+                            <Download className="h-4 w-4" /> 다운로드
                           </button>
                         </div>
 
@@ -629,21 +618,17 @@ export default function TaskDetailPage() {
                             <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-bold">VIP</span>
                           </div>
                           <p className="text-xs text-purple-600 mb-2">정선교사님부부/중목사님/원로목사님/7개기도처</p>
-                          <div className="bg-white rounded-lg p-2 mb-3">
-                            <Image
-                              src="/images/supplies-special-gift.png"
-                              alt="특별 선물 목록"
-                              width={400}
-                              height={300}
-                              className="w-full h-auto rounded-lg"
-                            />
-                          </div>
-                          <button
-                            onClick={() => handleDownload('/images/supplies-special-gift.png', '특별선물_목록.png')}
-                            className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors"
+                          <div 
+                            className="bg-white rounded-lg p-2 mb-3 cursor-pointer active:scale-95 transition-transform relative"
+                            onClick={() => setSelectedImage({ src: '/images/supplies-special-gift.png', title: '🎀 특별 선물 목록' })}
                           >
-                            <Download className="h-4 w-4" />
-                            다운로드
+                            <Image src="/images/supplies-special-gift.png" alt="특별 선물 목록" width={400} height={300} className="w-full h-auto rounded-lg" />
+                            <div className="absolute bottom-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                              <ZoomIn className="h-3 w-3" /> 크게보기
+                            </div>
+                          </div>
+                          <button onClick={() => handleDownload('/images/supplies-special-gift.png', '특별선물_목록.png')} className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors">
+                            <Download className="h-4 w-4" /> 다운로드
                           </button>
                         </div>
 
@@ -654,21 +639,17 @@ export default function TaskDetailPage() {
                             <span className="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold">14명</span>
                           </div>
                           <p className="text-xs text-pink-600 mb-2">남성 리더쉽7명 / 여성 리더쉽7명</p>
-                          <div className="bg-white rounded-lg p-2 mb-3">
-                            <Image
-                              src="/images/supplies-youth-leadership.png"
-                              alt="청년리더쉽14명 전물용품대장"
-                              width={400}
-                              height={300}
-                              className="w-full h-auto rounded-lg"
-                            />
-                          </div>
-                          <button
-                            onClick={() => handleDownload('/images/supplies-youth-leadership.png', '청년리더쉽14명_전물용품대장.png')}
-                            className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors"
+                          <div 
+                            className="bg-white rounded-lg p-2 mb-3 cursor-pointer active:scale-95 transition-transform relative"
+                            onClick={() => setSelectedImage({ src: '/images/supplies-youth-leadership.png', title: '👥 청년리더쉽14명 전물용품대장' })}
                           >
-                            <Download className="h-4 w-4" />
-                            다운로드
+                            <Image src="/images/supplies-youth-leadership.png" alt="청년리더쉽14명 전물용품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                            <div className="absolute bottom-4 right-4 bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                              <ZoomIn className="h-3 w-3" /> 크게보기
+                            </div>
+                          </div>
+                          <button onClick={() => handleDownload('/images/supplies-youth-leadership.png', '청년리더쉽14명_전물용품대장.png')} className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors">
+                            <Download className="h-4 w-4" /> 다운로드
                           </button>
                         </div>
 
@@ -679,21 +660,17 @@ export default function TaskDetailPage() {
                             <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">푸드팀</span>
                           </div>
                           <p className="text-xs text-orange-600 mb-2">고추장소스(실온보관) / 짜장소스(냉장보관)</p>
-                          <div className="bg-white rounded-lg p-2 mb-3">
-                            <Image
-                              src="/images/supplies-food-team-sauce.png"
-                              alt="푸드팀 떡볶이 소스 물품대장"
-                              width={400}
-                              height={300}
-                              className="w-full h-auto rounded-lg"
-                            />
-                          </div>
-                          <button
-                            onClick={() => handleDownload('/images/supplies-food-team-sauce.png', '푸드팀_떡볶이소스_물품대장.png')}
-                            className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors"
+                          <div 
+                            className="bg-white rounded-lg p-2 mb-3 cursor-pointer active:scale-95 transition-transform relative"
+                            onClick={() => setSelectedImage({ src: '/images/supplies-food-team-sauce.png', title: '🍜 푸드팀 떡볶이 소스 물품대장' })}
                           >
-                            <Download className="h-4 w-4" />
-                            다운로드
+                            <Image src="/images/supplies-food-team-sauce.png" alt="푸드팀 떡볶이 소스 물품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                            <div className="absolute bottom-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                              <ZoomIn className="h-3 w-3" /> 크게보기
+                            </div>
+                          </div>
+                          <button onClick={() => handleDownload('/images/supplies-food-team-sauce.png', '푸드팀_떡볶이소스_물품대장.png')} className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-2 px-3 rounded-lg text-sm font-bold transition-colors">
+                            <Download className="h-4 w-4" /> 다운로드
                           </button>
                         </div>
 
@@ -719,8 +696,16 @@ export default function TaskDetailPage() {
                               <p className="text-xs text-cyan-100 mt-1">약과, 사탕묶음, 팝업북 등</p>
                             </div>
                             <div className="p-4">
-                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
-                                <Image src="/images/supplies-evangelism-team.png" alt="특강용주머니물품대장(전도팀)" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              <div 
+                                className="bg-white rounded-xl p-2 mb-4 shadow-inner cursor-pointer relative group/img"
+                                onClick={() => setSelectedImage({ src: '/images/supplies-evangelism-team.png', title: '📦 특강용주머니물품대장 (전도팀)' })}
+                              >
+                                <Image src="/images/supplies-evangelism-team.png" alt="특강용주머니물품대장(전도팀)" width={400} height={300} className="w-full h-auto rounded-lg group-hover/img:opacity-90 transition-opacity" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/20 rounded-xl">
+                                  <div className="bg-white/90 rounded-full p-3 shadow-lg">
+                                    <ZoomIn className="h-6 w-6 text-cyan-600" />
+                                  </div>
+                                </div>
                               </div>
                               <button onClick={() => handleDownload('/images/supplies-evangelism-team.png', '특강용주머니물품대장_전도팀.png')} className="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
                                 <Download className="h-5 w-5" /> 다운로드
@@ -738,8 +723,16 @@ export default function TaskDetailPage() {
                               <p className="text-xs text-yellow-100 mt-1">(박스1북주머니1약과1전도지1엽서1)</p>
                             </div>
                             <div className="p-4">
-                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
-                                <Image src="/images/supplies-admin-130.png" alt="행정관료130명 선물용품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              <div 
+                                className="bg-white rounded-xl p-2 mb-4 shadow-inner cursor-pointer relative group/img"
+                                onClick={() => setSelectedImage({ src: '/images/supplies-admin-130.png', title: '🎁 행정관료130명 선물용품대장' })}
+                              >
+                                <Image src="/images/supplies-admin-130.png" alt="행정관료130명 선물용품대장" width={400} height={300} className="w-full h-auto rounded-lg group-hover/img:opacity-90 transition-opacity" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/20 rounded-xl">
+                                  <div className="bg-white/90 rounded-full p-3 shadow-lg">
+                                    <ZoomIn className="h-6 w-6 text-yellow-600" />
+                                  </div>
+                                </div>
                               </div>
                               <button onClick={() => handleDownload('/images/supplies-admin-130.png', '행정관료130명_선물용품대장.png')} className="w-full flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
                                 <Download className="h-5 w-5" /> 다운로드
@@ -757,8 +750,16 @@ export default function TaskDetailPage() {
                               <p className="text-xs text-blue-100 mt-1">배분일자: 2025년12월15일</p>
                             </div>
                             <div className="p-4">
-                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
-                                <Image src="/images/supplies-distribution.png" alt="전도물품 배분현황" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              <div 
+                                className="bg-white rounded-xl p-2 mb-4 shadow-inner cursor-pointer relative group/img"
+                                onClick={() => setSelectedImage({ src: '/images/supplies-distribution.png', title: '📊 전도물품 배분현황' })}
+                              >
+                                <Image src="/images/supplies-distribution.png" alt="전도물품 배분현황" width={400} height={300} className="w-full h-auto rounded-lg group-hover/img:opacity-90 transition-opacity" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/20 rounded-xl">
+                                  <div className="bg-white/90 rounded-full p-3 shadow-lg">
+                                    <ZoomIn className="h-6 w-6 text-blue-600" />
+                                  </div>
+                                </div>
                               </div>
                               <button onClick={() => handleDownload('/images/supplies-distribution.png', '전도물품_배분현황.png')} className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
                                 <Download className="h-5 w-5" /> 다운로드
@@ -776,8 +777,16 @@ export default function TaskDetailPage() {
                               <p className="text-xs text-purple-100 mt-1">정선교사님부부/중목사님/원로목사님/7개기도처</p>
                             </div>
                             <div className="p-4">
-                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
-                                <Image src="/images/supplies-special-gift.png" alt="특별 선물 목록" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              <div 
+                                className="bg-white rounded-xl p-2 mb-4 shadow-inner cursor-pointer relative group/img"
+                                onClick={() => setSelectedImage({ src: '/images/supplies-special-gift.png', title: '🎀 특별 선물 목록' })}
+                              >
+                                <Image src="/images/supplies-special-gift.png" alt="특별 선물 목록" width={400} height={300} className="w-full h-auto rounded-lg group-hover/img:opacity-90 transition-opacity" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/20 rounded-xl">
+                                  <div className="bg-white/90 rounded-full p-3 shadow-lg">
+                                    <ZoomIn className="h-6 w-6 text-purple-600" />
+                                  </div>
+                                </div>
                               </div>
                               <button onClick={() => handleDownload('/images/supplies-special-gift.png', '특별선물_목록.png')} className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
                                 <Download className="h-5 w-5" /> 다운로드
@@ -795,8 +804,16 @@ export default function TaskDetailPage() {
                               <p className="text-xs text-pink-100 mt-1">남성 리더쉽7명 / 여성 리더쉽7명</p>
                             </div>
                             <div className="p-4">
-                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
-                                <Image src="/images/supplies-youth-leadership.png" alt="청년리더쉽14명 전물용품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              <div 
+                                className="bg-white rounded-xl p-2 mb-4 shadow-inner cursor-pointer relative group/img"
+                                onClick={() => setSelectedImage({ src: '/images/supplies-youth-leadership.png', title: '👥 청년리더쉽14명 전물용품대장' })}
+                              >
+                                <Image src="/images/supplies-youth-leadership.png" alt="청년리더쉽14명 전물용품대장" width={400} height={300} className="w-full h-auto rounded-lg group-hover/img:opacity-90 transition-opacity" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/20 rounded-xl">
+                                  <div className="bg-white/90 rounded-full p-3 shadow-lg">
+                                    <ZoomIn className="h-6 w-6 text-pink-600" />
+                                  </div>
+                                </div>
                               </div>
                               <button onClick={() => handleDownload('/images/supplies-youth-leadership.png', '청년리더쉽14명_전물용품대장.png')} className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
                                 <Download className="h-5 w-5" /> 다운로드
@@ -814,8 +831,16 @@ export default function TaskDetailPage() {
                               <p className="text-xs text-orange-100 mt-1">고추장소스(실온보관) / 짜장소스(냉장보관)</p>
                             </div>
                             <div className="p-4">
-                              <div className="bg-white rounded-xl p-2 mb-4 shadow-inner group-hover:scale-[1.02] transition-transform">
-                                <Image src="/images/supplies-food-team-sauce.png" alt="푸드팀 떡볶이 소스 물품대장" width={400} height={300} className="w-full h-auto rounded-lg" />
+                              <div 
+                                className="bg-white rounded-xl p-2 mb-4 shadow-inner cursor-pointer relative group/img"
+                                onClick={() => setSelectedImage({ src: '/images/supplies-food-team-sauce.png', title: '🍜 푸드팀 떡볶이 소스 물품대장' })}
+                              >
+                                <Image src="/images/supplies-food-team-sauce.png" alt="푸드팀 떡볶이 소스 물품대장" width={400} height={300} className="w-full h-auto rounded-lg group-hover/img:opacity-90 transition-opacity" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/20 rounded-xl">
+                                  <div className="bg-white/90 rounded-full p-3 shadow-lg">
+                                    <ZoomIn className="h-6 w-6 text-orange-600" />
+                                  </div>
+                                </div>
                               </div>
                               <button onClick={() => handleDownload('/images/supplies-food-team-sauce.png', '푸드팀_떡볶이소스_물품대장.png')} className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-xl font-bold transition-colors shadow-md">
                                 <Download className="h-5 w-5" /> 다운로드
@@ -1051,6 +1076,57 @@ export default function TaskDetailPage() {
           </div>
         </div>
       </main>
+      
+      {/* 이미지 확대 모달 */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative w-full max-w-6xl max-h-[95vh] flex flex-col">
+            {/* 헤더 */}
+            <div className="bg-gradient-to-r from-slate-700 to-slate-800 text-white px-4 py-3 rounded-t-xl flex items-center justify-between">
+              <h3 className="text-lg md:text-xl font-bold truncate">{selectedImage.title}</h3>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDownload(selectedImage.src, `${selectedImage.title}.png`)
+                  }}
+                  className="bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition-colors"
+                >
+                  <Download className="h-4 w-4" /> 다운로드
+                </button>
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-colors"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+            {/* 이미지 */}
+            <div 
+              className="bg-white rounded-b-xl overflow-auto flex-1"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.title}
+                width={1200}
+                height={900}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+            {/* 하단 안내 */}
+            <p className="text-center text-white/70 text-sm mt-3">
+              👆 이미지를 스크롤하여 내용을 확인하세요 | 배경 클릭 또는 X 버튼으로 닫기
+            </p>
+          </div>
+        </div>
+      )}
+      
       <Footer />
     </div>
   )
