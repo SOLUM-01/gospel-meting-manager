@@ -33,7 +33,7 @@ INSERT INTO participants (name, name_zh, gender, english_first_name, english_las
 ('김양신', '金陽信', 'F', 'YANGSHIN', 'KIM', '', NULL, '양재주일', 'leader', '한국', '전도팀장/', true),
 ('박세은', '朴世恩', 'F', 'SEEUN', 'PARK', '', NULL, '양재주일', 'member', '한국', '영상/찬양/팝업북/통역/전도', true),
 ('황철호', '黃哲昊', 'M', 'CHEOLHO', 'HWANG', '', NULL, '양재주일', 'member', '한국', '찬양/통역', true),
-('김민경', '金玟炅', 'F', 'MINKYUNG', 'KIM', '', NULL, '양재주일', 'member', '한국', '찬양/중보', true),
+('김민경', '金玟炅', 'F', 'MINKYUNG', 'KIM', '', NULL, '양재주일', 'member', '한국', '찬양/전도', true),
 ('백승이', '白承伊', 'F', 'SEUNGYEE', 'BAEK', '', NULL, '양재주일', 'member', '한국', '찬양/중보', true),
 ('우주연', '禹周延', 'F', 'JOOYUN', 'WOO', '', NULL, '양재주일', 'member', '한국', '찬양/푸드/통역/전도', true),
 

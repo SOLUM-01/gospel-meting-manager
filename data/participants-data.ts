@@ -414,7 +414,7 @@ export const participantsData: Participant[] = [
     teamCategory: '찬양팀',
     role: 'member',
     nationality: '한국',
-    position: '찬양',
+    position: '찬양/전도',
     isActive: true,
     createdAt: new Date(),
     updatedAt: new Date(),
