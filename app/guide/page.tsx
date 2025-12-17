@@ -362,6 +362,16 @@ export default function GuidePage() {
                       <p className="text-lg font-bold text-orange-600 mb-1">Dāng nǐ yuèdú zhè běn xiǎo cèzi de shíhou, nǐ jiāng yínglái yìshēng zhī zhōng zuì zhòngyào de shíkè.</p>
                       <p className="text-base text-orange-500 mb-2">당 니 위에두 쩌 번 샤오 쯔 더 스허우, 니 지앙 잉라이 이성 즈쭝 쭈이 쭝야오 더 스커</p>
                       <p className="text-lg text-gray-700 bg-purple-50 p-2 rounded">⭐ 당신이 이 작은 책자를 읽을 때 당신의 일생 중에 가장 중요한 순간을 맞이할 것입니다.</p>
+                      {/* 영상: 마무리 2 */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/35EY3xOChKQ"
+                          title="당신이 이 작은 책자를 읽을 때 당신의 일생 중에 가장 중요한 순간을 맞이할 것입니다."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
 
                     {/* 마무리 3 */}
@@ -370,6 +380,16 @@ export default function GuidePage() {
                       <p className="text-lg font-bold text-orange-600 mb-1">Rúguǒ nǐ xiǎng zuòwéi Shàngdì de háizi lái shēnghuó, qǐng qù jiàohuì huòzhě lǐbàitáng.</p>
                       <p className="text-base text-orange-500 mb-2">루궈 니 샹 쭈오웨이 샹디 더 하이즈 라이 셩후어, 칭 취 지아오후이 훠저 리바이탕</p>
                       <p className="text-lg text-gray-700 bg-purple-50 p-2 rounded">⛪ 그리고 하나님의 자녀로 살고 싶다면 교회나 예배당을 가세요.</p>
+                      {/* 영상: 마무리 3 */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/NQbsOAhoB34"
+                          title="그리고 하나님의 자녀로 살고 싶다면 교회나 예배당을 가세요."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
 
                     {/* 축복 인사 */}
@@ -387,6 +407,16 @@ export default function GuidePage() {
                           <p className="text-base text-orange-500">워 짜이 주 리 아이 니</p>
                           <p className="text-lg text-gray-700 mt-2">❤️ 주님 안에서 당신을 사랑합니다.</p>
                         </div>
+                      </div>
+                      {/* 영상: 축복 인사 */}
+                      <div className="mt-4 rounded-lg overflow-hidden aspect-video">
+                        <iframe 
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/74tx5OdIB8g"
+                          title="축복합니다. 주님 안에서 당신을 사랑합니다."
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
                       </div>
                     </div>
                   </div>
