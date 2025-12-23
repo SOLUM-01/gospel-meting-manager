@@ -45,11 +45,12 @@ const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
 const MAX_IMAGES = 5 // 최대 이미지 첨부 개수
-const MAX_IMAGE_SIZE = 480 // 최대 이미지 크기 (픽셀) - 모바일 업로드 가능하도록
-const IMAGE_QUALITY = 0.5 // 이미지 품질 (0-1) - 모바일 업로드 가능하도록
-const MAX_TOTAL_SIZE = 800000 // 총 용량 제한 800KB (Supabase 제한 고려)
+const MAX_IMAGE_SIZE = 300 // 최대 이미지 크기 (픽셀) - 모바일 강력 압축
+const IMAGE_QUALITY = 0.3 // 이미지 품질 (0-1) - 모바일 강력 압축
+const MAX_SINGLE_IMAGE = 150000 // 단일 이미지 최대 150KB
+const MAX_TOTAL_SIZE = 500000 // 총 용량 제한 500KB
 
-// 이미지 압축 함수
+// 이미지 압축 함수 (강력 압축)
 const compressImage = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -59,16 +60,21 @@ const compressImage = (file: File): Promise<string> => {
         const canvas = document.createElement('canvas')
         let { width, height } = img
         
-        // 최대 크기 제한
-        if (width > MAX_IMAGE_SIZE || height > MAX_IMAGE_SIZE) {
+        console.log('원본 이미지 크기:', width, 'x', height)
+        
+        // 최대 크기 제한 (강력하게)
+        const maxSize = MAX_IMAGE_SIZE
+        if (width > maxSize || height > maxSize) {
           if (width > height) {
-            height = (height / width) * MAX_IMAGE_SIZE
-            width = MAX_IMAGE_SIZE
+            height = Math.round((height / width) * maxSize)
+            width = maxSize
           } else {
-            width = (width / height) * MAX_IMAGE_SIZE
-            height = MAX_IMAGE_SIZE
+            width = Math.round((width / height) * maxSize)
+            height = maxSize
           }
         }
+        
+        console.log('리사이즈 후:', width, 'x', height)
         
         canvas.width = width
         canvas.height = height
@@ -81,12 +87,21 @@ const compressImage = (file: File): Promise<string> => {
         
         ctx.drawImage(img, 0, 0, width, height)
         const compressedBase64 = canvas.toDataURL('image/jpeg', IMAGE_QUALITY)
+        
+        console.log('압축 후 크기:', Math.round(compressedBase64.length / 1000), 'KB')
+        
+        // 단일 이미지 크기 체크
+        if (compressedBase64.length > MAX_SINGLE_IMAGE) {
+          reject(new Error(`이미지가 너무 큽니다 (${Math.round(compressedBase64.length/1000)}KB). 다른 사진을 선택해주세요.`))
+          return
+        }
+        
         resolve(compressedBase64)
       }
-      img.onerror = () => reject(new Error('Image load failed'))
+      img.onerror = () => reject(new Error('이미지를 불러올 수 없습니다.'))
       img.src = e.target?.result as string
     }
-    reader.onerror = () => reject(new Error('File read failed'))
+    reader.onerror = () => reject(new Error('파일을 읽을 수 없습니다.'))
     reader.readAsDataURL(file)
   })
 }
@@ -207,6 +222,8 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
         })
       } catch (error) {
         console.error('이미지 압축 실패:', error)
+        const errorMessage = error instanceof Error ? error.message : '이미지 처리 실패'
+        alert(`사진 추가 실패:\n${errorMessage}`)
       }
     }
 
@@ -240,10 +257,10 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
       // 여러 이미지를 | 구분자로 연결
       const imageUrl = imagePreviews.length > 0 ? imagePreviews.join('|') : undefined
       
-      // 데이터 크기 체크 (약 800KB 제한 - Supabase 제한)
+      // 데이터 크기 체크 (약 500KB 제한)
       if (imageUrl && imageUrl.length > MAX_TOTAL_SIZE) {
         const currentSizeKB = Math.round(imageUrl.length / 1000)
-        alert(`이미지 용량이 너무 큽니다 (${currentSizeKB}KB / 800KB)\n\n💡 해결 방법:\n- 사진 수를 줄여주세요 (2~3장 권장)\n- 갤러리에서 작은 사진을 선택해주세요`)
+        alert(`이미지 용량 초과 (${currentSizeKB}KB / 500KB)\n\n💡 사진 수를 줄여주세요`)
         setIsSubmitting(false)
         return
       }
@@ -453,8 +470,8 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                   ))}
                   <div className="text-xs text-gray-500 self-end">
                     <div>{imagePreviews.length}/{MAX_IMAGES}장</div>
-                    <div className={`${imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.8 ? 'text-red-500 font-bold' : imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.6 ? 'text-orange-500' : ''}`}>
-                      {Math.round(imagePreviews.join('|').length / 1000)}KB / 800KB
+                    <div className={`${imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.8 ? 'text-red-500 font-bold' : imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.6 ? 'text-orange-500' : 'text-green-600'}`}>
+                      {Math.round(imagePreviews.join('|').length / 1000)}KB / 500KB
                     </div>
                   </div>
                 </div>
