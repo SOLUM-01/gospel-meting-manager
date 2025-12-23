@@ -42,9 +42,9 @@ const REACTIONS = [
 const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
-const MAX_IMAGES = 10 // 최대 이미지 첨부 개수
-const MAX_IMAGE_SIZE = 400 // 최대 이미지 크기 (픽셀) - 더 작게
-const IMAGE_QUALITY = 0.5 // 이미지 품질 (0-1) - 더 압축
+const MAX_IMAGES = 5 // 최대 이미지 첨부 개수 (품질 향상으로 5장으로 제한)
+const MAX_IMAGE_SIZE = 800 // 최대 이미지 크기 (픽셀) - 더 선명하게
+const IMAGE_QUALITY = 0.75 // 이미지 품질 (0-1) - 선명하게
 
 // 이미지 압축 함수
 const compressImage = (file: File): Promise<string> => {
