@@ -11,7 +11,8 @@ import {
   Trash2,
   Download,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ZoomIn
 } from 'lucide-react'
 import Image from 'next/image'
 import { 
@@ -101,6 +102,9 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [commentReactions, setCommentReactions] = useState<Record<string, CommentReaction[]>>({})
   const [showCommentReactionPicker, setShowCommentReactionPicker] = useState<string | null>(null)
   const [showCommentReactionUsers, setShowCommentReactionUsers] = useState<{ commentId: string; type: string } | null>(null)
+  
+  // 이미지 확대 모달 상태
+  const [selectedImage, setSelectedImage] = useState<{ src: string; userName: string; index: number; total: number } | null>(null)
 
   // 댓글 리액션을 누른 사용자 목록 가져오기
   const getCommentReactionUsers = (commentId: string, reactionType: string) => {
@@ -498,27 +502,55 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                       </div>
                       <p className="mt-2 text-sm whitespace-pre-wrap">{comment.content}</p>
                       {comment.image_url && (
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {comment.image_url.split('|').map((imgUrl, imgIndex) => (
-                            <div key={imgIndex} className="relative inline-block group">
-                              <Image
-                                src={imgUrl}
-                                alt={`Comment image ${imgIndex + 1}`}
-                                width={150}
-                                height={150}
-                                className="rounded-lg object-cover"
-                              />
-                              {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
-                              <button
-                                onClick={() => handleDownload(imgUrl, comment.user_name)}
-                                className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
-                                  transition-all shadow-lg opacity-0 group-hover:opacity-100 md:opacity-0"
-                                title="다운로드"
-                              >
-                                <Download className="h-4 w-4" />
-                              </button>
-                            </div>
-                          ))}
+                        <div className="mt-3">
+                          {/* 이미지 작성자 표시 */}
+                          <div className="flex items-center gap-2 mb-2 px-2 py-1 bg-blue-50 dark:bg-blue-900/30 rounded-lg inline-flex">
+                            <span className="text-xs text-blue-600 dark:text-blue-400">📷</span>
+                            <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
+                              {comment.user_name}님의 사진 ({comment.image_url.split('|').length}장)
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {comment.image_url.split('|').map((imgUrl, imgIndex) => {
+                              const totalImages = comment.image_url!.split('|').length
+                              return (
+                                <div 
+                                  key={imgIndex} 
+                                  className="relative inline-block group cursor-pointer"
+                                  onClick={() => setSelectedImage({ 
+                                    src: imgUrl, 
+                                    userName: comment.user_name, 
+                                    index: imgIndex + 1, 
+                                    total: totalImages 
+                                  })}
+                                >
+                                  <Image
+                                    src={imgUrl}
+                                    alt={`${comment.user_name}님의 사진 ${imgIndex + 1}`}
+                                    width={150}
+                                    height={150}
+                                    className="rounded-lg object-cover hover:opacity-90 transition-opacity"
+                                  />
+                                  {/* PC 확대 아이콘 표시 */}
+                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <ZoomIn className="h-6 w-6 text-white drop-shadow-lg" />
+                                  </div>
+                                  {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      handleDownload(imgUrl, comment.user_name)
+                                    }}
+                                    className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
+                                      transition-all shadow-lg opacity-0 group-hover:opacity-100"
+                                    title="다운로드"
+                                  >
+                                    <Download className="h-4 w-4" />
+                                  </button>
+                                </div>
+                              )
+                            })}
+                          </div>
                         </div>
                       )}
                       
@@ -644,6 +676,64 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
           </div>
         )}
       </Card>
+
+      {/* 이미지 확대 모달 */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative w-full max-w-4xl max-h-[90vh] flex flex-col">
+            {/* 헤더 */}
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-t-xl flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                  {selectedImage.userName.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-bold text-sm md:text-base">{selectedImage.userName}님의 사진</p>
+                  <p className="text-xs text-white/70">{selectedImage.index} / {selectedImage.total}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDownload(selectedImage.src, selectedImage.userName)
+                  }}
+                  className="bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition-colors"
+                >
+                  <Download className="h-4 w-4" /> 다운로드
+                </button>
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-colors"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+            {/* 이미지 */}
+            <div 
+              className="bg-white dark:bg-gray-900 rounded-b-xl overflow-auto flex-1 flex items-center justify-center p-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={selectedImage.src}
+                alt={`${selectedImage.userName}님의 사진`}
+                width={1200}
+                height={900}
+                className="max-w-full max-h-[70vh] object-contain rounded-lg"
+                priority
+              />
+            </div>
+            {/* 하단 안내 */}
+            <p className="text-center text-white/70 text-sm mt-3">
+              🔍 클릭하여 확대 | 배경 클릭 또는 X 버튼으로 닫기
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
