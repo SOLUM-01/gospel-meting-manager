@@ -22,7 +22,8 @@ import {
   getCommentsReactions,
   toggleCommentReaction,
   type TaskComment,
-  type CommentReaction
+  type CommentReaction,
+  type AddCommentResult
 } from '@/lib/database/api/comments'
 import { supabase } from '@/lib/database/supabase'
 
@@ -220,7 +221,15 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
 
   // 댓글 제출
   const handleSubmitComment = async () => {
-    if (!newComment.trim() || !userName.trim()) return
+    // 기본 검증
+    if (!userName.trim()) {
+      alert('이름을 입력해주세요.')
+      return
+    }
+    if (!newComment.trim()) {
+      alert('댓글 내용을 입력해주세요.')
+      return
+    }
     if (newComment.length > 300) {
       alert('댓글은 300자 이내로 작성해주세요.')
       return
@@ -239,17 +248,24 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
         return
       }
       
-      const comment = await addTaskComment(taskId, userName, newComment, imageUrl)
-      if (comment) {
-        setComments([comment, ...comments])
+      // 디버깅용 로그
+      console.log('댓글 등록 시도:', { taskId, userName, contentLength: newComment.length, imageSize: imageUrl?.length || 0 })
+      
+      const result = await addTaskComment(taskId, userName, newComment, imageUrl)
+      
+      if (result.success && result.comment) {
+        setComments([result.comment, ...comments])
         setNewComment('')
         setImagePreviews([])
+        console.log('댓글 등록 성공!')
       } else {
-        alert('댓글 등록에 실패했습니다. 사진 수를 줄여서 다시 시도해주세요.')
+        // 구체적인 에러 메시지 표시
+        alert(`댓글 등록 실패:\n${result.error || '알 수 없는 오류'}`)
+        console.error('댓글 등록 실패:', result.error)
       }
     } catch (error) {
       console.error('Failed to add comment:', error)
-      alert('댓글 등록 중 오류가 발생했습니다. 다시 시도해주세요.')
+      alert('댓글 등록 중 오류가 발생했습니다.\n다시 시도해주세요.')
     } finally {
       setIsSubmitting(false)
     }

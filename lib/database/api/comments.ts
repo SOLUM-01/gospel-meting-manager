@@ -34,42 +34,69 @@ export async function getTaskComments(taskId: string): Promise<TaskComment[]> {
   return (data as TaskComment[]) || []
 }
 
+// 댓글 추가 결과 타입
+export interface AddCommentResult {
+  success: boolean
+  comment?: TaskComment
+  error?: string
+}
+
 // 댓글 추가
 export async function addTaskComment(
   taskId: string,
   userName: string,
   content: string,
   imageUrl?: string
-): Promise<TaskComment | null> {
+): Promise<AddCommentResult> {
+  // 입력값 검증
+  if (!taskId) {
+    return { success: false, error: '사역 ID가 없습니다.' }
+  }
+  
+  if (!userName || userName.trim().length === 0) {
+    return { success: false, error: '이름을 입력해주세요.' }
+  }
+  
+  if (!content || content.trim().length === 0) {
+    return { success: false, error: '댓글 내용을 입력해주세요.' }
+  }
+
   // 300자 제한
   if (content.length > 300) {
-    console.error('Comment exceeds 300 characters')
-    return null
+    return { success: false, error: '댓글은 300자 이내로 작성해주세요.' }
   }
 
-  // 이미지 URL 크기 체크 (Supabase 제한)
+  // 이미지 URL 크기 체크
   if (imageUrl && imageUrl.length > 800000) {
-    console.error('Image data too large:', imageUrl.length, 'bytes')
-    return null
+    const sizeKB = Math.round(imageUrl.length / 1000)
+    return { success: false, error: `이미지 용량이 너무 큽니다 (${sizeKB}KB). 사진 수를 줄여주세요.` }
   }
 
-  const { data, error } = await supabase
-    .from('task_comments' as any)
-    .insert({
-      task_id: taskId,
-      user_name: userName,
-      content: content,
-      image_url: imageUrl
-    } as any)
-    .select()
-    .single()
+  try {
+    const { data, error } = await supabase
+      .from('task_comments' as any)
+      .insert({
+        task_id: taskId,
+        user_name: userName.trim(),
+        content: content.trim(),
+        image_url: imageUrl || null
+      } as any)
+      .select()
+      .single()
 
-  if (error) {
-    console.error('Error adding comment:', error.message, error.details, error.hint)
-    return null
+    if (error) {
+      console.error('Supabase error:', error)
+      return { 
+        success: false, 
+        error: `DB 오류: ${error.message || '알 수 없는 오류'}` 
+      }
+    }
+
+    return { success: true, comment: data as TaskComment }
+  } catch (err) {
+    console.error('Exception:', err)
+    return { success: false, error: '네트워크 오류가 발생했습니다.' }
   }
-
-  return data as TaskComment
 }
 
 // 댓글 삭제
