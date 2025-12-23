@@ -66,9 +66,10 @@ export async function addTaskComment(
     return { success: false, error: '댓글은 300자 이내로 작성해주세요.' }
   }
 
-  // 이미지 데이터 크기 체크 (약 500KB 제한)
-  if (imageUrl && imageUrl.length > 500000) {
-    return { success: false, error: `이미지가 너무 큽니다. 사진 수를 줄여주세요.` }
+  // 이미지 URL 체크 (Storage URL은 길이가 짧음)
+  // Base64인 경우 차단 (Storage 사용해야 함)
+  if (imageUrl && imageUrl.startsWith('data:') && imageUrl.length > 100000) {
+    return { success: false, error: `이미지가 너무 큽니다. 다시 시도해주세요.` }
   }
 
   try {
