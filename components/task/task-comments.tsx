@@ -26,7 +26,6 @@ import {
   type AddCommentResult
 } from '@/lib/database/api/comments'
 import { supabase } from '@/lib/database/supabase'
-import { uploadTaskImage } from '@/lib/database/storage'
 
 interface TaskCommentsProps {
   taskId: string
@@ -46,13 +45,51 @@ const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
 const MAX_IMAGES = 5 // 최대 이미지 첨부 개수
+const MAX_IMAGE_SIZE = 400 // 최대 이미지 크기 (픽셀)
+const IMAGE_QUALITY = 0.5 // 이미지 품질
+
+// 이미지 압축 함수
+const compressImage = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const img = document.createElement('img')
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      let { width, height } = img
+      
+      // 최대 크기 제한
+      if (width > MAX_IMAGE_SIZE || height > MAX_IMAGE_SIZE) {
+        if (width > height) {
+          height = Math.round((height / width) * MAX_IMAGE_SIZE)
+          width = MAX_IMAGE_SIZE
+        } else {
+          width = Math.round((width / height) * MAX_IMAGE_SIZE)
+          height = MAX_IMAGE_SIZE
+        }
+      }
+      
+      canvas.width = width
+      canvas.height = height
+      
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        reject(new Error('Canvas 오류'))
+        return
+      }
+      
+      ctx.drawImage(img, 0, 0, width, height)
+      const result = canvas.toDataURL('image/jpeg', IMAGE_QUALITY)
+      resolve(result)
+    }
+    img.onerror = () => reject(new Error('이미지 로드 실패'))
+    img.src = URL.createObjectURL(file)
+  })
+}
 
 export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [comments, setComments] = useState<TaskComment[]>([])
   const [newComment, setNewComment] = useState('')
   const [userName, setUserName] = useState('')
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]) // 실제 파일
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]) // 미리보기 URL
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]) // 압축된 이미지
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [uploadProgress, setUploadProgress] = useState('')
   const [showComments, setShowComments] = useState(true)
@@ -142,12 +179,12 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     localStorage.setItem('gospel_user_name', name)
   }
 
-  // 이미지 선택 (최대 5장, Storage 업로드 방식)
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 이미지 선택 (압축 후 저장)
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files || files.length === 0) return
 
-    const remainingSlots = MAX_IMAGES - selectedFiles.length
+    const remainingSlots = MAX_IMAGES - imagePreviews.length
     if (remainingSlots <= 0) {
       alert(`최대 ${MAX_IMAGES}장까지만 첨부할 수 있습니다.`)
       e.target.value = ''
@@ -155,31 +192,40 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     }
 
     const newFiles = Array.from(files).slice(0, remainingSlots)
+    setUploadProgress(`사진 처리 중...`)
     
-    // 파일 저장
-    setSelectedFiles(prev => [...prev, ...newFiles])
+    let successCount = 0
+    let errorCount = 0
     
-    // 미리보기 생성
-    newFiles.forEach(file => {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setImagePreviews(prev => [...prev, event.target!.result as string])
-        }
+    // 순차적으로 압축
+    for (const file of newFiles) {
+      try {
+        const compressed = await compressImage(file)
+        setImagePreviews(prev => [...prev, compressed])
+        successCount++
+      } catch (err) {
+        console.error('압축 실패:', err)
+        errorCount++
       }
-      reader.readAsDataURL(file)
-    })
-
+    }
+    
+    setUploadProgress('')
+    
+    // 결과 알림 (에러가 있을 때만)
+    if (errorCount > 0) {
+      alert(`${successCount}장 추가됨, ${errorCount}장 실패`)
+    }
+    
     // 선택한 파일이 남은 슬롯보다 많으면 알림
     if (files.length > remainingSlots) {
-      alert(`최대 ${MAX_IMAGES}장까지 가능합니다. ${remainingSlots}장만 추가되었습니다.`)
+      alert(`최대 ${MAX_IMAGES}장까지 가능합니다.`)
     }
 
     // input 초기화
     e.target.value = ''
   }
 
-  // 댓글 제출 (Storage 업로드 방식)
+  // 댓글 제출
   const handleSubmitComment = async () => {
     // 기본 검증
     if (!userName.trim()) {
@@ -196,53 +242,24 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     }
 
     setIsSubmitting(true)
-    setUploadProgress('')
+    setUploadProgress('저장 중...')
     
     try {
-      let imageUrls: string[] = []
-      
-      // 이미지가 있으면 Storage에 업로드
-      if (selectedFiles.length > 0) {
-        setUploadProgress(`사진 업로드 중... (0/${selectedFiles.length})`)
-        
-        for (let i = 0; i < selectedFiles.length; i++) {
-          setUploadProgress(`사진 업로드 중... (${i + 1}/${selectedFiles.length})`)
-          try {
-            const url = await uploadTaskImage(selectedFiles[i])
-            imageUrls.push(url)
-          } catch (err) {
-            console.error(`이미지 ${i + 1} 업로드 실패:`, err)
-            // 실패해도 계속 진행
-          }
-        }
-        
-        if (imageUrls.length === 0 && selectedFiles.length > 0) {
-          alert('사진 업로드에 실패했습니다.\n다시 시도해주세요.')
-          setIsSubmitting(false)
-          setUploadProgress('')
-          return
-        }
-      }
-      
-      setUploadProgress('댓글 저장 중...')
-      
-      // 이미지 URL들을 | 로 연결
-      const imageUrl = imageUrls.length > 0 ? imageUrls.join('|') : undefined
+      // 이미지들을 | 로 연결
+      const imageUrl = imagePreviews.length > 0 ? imagePreviews.join('|') : undefined
       
       const result = await addTaskComment(taskId, userName, newComment, imageUrl)
       
       if (result.success && result.comment) {
         setComments([result.comment, ...comments])
         setNewComment('')
-        setSelectedFiles([])
         setImagePreviews([])
-        setUploadProgress('')
       } else {
-        alert(`댓글 등록 실패:\n${result.error || '알 수 없는 오류'}`)
+        alert(`등록 실패: ${result.error || '알 수 없는 오류'}`)
       }
     } catch (error) {
       console.error('Failed to add comment:', error)
-      alert('댓글 등록 중 오류가 발생했습니다.')
+      alert('오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
       setUploadProgress('')
@@ -424,7 +441,6 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                       <button
                         onClick={() => {
                           setImagePreviews(prev => prev.filter((_, i) => i !== index))
-                          setSelectedFiles(prev => prev.filter((_, i) => i !== index))
                         }}
                         className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
                       >
