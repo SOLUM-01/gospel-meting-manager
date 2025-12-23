@@ -103,8 +103,8 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [showCommentReactionPicker, setShowCommentReactionPicker] = useState<string | null>(null)
   const [showCommentReactionUsers, setShowCommentReactionUsers] = useState<{ commentId: string; type: string } | null>(null)
   
-  // 이미지 확대 모달 상태
-  const [selectedImage, setSelectedImage] = useState<{ src: string; userName: string; index: number; total: number } | null>(null)
+  // 이미지 확대 모달 상태 - 모든 이미지를 한번에 보여주기
+  const [selectedImages, setSelectedImages] = useState<{ images: string[]; userName: string } | null>(null)
 
   // 댓글 리액션을 누른 사용자 목록 가져오기
   const getCommentReactionUsers = (commentId: string, reactionType: string) => {
@@ -510,46 +510,35 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                               {comment.user_name}님의 사진 ({comment.image_url.split('|').length}장)
                             </span>
                           </div>
-                          <div className="flex flex-wrap gap-2">
-                            {comment.image_url.split('|').map((imgUrl, imgIndex) => {
-                              const totalImages = comment.image_url!.split('|').length
-                              return (
-                                <div 
-                                  key={imgIndex} 
-                                  className="relative inline-block group cursor-pointer"
-                                  onClick={() => setSelectedImage({ 
-                                    src: imgUrl, 
-                                    userName: comment.user_name, 
-                                    index: imgIndex + 1, 
-                                    total: totalImages 
-                                  })}
-                                >
-                                  <Image
-                                    src={imgUrl}
-                                    alt={`${comment.user_name}님의 사진 ${imgIndex + 1}`}
-                                    width={150}
-                                    height={150}
-                                    className="rounded-lg object-cover hover:opacity-90 transition-opacity"
-                                  />
-                                  {/* PC 확대 아이콘 표시 */}
-                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                    <ZoomIn className="h-6 w-6 text-white drop-shadow-lg" />
-                                  </div>
-                                  {/* 다운로드 버튼 - PC에서는 hover시 표시 */}
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation()
-                                      handleDownload(imgUrl, comment.user_name)
-                                    }}
-                                    className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full 
-                                      transition-all shadow-lg opacity-0 group-hover:opacity-100"
-                                    title="다운로드"
-                                  >
-                                    <Download className="h-4 w-4" />
-                                  </button>
-                                </div>
-                              )
+                          <div 
+                            className="flex flex-wrap gap-2 cursor-pointer"
+                            onClick={() => setSelectedImages({ 
+                              images: comment.image_url!.split('|'), 
+                              userName: comment.user_name 
                             })}
+                          >
+                            {comment.image_url.split('|').map((imgUrl, imgIndex) => (
+                              <div 
+                                key={imgIndex} 
+                                className="relative inline-block group"
+                              >
+                                <Image
+                                  src={imgUrl}
+                                  alt={`${comment.user_name}님의 사진 ${imgIndex + 1}`}
+                                  width={150}
+                                  height={150}
+                                  className="rounded-lg object-cover hover:opacity-90 transition-opacity"
+                                />
+                                {/* PC 확대 아이콘 표시 */}
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                  <ZoomIn className="h-6 w-6 text-white drop-shadow-lg" />
+                                </div>
+                              </div>
+                            ))}
+                            {/* 클릭 안내 */}
+                            <div className="w-full text-xs text-gray-400 mt-1">
+                              👆 클릭하면 크게 볼 수 있어요
+                            </div>
                           </div>
                         </div>
                       )}
@@ -677,60 +666,76 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
         )}
       </Card>
 
-      {/* 이미지 확대 모달 */}
-      {selectedImage && (
+      {/* 이미지 확대 모달 - 모든 사진 스크롤로 보기 */}
+      {selectedImages && (
         <div 
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-50 bg-black/95 flex flex-col"
+          onClick={() => setSelectedImages(null)}
         >
-          <div className="relative w-full max-w-4xl max-h-[90vh] flex flex-col">
-            {/* 헤더 */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-t-xl flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  {selectedImage.userName.charAt(0)}
-                </div>
-                <div>
-                  <p className="font-bold text-sm md:text-base">{selectedImage.userName}님의 사진</p>
-                  <p className="text-xs text-white/70">{selectedImage.index} / {selectedImage.total}</p>
-                </div>
+          {/* 고정 헤더 */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 flex items-center justify-between flex-shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white font-bold">
+                {selectedImages.userName.charAt(0)}
               </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleDownload(selectedImage.src, selectedImage.userName)
-                  }}
-                  className="bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition-colors"
-                >
-                  <Download className="h-4 w-4" /> 다운로드
-                </button>
-                <button
-                  onClick={() => setSelectedImage(null)}
-                  className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-colors"
-                >
-                  <X className="h-5 w-5" />
-                </button>
+              <div>
+                <p className="font-bold text-base md:text-lg">{selectedImages.userName}</p>
+                <p className="text-sm text-white/80">📷 사진 {selectedImages.images.length}장</p>
               </div>
             </div>
-            {/* 이미지 */}
-            <div 
-              className="bg-white dark:bg-gray-900 rounded-b-xl overflow-auto flex-1 flex items-center justify-center p-4"
-              onClick={(e) => e.stopPropagation()}
+            <button
+              onClick={() => setSelectedImages(null)}
+              className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-colors"
             >
-              <Image
-                src={selectedImage.src}
-                alt={`${selectedImage.userName}님의 사진`}
-                width={1200}
-                height={900}
-                className="max-w-full max-h-[70vh] object-contain rounded-lg"
-                priority
-              />
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+          
+          {/* 스크롤 가능한 이미지 영역 */}
+          <div 
+            className="flex-1 overflow-y-auto p-4 md:p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="max-w-5xl mx-auto space-y-6">
+              {selectedImages.images.map((imgUrl, index) => (
+                <div key={index} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl">
+                  {/* 이미지 헤더 */}
+                  <div className="bg-gray-100 dark:bg-gray-700 px-4 py-2 flex items-center justify-between">
+                    <span className="font-bold text-gray-700 dark:text-gray-200">
+                      📷 {index + 1} / {selectedImages.images.length}
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleDownload(imgUrl, selectedImages.userName)
+                      }}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
+                    >
+                      <Download className="h-4 w-4" /> 다운로드
+                    </button>
+                  </div>
+                  {/* 이미지 - 최대한 크게 표시 */}
+                  <div className="p-2 bg-gray-50 dark:bg-gray-900">
+                    <Image
+                      src={imgUrl}
+                      alt={`${selectedImages.userName}님의 사진 ${index + 1}`}
+                      width={1600}
+                      height={1200}
+                      className="w-full h-auto object-contain rounded-lg"
+                      style={{ maxHeight: '80vh' }}
+                      priority={index === 0}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-            {/* 하단 안내 */}
-            <p className="text-center text-white/70 text-sm mt-3">
-              🔍 클릭하여 확대 | 배경 클릭 또는 X 버튼으로 닫기
-            </p>
+            
+            {/* 하단 여백 및 안내 */}
+            <div className="text-center py-6">
+              <p className="text-white/60 text-sm">
+                ⬆️ 위로 스크롤하여 모든 사진 보기 | 배경 클릭 또는 X 버튼으로 닫기
+              </p>
+            </div>
           </div>
         </div>
       )}
