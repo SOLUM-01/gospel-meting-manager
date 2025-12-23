@@ -24,6 +24,7 @@ import {
   type TaskComment,
   type CommentReaction
 } from '@/lib/database/api/comments'
+import { supabase } from '@/lib/database/supabase'
 
 interface TaskCommentsProps {
   taskId: string
@@ -129,12 +130,33 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     )
   }
 
-  // 저장된 사용자 이름 불러오기
+  // 로그인한 사용자 이름 불러오기 (Supabase Auth 우선)
   useEffect(() => {
-    const savedName = localStorage.getItem('gospel_user_name')
-    if (savedName) {
-      setUserName(savedName)
+    const loadUserName = async () => {
+      try {
+        // Supabase Auth에서 로그인한 사용자 정보 가져오기
+        if (supabase) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user && user.user_metadata?.name) {
+            // 로그인한 사용자의 이름 사용
+            const authName = user.user_metadata.name as string
+            setUserName(authName)
+            localStorage.setItem('gospel_user_name', authName)
+            return
+          }
+        }
+      } catch (error) {
+        console.error('사용자 정보 로드 실패:', error)
+      }
+      
+      // 로그인하지 않은 경우 localStorage에서 가져오기
+      const savedName = localStorage.getItem('gospel_user_name')
+      if (savedName) {
+        setUserName(savedName)
+      }
     }
+    
+    loadUserName()
   }, [])
 
   // 댓글 불러오기
