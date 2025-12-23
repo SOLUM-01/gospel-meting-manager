@@ -26,6 +26,7 @@ import {
   type AddCommentResult
 } from '@/lib/database/api/comments'
 import { supabase } from '@/lib/database/supabase'
+import { uploadTaskImage } from '@/lib/database/storage'
 
 interface TaskCommentsProps {
   taskId: string
@@ -45,73 +46,15 @@ const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
 const MAX_IMAGES = 5 // 최대 이미지 첨부 개수
-const MAX_IMAGE_SIZE = 300 // 최대 이미지 크기 (픽셀) - 모바일 강력 압축
-const IMAGE_QUALITY = 0.3 // 이미지 품질 (0-1) - 모바일 강력 압축
-const MAX_SINGLE_IMAGE = 150000 // 단일 이미지 최대 150KB
-const MAX_TOTAL_SIZE = 500000 // 총 용량 제한 500KB
-
-// 이미지 압축 함수 (강력 압축)
-const compressImage = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      const img = document.createElement('img')
-      img.onload = () => {
-        const canvas = document.createElement('canvas')
-        let { width, height } = img
-        
-        console.log('원본 이미지 크기:', width, 'x', height)
-        
-        // 최대 크기 제한 (강력하게)
-        const maxSize = MAX_IMAGE_SIZE
-        if (width > maxSize || height > maxSize) {
-          if (width > height) {
-            height = Math.round((height / width) * maxSize)
-            width = maxSize
-          } else {
-            width = Math.round((width / height) * maxSize)
-            height = maxSize
-          }
-        }
-        
-        console.log('리사이즈 후:', width, 'x', height)
-        
-        canvas.width = width
-        canvas.height = height
-        
-        const ctx = canvas.getContext('2d')
-        if (!ctx) {
-          reject(new Error('Canvas context not available'))
-          return
-        }
-        
-        ctx.drawImage(img, 0, 0, width, height)
-        const compressedBase64 = canvas.toDataURL('image/jpeg', IMAGE_QUALITY)
-        
-        console.log('압축 후 크기:', Math.round(compressedBase64.length / 1000), 'KB')
-        
-        // 단일 이미지 크기 체크
-        if (compressedBase64.length > MAX_SINGLE_IMAGE) {
-          reject(new Error(`이미지가 너무 큽니다 (${Math.round(compressedBase64.length/1000)}KB). 다른 사진을 선택해주세요.`))
-          return
-        }
-        
-        resolve(compressedBase64)
-      }
-      img.onerror = () => reject(new Error('이미지를 불러올 수 없습니다.'))
-      img.src = e.target?.result as string
-    }
-    reader.onerror = () => reject(new Error('파일을 읽을 수 없습니다.'))
-    reader.readAsDataURL(file)
-  })
-}
 
 export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   const [comments, setComments] = useState<TaskComment[]>([])
   const [newComment, setNewComment] = useState('')
   const [userName, setUserName] = useState('')
-  const [imagePreviews, setImagePreviews] = useState<string[]>([])
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]) // 실제 파일
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]) // 미리보기 URL
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState('')
   const [showComments, setShowComments] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -199,44 +142,44 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     localStorage.setItem('gospel_user_name', name)
   }
 
-  // 이미지 선택 (최대 10장, 자동 압축)
-  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 이미지 선택 (최대 5장, Storage 업로드 방식)
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-    if (!files) return
+    if (!files || files.length === 0) return
 
-    const remainingSlots = MAX_IMAGES - imagePreviews.length
+    const remainingSlots = MAX_IMAGES - selectedFiles.length
     if (remainingSlots <= 0) {
       alert(`최대 ${MAX_IMAGES}장까지만 첨부할 수 있습니다.`)
+      e.target.value = ''
       return
     }
 
-    const filesToProcess = Array.from(files).slice(0, remainingSlots)
+    const newFiles = Array.from(files).slice(0, remainingSlots)
     
-    // 이미지 압축 및 추가
-    for (const file of filesToProcess) {
-      try {
-        const compressedImage = await compressImage(file)
-        setImagePreviews(prev => {
-          if (prev.length >= MAX_IMAGES) return prev
-          return [...prev, compressedImage]
-        })
-      } catch (error) {
-        console.error('이미지 압축 실패:', error)
-        const errorMessage = error instanceof Error ? error.message : '이미지 처리 실패'
-        alert(`사진 추가 실패:\n${errorMessage}`)
+    // 파일 저장
+    setSelectedFiles(prev => [...prev, ...newFiles])
+    
+    // 미리보기 생성
+    newFiles.forEach(file => {
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setImagePreviews(prev => [...prev, event.target!.result as string])
+        }
       }
-    }
+      reader.readAsDataURL(file)
+    })
 
     // 선택한 파일이 남은 슬롯보다 많으면 알림
     if (files.length > remainingSlots) {
-      alert(`최대 ${MAX_IMAGES}장까지만 첨부할 수 있습니다. ${remainingSlots}장만 추가되었습니다.`)
+      alert(`최대 ${MAX_IMAGES}장까지 가능합니다. ${remainingSlots}장만 추가되었습니다.`)
     }
 
-    // input 초기화 (같은 파일 다시 선택 가능하도록)
+    // input 초기화
     e.target.value = ''
   }
 
-  // 댓글 제출
+  // 댓글 제출 (Storage 업로드 방식)
   const handleSubmitComment = async () => {
     // 기본 검증
     if (!userName.trim()) {
@@ -253,38 +196,56 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     }
 
     setIsSubmitting(true)
+    setUploadProgress('')
+    
     try {
-      // 여러 이미지를 | 구분자로 연결
-      const imageUrl = imagePreviews.length > 0 ? imagePreviews.join('|') : undefined
+      let imageUrls: string[] = []
       
-      // 데이터 크기 체크 (약 500KB 제한)
-      if (imageUrl && imageUrl.length > MAX_TOTAL_SIZE) {
-        const currentSizeKB = Math.round(imageUrl.length / 1000)
-        alert(`이미지 용량 초과 (${currentSizeKB}KB / 500KB)\n\n💡 사진 수를 줄여주세요`)
-        setIsSubmitting(false)
-        return
+      // 이미지가 있으면 Storage에 업로드
+      if (selectedFiles.length > 0) {
+        setUploadProgress(`사진 업로드 중... (0/${selectedFiles.length})`)
+        
+        for (let i = 0; i < selectedFiles.length; i++) {
+          setUploadProgress(`사진 업로드 중... (${i + 1}/${selectedFiles.length})`)
+          try {
+            const url = await uploadTaskImage(selectedFiles[i])
+            imageUrls.push(url)
+          } catch (err) {
+            console.error(`이미지 ${i + 1} 업로드 실패:`, err)
+            // 실패해도 계속 진행
+          }
+        }
+        
+        if (imageUrls.length === 0 && selectedFiles.length > 0) {
+          alert('사진 업로드에 실패했습니다.\n다시 시도해주세요.')
+          setIsSubmitting(false)
+          setUploadProgress('')
+          return
+        }
       }
       
-      // 디버깅용 로그
-      console.log('댓글 등록 시도:', { taskId, userName, contentLength: newComment.length, imageSize: imageUrl?.length || 0 })
+      setUploadProgress('댓글 저장 중...')
+      
+      // 이미지 URL들을 | 로 연결
+      const imageUrl = imageUrls.length > 0 ? imageUrls.join('|') : undefined
       
       const result = await addTaskComment(taskId, userName, newComment, imageUrl)
       
       if (result.success && result.comment) {
         setComments([result.comment, ...comments])
         setNewComment('')
+        setSelectedFiles([])
         setImagePreviews([])
-        console.log('댓글 등록 성공!')
+        setUploadProgress('')
       } else {
-        // 구체적인 에러 메시지 표시
         alert(`댓글 등록 실패:\n${result.error || '알 수 없는 오류'}`)
-        console.error('댓글 등록 실패:', result.error)
       }
     } catch (error) {
       console.error('Failed to add comment:', error)
-      alert('댓글 등록 중 오류가 발생했습니다.\n다시 시도해주세요.')
+      alert('댓글 등록 중 오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
+      setUploadProgress('')
     }
   }
 
@@ -448,7 +409,7 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                 </span>
               </div>
 
-              {/* 이미지 미리보기 (최대 10장) */}
+              {/* 이미지 미리보기 (최대 5장) */}
               {imagePreviews.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {imagePreviews.map((preview, index) => (
@@ -461,19 +422,26 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                         className="rounded-lg object-cover w-20 h-20"
                       />
                       <button
-                        onClick={() => setImagePreviews(prev => prev.filter((_, i) => i !== index))}
+                        onClick={() => {
+                          setImagePreviews(prev => prev.filter((_, i) => i !== index))
+                          setSelectedFiles(prev => prev.filter((_, i) => i !== index))
+                        }}
                         className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
                       >
                         <X className="w-3 h-3" />
                       </button>
                     </div>
                   ))}
-                  <div className="text-xs text-gray-500 self-end">
-                    <div>{imagePreviews.length}/{MAX_IMAGES}장</div>
-                    <div className={`${imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.8 ? 'text-red-500 font-bold' : imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.6 ? 'text-orange-500' : 'text-green-600'}`}>
-                      {Math.round(imagePreviews.join('|').length / 1000)}KB / 500KB
-                    </div>
+                  <div className="text-xs text-green-600 self-end font-medium">
+                    ✓ {imagePreviews.length}/{MAX_IMAGES}장 선택됨
                   </div>
+                </div>
+              )}
+              
+              {/* 업로드 진행 상태 */}
+              {uploadProgress && (
+                <div className="text-sm text-blue-600 font-medium animate-pulse">
+                  {uploadProgress}
                 </div>
               )}
 
