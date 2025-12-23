@@ -47,6 +47,12 @@ export async function addTaskComment(
     return null
   }
 
+  // 이미지 URL 크기 체크 (Supabase 제한)
+  if (imageUrl && imageUrl.length > 800000) {
+    console.error('Image data too large:', imageUrl.length, 'bytes')
+    return null
+  }
+
   const { data, error } = await supabase
     .from('task_comments' as any)
     .insert({
@@ -59,7 +65,7 @@ export async function addTaskComment(
     .single()
 
   if (error) {
-    console.error('Error adding comment:', error)
+    console.error('Error adding comment:', error.message, error.details, error.hint)
     return null
   }
 

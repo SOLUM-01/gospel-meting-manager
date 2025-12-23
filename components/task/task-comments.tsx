@@ -44,9 +44,9 @@ const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
 const MAX_IMAGES = 5 // 최대 이미지 첨부 개수
-const MAX_IMAGE_SIZE = 600 // 최대 이미지 크기 (픽셀) - 5장 업로드 가능하도록
-const IMAGE_QUALITY = 0.65 // 이미지 품질 (0-1) - 5장 업로드 가능하도록
-const MAX_TOTAL_SIZE = 1500000 // 총 용량 제한 1.5MB
+const MAX_IMAGE_SIZE = 480 // 최대 이미지 크기 (픽셀) - 모바일 업로드 가능하도록
+const IMAGE_QUALITY = 0.5 // 이미지 품질 (0-1) - 모바일 업로드 가능하도록
+const MAX_TOTAL_SIZE = 800000 // 총 용량 제한 800KB (Supabase 제한 고려)
 
 // 이미지 압축 함수
 const compressImage = (file: File): Promise<string> => {
@@ -231,10 +231,10 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
       // 여러 이미지를 | 구분자로 연결
       const imageUrl = imagePreviews.length > 0 ? imagePreviews.join('|') : undefined
       
-      // 데이터 크기 체크 (약 1.5MB 제한)
+      // 데이터 크기 체크 (약 800KB 제한 - Supabase 제한)
       if (imageUrl && imageUrl.length > MAX_TOTAL_SIZE) {
-        const currentSizeMB = (imageUrl.length / 1000000).toFixed(1)
-        alert(`이미지 용량이 너무 큽니다 (${currentSizeMB}MB).\n\n💡 해결 방법:\n- 사진 수를 줄여주세요 (3~4장 권장)\n- 또는 작은 크기의 사진을 선택해주세요`)
+        const currentSizeKB = Math.round(imageUrl.length / 1000)
+        alert(`이미지 용량이 너무 큽니다 (${currentSizeKB}KB / 800KB)\n\n💡 해결 방법:\n- 사진 수를 줄여주세요 (2~3장 권장)\n- 갤러리에서 작은 사진을 선택해주세요`)
         setIsSubmitting(false)
         return
       }
@@ -437,8 +437,8 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                   ))}
                   <div className="text-xs text-gray-500 self-end">
                     <div>{imagePreviews.length}/{MAX_IMAGES}장</div>
-                    <div className={`${imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.8 ? 'text-orange-500 font-bold' : ''}`}>
-                      {(imagePreviews.join('|').length / 1000000).toFixed(1)}MB / 1.5MB
+                    <div className={`${imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.8 ? 'text-red-500 font-bold' : imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.6 ? 'text-orange-500' : ''}`}>
+                      {Math.round(imagePreviews.join('|').length / 1000)}KB / 800KB
                     </div>
                   </div>
                 </div>
