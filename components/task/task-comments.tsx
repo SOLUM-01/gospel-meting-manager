@@ -43,9 +43,10 @@ const REACTIONS = [
 const COMMENTS_PER_PAGE = 15  // 한 페이지당 15개
 const MAX_PAGES = 100  // 최대 100페이지
 
-const MAX_IMAGES = 5 // 최대 이미지 첨부 개수 (품질 향상으로 5장으로 제한)
-const MAX_IMAGE_SIZE = 800 // 최대 이미지 크기 (픽셀) - 더 선명하게
-const IMAGE_QUALITY = 0.75 // 이미지 품질 (0-1) - 선명하게
+const MAX_IMAGES = 5 // 최대 이미지 첨부 개수
+const MAX_IMAGE_SIZE = 600 // 최대 이미지 크기 (픽셀) - 5장 업로드 가능하도록
+const IMAGE_QUALITY = 0.65 // 이미지 품질 (0-1) - 5장 업로드 가능하도록
+const MAX_TOTAL_SIZE = 1500000 // 총 용량 제한 1.5MB
 
 // 이미지 압축 함수
 const compressImage = (file: File): Promise<string> => {
@@ -230,9 +231,10 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
       // 여러 이미지를 | 구분자로 연결
       const imageUrl = imagePreviews.length > 0 ? imagePreviews.join('|') : undefined
       
-      // 데이터 크기 체크 (약 1MB 제한)
-      if (imageUrl && imageUrl.length > 1000000) {
-        alert('이미지 용량이 너무 큽니다. 더 적은 수의 사진을 첨부하거나 작은 사진을 선택해주세요.')
+      // 데이터 크기 체크 (약 1.5MB 제한)
+      if (imageUrl && imageUrl.length > MAX_TOTAL_SIZE) {
+        const currentSizeMB = (imageUrl.length / 1000000).toFixed(1)
+        alert(`이미지 용량이 너무 큽니다 (${currentSizeMB}MB).\n\n💡 해결 방법:\n- 사진 수를 줄여주세요 (3~4장 권장)\n- 또는 작은 크기의 사진을 선택해주세요`)
         setIsSubmitting(false)
         return
       }
@@ -434,7 +436,10 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                     </div>
                   ))}
                   <div className="text-xs text-gray-500 self-end">
-                    {imagePreviews.length}/{MAX_IMAGES}장
+                    <div>{imagePreviews.length}/{MAX_IMAGES}장</div>
+                    <div className={`${imagePreviews.join('|').length > MAX_TOTAL_SIZE * 0.8 ? 'text-orange-500 font-bold' : ''}`}>
+                      {(imagePreviews.join('|').length / 1000000).toFixed(1)}MB / 1.5MB
+                    </div>
                   </div>
                 </div>
               )}
