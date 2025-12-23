@@ -27,6 +27,7 @@ import {
 } from '@/lib/database/api/comments'
 import { supabase } from '@/lib/database/supabase'
 import { uploadTaskImage } from '@/lib/database/storage'
+import heic2any from 'heic2any'
 
 interface TaskCommentsProps {
   taskId: string
@@ -142,8 +143,36 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
     localStorage.setItem('gospel_user_name', name)
   }
 
-  // 이미지 선택 (Storage 업로드 방식 - 고품질)
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // HEIC 파일을 JPG로 변환하는 함수
+  const convertHeicToJpg = async (file: File): Promise<File> => {
+    const isHeic = file.type === 'image/heic' || 
+                   file.type === 'image/heif' || 
+                   file.name.toLowerCase().endsWith('.heic') ||
+                   file.name.toLowerCase().endsWith('.heif')
+    
+    if (!isHeic) return file
+    
+    try {
+      const blob = await heic2any({
+        blob: file,
+        toType: 'image/jpeg',
+        quality: 0.9
+      })
+      
+      // heic2any가 배열을 반환할 수 있음
+      const resultBlob = Array.isArray(blob) ? blob[0] : blob
+      const newFileName = file.name.replace(/\.(heic|heif)$/i, '.jpg')
+      
+      return new File([resultBlob], newFileName, { type: 'image/jpeg' })
+    } catch (error) {
+      console.error('HEIC 변환 실패:', error)
+      // 변환 실패시 원본 반환 (업로드는 되지만 표시 안 될 수 있음)
+      return file
+    }
+  }
+
+  // 이미지 선택 (Storage 업로드 방식 - 고품질, HEIC 자동 변환)
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files || files.length === 0) return
 
@@ -154,20 +183,37 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
       return
     }
 
-    const newFiles = Array.from(files).slice(0, remainingSlots)
+    const filesToProcess = Array.from(files).slice(0, remainingSlots)
     
-    // 파일 저장
-    setSelectedFiles(prev => [...prev, ...newFiles])
+    // HEIC 파일 변환 중 표시
+    setUploadProgress('사진 처리 중...')
     
-    // 미리보기 생성
-    newFiles.forEach(file => {
-      const url = URL.createObjectURL(file)
-      setImagePreviews(prev => [...prev, url])
-    })
-    
-    // 선택한 파일이 남은 슬롯보다 많으면 알림
-    if (files.length > remainingSlots) {
-      alert(`최대 ${MAX_IMAGES}장까지 가능합니다. ${remainingSlots}장만 추가되었습니다.`)
+    try {
+      // HEIC 파일들을 JPG로 변환
+      const convertedFiles: File[] = []
+      for (const file of filesToProcess) {
+        const converted = await convertHeicToJpg(file)
+        convertedFiles.push(converted)
+      }
+      
+      // 파일 저장
+      setSelectedFiles(prev => [...prev, ...convertedFiles])
+      
+      // 미리보기 생성
+      convertedFiles.forEach(file => {
+        const url = URL.createObjectURL(file)
+        setImagePreviews(prev => [...prev, url])
+      })
+      
+      // 선택한 파일이 남은 슬롯보다 많으면 알림
+      if (files.length > remainingSlots) {
+        alert(`최대 ${MAX_IMAGES}장까지 가능합니다. ${remainingSlots}장만 추가되었습니다.`)
+      }
+    } catch (error) {
+      console.error('이미지 처리 실패:', error)
+      alert('이미지 처리 중 오류가 발생했습니다.')
+    } finally {
+      setUploadProgress('')
     }
 
     // input 초기화
