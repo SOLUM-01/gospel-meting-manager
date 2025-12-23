@@ -540,12 +540,11 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                                 key={imgIndex} 
                                 className="relative inline-block group"
                               >
-                                <Image
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
                                   src={imgUrl}
                                   alt={`${comment.user_name}님의 사진 ${imgIndex + 1}`}
-                                  width={150}
-                                  height={150}
-                                  className="rounded-lg object-cover hover:opacity-90 transition-opacity"
+                                  className="w-[150px] h-[150px] rounded-lg object-cover hover:opacity-90 transition-opacity"
                                 />
                                 {/* PC 확대 아이콘 표시 */}
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -734,14 +733,12 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                   </div>
                   {/* 이미지 - 최대한 크게 표시 */}
                   <div className="p-2 bg-gray-50 dark:bg-gray-900">
-                    <Image
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                       src={imgUrl}
                       alt={`${selectedImages.userName}님의 사진 ${index + 1}`}
-                      width={1600}
-                      height={1200}
                       className="w-full h-auto object-contain rounded-lg"
                       style={{ maxHeight: '80vh' }}
-                      priority={index === 0}
                     />
                   </div>
                 </div>
