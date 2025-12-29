@@ -586,11 +586,16 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                                 key={imgIndex} 
                                 className="relative inline-block group"
                               >
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                                <Image
                                   src={imgUrl}
                                   alt={`${comment.user_name}님의 사진 ${imgIndex + 1}`}
-                                  className="w-[150px] h-[150px] rounded-lg object-cover hover:opacity-90 transition-opacity"
+                                  width={150}
+                                  height={150}
+                                  className="rounded-lg object-cover hover:opacity-90 transition-opacity"
+                                  style={{ width: '150px', height: '150px' }}
+                                  loading="lazy"
+                                  placeholder="blur"
+                                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIRAAAgEDBAMBAAAAAAAAAAAAAQIDAAQRBRIhMQYTQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBf/EABkRAAIDAQAAAAAAAAAAAAAAAAECAAMRIf/aAAwDAQACEQMRAD8AzTT9Ss7S7a4ntIbuVYhFG0oPpcMfnzjnHVWl/e6bc6haXMWl2cMcUqyepoVJQAMBOeSflKVHcVGvOm0GPYlT/9k="
                                 />
                                 {/* PC 확대 아이콘 표시 */}
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -778,13 +783,19 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                     </button>
                   </div>
                   {/* 이미지 - 최대한 크게 표시 */}
-                  <div className="p-2 bg-gray-50 dark:bg-gray-900">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                  <div className="p-2 bg-gray-50 dark:bg-gray-900 relative" style={{ minHeight: '300px' }}>
+                    <Image
                       src={imgUrl}
                       alt={`${selectedImages.userName}님의 사진 ${index + 1}`}
+                      width={1200}
+                      height={800}
                       className="w-full h-auto object-contain rounded-lg"
                       style={{ maxHeight: '80vh' }}
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIRAAAgEDBAMBAAAAAAAAAAAAAQIDAAQRBRIhMQYTQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBf/EABkRAAIDAQAAAAAAAAAAAAAAAAECAAMRIf/aAAwDAQACEQMRAD8AzTT9Ss7S7a4ntIbuVYhFG0oPpcMfnzjnHVWl/e6bc6haXMWl2cMcUqyepoVJQAMBOeSflKVHcVGvOm0GPYlT/9k="
+                      quality={85}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                     />
                   </div>
                 </div>
