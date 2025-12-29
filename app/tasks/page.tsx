@@ -6,25 +6,14 @@ import { Footer } from '@/components/shared/footer'
 import { useTranslation } from '@/lib/i18n/use-translation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ListTodo, Search, ArrowLeft } from 'lucide-react'
-import type { Task, TaskCategory, TaskPriority, TaskStatus } from '@/types/task'
+import type { Task } from '@/types/task'
 import { getPublicTasks } from '@/lib/database/api/tasks'
 import Link from 'next/link'
 
 export default function TasksPage() {
   const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState<string>('all')
-  const [priorityFilter, setPriorityFilter] = useState<string>('all')
-  const [statusTab, setStatusTab] = useState<string>('all')
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -71,16 +60,7 @@ export default function TasksPage() {
         task.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         task.descriptionZh?.toLowerCase().includes(searchQuery.toLowerCase())
 
-      const matchesCategory =
-        categoryFilter === 'all' || task.category === categoryFilter
-
-      const matchesPriority =
-        priorityFilter === 'all' || task.priority === priorityFilter
-
-      const matchesStatus =
-        statusTab === 'all' || task.status === statusTab
-
-      return matchesSearch && matchesCategory && matchesPriority && matchesStatus
+      return matchesSearch
     })
     .sort((a, b) => {
       // 지정된 순서대로 정렬
@@ -98,14 +78,6 @@ export default function TasksPage() {
       // 둘 다 순서에 없으면 제목으로 정렬
       return a.title.localeCompare(b.title)
     })
-
-  // 상태별 카운트
-  const statusCounts = {
-    all: tasks.length,
-    todo: tasks.filter((t) => t.status === 'todo').length,
-    in_progress: tasks.filter((t) => t.status === 'in_progress').length,
-    completed: tasks.filter((t) => t.status === 'completed').length,
-  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -133,7 +105,7 @@ export default function TasksPage() {
       </div>
 
       {/* 검색 섹션 */}
-      <div className="mb-8">
+      <div className="mb-6">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
@@ -145,56 +117,51 @@ export default function TasksPage() {
         </div>
       </div>
 
-      {/* 상태 탭 */}
-      <Tabs value={statusTab} onValueChange={setStatusTab} className="mb-8">
-        <TabsList>
-          <TabsTrigger value="all">
-            전체 ({statusCounts.all})
-          </TabsTrigger>
-          <TabsTrigger value="todo">
-            {t('tasks.statuses.todo')} ({statusCounts.todo})
-          </TabsTrigger>
-          <TabsTrigger value="in_progress">
-            {t('tasks.statuses.in_progress')} ({statusCounts.in_progress})
-          </TabsTrigger>
-          <TabsTrigger value="completed">
-            {t('tasks.statuses.completed')} ({statusCounts.completed})
-          </TabsTrigger>
-        </TabsList>
+      {/* YouTube 영상 */}
+      <div className="mb-8">
+        <div className="aspect-video w-full max-w-3xl mx-auto rounded-xl overflow-hidden shadow-lg">
+          <iframe
+            src="https://www.youtube.com/embed/MILFYCVKXzc"
+            title="Gospel Meeting Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
+      </div>
 
-        <TabsContent value={statusTab} className="mt-6">
-          {/* 사역 목록 */}
-          {loading ? (
-            <div className="text-center py-16">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-lg text-muted-foreground">
-                사역 데이터를 불러오는 중...
-              </p>
-            </div>
-          ) : error ? (
-            <div className="text-center py-16">
-              <ListTodo className="h-16 w-16 mx-auto text-red-500 mb-4" />
-              <p className="text-lg text-red-500 mb-4">{error}</p>
-              <Button onClick={() => window.location.reload()}>
-                다시 시도
-              </Button>
-            </div>
-          ) : filteredTasks.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredTasks.map((task) => (
-                <TaskCard key={task.id} task={task} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <ListTodo className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-              <p className="text-lg text-muted-foreground">
-                검색 결과가 없습니다
-              </p>
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+      {/* 사역 목록 */}
+      <div className="mb-8">
+        {loading ? (
+          <div className="text-center py-16">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-lg text-muted-foreground">
+              사역 데이터를 불러오는 중...
+            </p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-16">
+            <ListTodo className="h-16 w-16 mx-auto text-red-500 mb-4" />
+            <p className="text-lg text-red-500 mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>
+              다시 시도
+            </Button>
+          </div>
+        ) : filteredTasks.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredTasks.map((task) => (
+              <TaskCard key={task.id} task={task} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <ListTodo className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+            <p className="text-lg text-muted-foreground">
+              검색 결과가 없습니다
+            </p>
+          </div>
+        )}
+      </div>
         </div>
       </main>
       <Footer />
