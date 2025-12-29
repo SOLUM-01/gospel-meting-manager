@@ -68,6 +68,18 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
   // 이미지 확대 모달 상태 - 모든 이미지를 한번에 보여주기
   const [selectedImages, setSelectedImages] = useState<{ images: string[]; userName: string } | null>(null)
 
+  // Supabase Storage 이미지를 썸네일용으로 변환 (리사이징)
+  const getThumbnailUrl = (url: string, width: number = 300, height: number = 300) => {
+    // Supabase Storage URL인 경우에만 변환
+    if (url.includes('supabase.co/storage/v1/object/public/')) {
+      return url.replace(
+        '/storage/v1/object/public/',
+        '/storage/v1/render/image/public/'
+      ) + `?width=${width}&height=${height}&resize=cover`
+    }
+    return url
+  }
+
   // 댓글 리액션을 누른 사용자 목록 가져오기
   const getCommentReactionUsers = (commentId: string, reactionType: string) => {
     return (commentReactions[commentId] || [])
@@ -588,7 +600,7 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                               >
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                  src={imgUrl}
+                                  src={getThumbnailUrl(imgUrl, 300, 300)}
                                   alt={`${comment.user_name}님의 사진 ${imgIndex + 1}`}
                                   className="w-[150px] h-[150px] rounded-lg object-cover hover:opacity-90 transition-opacity"
                                   loading="lazy"
