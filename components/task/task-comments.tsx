@@ -586,14 +586,12 @@ export function TaskComments({ taskId, taskTitle }: TaskCommentsProps) {
                                 key={imgIndex} 
                                 className="relative inline-block group"
                               >
-                                <Image
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
                                   src={imgUrl}
                                   alt={`${comment.user_name}님의 사진 ${imgIndex + 1}`}
-                                  width={300}
-                                  height={300}
-                                  className="rounded-lg object-cover hover:opacity-90 transition-opacity"
-                                  style={{ width: '150px', height: '150px' }}
-                                  unoptimized
+                                  className="w-[150px] h-[150px] rounded-lg object-cover hover:opacity-90 transition-opacity"
+                                  loading="lazy"
                                 />
                                 {/* PC 확대 아이콘 표시 */}
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
